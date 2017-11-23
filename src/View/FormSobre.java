@@ -43,7 +43,7 @@ public class FormSobre extends javax.swing.JFrame {
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("Monospaced", 1, 13)); // NOI18N
         jTextArea1.setRows(5);
-        jTextArea1.setText("\t\t\tSistema Cantina Gourmet - versão 1.0\n\nDesenvolvedores:\n\t\t\n\t\t\tJanaina C. Godoi\n\t\t\t\t&\n\t\t\tRoberto Forti Antonio\n\n\nGerente:\t\tAlexandre C. Maia\n\nCopyright(C) 2014.\nTodos os direitos reservados.");
+        jTextArea1.setText("\t\t\tSistema Controle de Estoque - versão 1.0\n\nDesenvolvedor:\n\t\t\n\t\t\t\n\t\t\tRoberto Forti Antonio\n\n\n\n\n\nCopyright(C) 2014.\nTodos os direitos reservados.");
         jTextArea1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jScrollPane1.setViewportView(jTextArea1);
 

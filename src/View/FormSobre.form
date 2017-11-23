@@ -73,7 +73,7 @@
               <Font name="Monospaced" size="13" style="1"/>
             </Property>
             <Property name="rows" type="int" value="5"/>
-            <Property name="text" type="java.lang.String" value="&#x9;&#x9;&#x9;Sistema Cantina Gourmet - vers&#xe3;o 1.0&#xa;&#xa;Desenvolvedores:&#xa;&#x9;&#x9;&#xa;&#x9;&#x9;&#x9;Janaina C. Godoi&#xa;&#x9;&#x9;&#x9;&#x9;&amp;&#xa;&#x9;&#x9;&#x9;Roberto Forti Antonio&#xa;&#xa;&#xa;Gerente:&#x9;&#x9;Alexandre C. Maia&#xa;&#xa;Copyright(C) 2014.&#xa;Todos os direitos reservados."/>
+            <Property name="text" type="java.lang.String" value="&#x9;&#x9;&#x9;Sistema Controle de Estoque - vers&#xe3;o 1.0&#xa;&#xa;Desenvolvedor:&#xa;&#x9;&#x9;&#xa;&#x9;&#x9;&#x9;&#xa;&#x9;&#x9;&#x9;Roberto Forti Antonio&#xa;&#xa;&#xa;&#xa;&#xa;&#xa;Copyright(C) 2014.&#xa;Todos os direitos reservados."/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                 <EtchetBorder/>
