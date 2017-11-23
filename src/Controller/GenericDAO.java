@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package dao;
+package Controller;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

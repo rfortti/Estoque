@@ -4,14 +4,14 @@
  * and open the template in the editor.
  */
 
-package forms;
+package View;
 
-import estoque.Pedido;
-import estoque.Pessoa;
-import estoque.Produto;
-import dao.PedidoDAO;
-import dao.PessoaDAO;
-import dao.ProdutoDAO;
+import Model.Pedido;
+import Model.Pessoa;
+import Model.Produto;
+import Controller.PedidoDAO;
+import Controller.PessoaDAO;
+import Controller.ProdutoDAO;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -511,7 +511,7 @@ public class FormVenda extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 641, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

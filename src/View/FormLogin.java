@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 
-package forms;
+package View;
 import utilitarios.LimitarDigitos;
-import estoque.Login;
-import dao.LoginDAO;
+import Model.Login;
+import Controller.LoginDAO;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.event.KeyEvent;

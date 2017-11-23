@@ -4,9 +4,9 @@
  * and open the template in the editor.
  */
 
-package dao;
+package Controller;
 
-import estoque.Login;
+import Model.Login;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 /**

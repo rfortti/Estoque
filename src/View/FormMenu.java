@@ -4,14 +4,14 @@
  * and open the template in the editor.
  */
 
-package forms;
+package View;
 
 /**
  *
  * @author Aluno
  */
-import estoque.Login;
-import dao.LoginDAO;
+import Model.Login;
+import Controller.LoginDAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;

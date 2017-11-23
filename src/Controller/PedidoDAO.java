@@ -4,9 +4,9 @@
  * and open the template in the editor.
  */
 
-package dao;
+package Controller;
 
-import estoque.Pedido;
+import Model.Pedido;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;

@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 
-package forms;
+package View;
 
-import estoque.Categoria;
-import estoque.Produto;
-import dao.CategoriaDAO;
-import dao.ProdutoDAO;
+import Model.Categoria;
+import Model.Produto;
+import Controller.CategoriaDAO;
+import Controller.ProdutoDAO;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.ComboBoxModel;
