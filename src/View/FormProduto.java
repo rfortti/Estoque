@@ -62,6 +62,7 @@ public class FormProduto extends javax.swing.JFrame {
                 cbCategoria.addItem(c);
             }
         }
+        //cbCategoria.setSelectedIndex(-1);
     }
     
     private void preencheTabela()
@@ -673,6 +674,7 @@ public class FormProduto extends javax.swing.JFrame {
        
        txtPesquisar.requestFocus();
        
+       /*Popula Combo Tipo*/
        cbTipo.removeAllItems();
        cbTipo.addItem("GAL");
        cbTipo.addItem("PAR");

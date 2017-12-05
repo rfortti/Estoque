@@ -143,10 +143,10 @@ public class CategoriaDAO extends GenericDAO
 
         String sql = "";
         if(parametro == 1){
-            //ORDENA PELO ID DO IDIOMA
+            //ORDENA PELO ID DA CATEGORIA
            sql = "SELECT * FROM categoria ORDER BY cat_cod ASC";
         }else if(parametro == 2){
-            //ORDENA PELO NOME DO IDIOMA
+            //ORDENA PELO NOME DA CATEGORIA
             sql = "SELECT * FROM categoria ORDER BY cat_tipo ASC";
         }
                
