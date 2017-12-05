@@ -58,21 +58,19 @@ public class FormProduto extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Cadastre pelo menos uma categoria !");
             this.dispose();
         } else {
-            cbCategoria.setModel(new DefaultComboBoxModel(listCat.toArray()));
-            //for (int i = 0; i < listCat.size(); i++) {
-               // cbCategoria.addItem(listCat.get(i).getTipo());
-            //}
-
+            for(Categoria c : listCat){
+                cbCategoria.addItem(c);
+            }
         }
     }
     
     private void preencheTabela()
      {
-            ArrayList<Produto> produto = new ArrayList<Produto>();
-            produto = this.produtoDAO.getProdutosByCod();
+        ArrayList<Produto> produto = new ArrayList<Produto>();
+        produto = this.produtoDAO.getProdutosByCod();
         
-            DefaultTableModel tabela = (DefaultTableModel)tblProduto.getModel();
-            tabela.setNumRows(0);
+        DefaultTableModel tabela = (DefaultTableModel)tblProduto.getModel();
+        tabela.setNumRows(0);
             
         for (Produto p : produto) 
         {
@@ -383,12 +381,10 @@ public class FormProduto extends javax.swing.JFrame {
                                             .addGroup(jLayeredPane1Layout.createSequentialGroup()
                                                 .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(lblMinimo)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtMinimo, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                                                .addComponent(cbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(0, 0, Short.MAX_VALUE))))))
+                                                .addComponent(lblMinimo))
+                                            .addComponent(cbCategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtMinimo, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jLayeredPane1Layout.createSequentialGroup()
                                 .addGap(26, 26, 26)
                                 .addComponent(lblCod)
@@ -524,7 +520,7 @@ public class FormProduto extends javax.swing.JFrame {
             prod.setMinProduto(Integer.parseInt(txtMinimo.getText()));
           //  prod.setCod_cat((Integer)cbCategoria.getSelectedItem());
             Categoria catSelecionada = (Categoria) cbCategoria.getItemAt(cbCategoria.getSelectedIndex());
-            prod.setCod_cat(catSelecionada.getCodCategoria());
+            prod.setCod_cat(catSelecionada);
             if (this.produtoDAO.inserir(prod) == true)
             {   
                 String cod = txtCod.getText();
@@ -547,7 +543,7 @@ public class FormProduto extends javax.swing.JFrame {
             prod.setDescProduto(txtDesc.getText().toUpperCase());
             prod.setTipoProduto((String)cbTipo.getSelectedItem());
             prod.setMinProduto(Integer.parseInt(txtMinimo.getText()));
-            prod.setCod_cat((Integer)cbCategoria.getSelectedIndex());
+            prod.setCod_cat((Categoria)cbCategoria.getSelectedItem());
         
             if (this.produtoDAO.editar(prod) == true)
             {
@@ -694,7 +690,7 @@ public class FormProduto extends javax.swing.JFrame {
                 cbCategoria.addItem(categ[i].getTipo());
             }
         }*/
-        cbCategoria.setSelectedIndex(-1);
+        //cbCategoria.setSelectedIndex(-1);
     }//GEN-LAST:event_formWindowOpened
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
@@ -754,7 +750,7 @@ public class FormProduto extends javax.swing.JFrame {
         txtDesc.setText(tblProduto.getValueAt(linhaselecionada, 1).toString());
         cbTipo.setSelectedItem(tblProduto.getValueAt(linhaselecionada, 2).toString());
         txtMinimo.setText(tblProduto.getValueAt(linhaselecionada, 3).toString());
-        cbCategoria.setSelectedItem(tblProduto.getValueAt(linhaselecionada, 4).toString());
+        cbCategoria.setSelectedItem(tblProduto.getValueAt(linhaselecionada, 4));
         
        btnNovo.setEnabled(false);
        btnAlterar.setEnabled(true);
@@ -1009,7 +1005,7 @@ public void Limpar()
     txtDesc.setText("");
     cbTipo.setSelectedIndex(-1);
     txtMinimo.setText("");
-    cbCategoria.setSelectedIndex(-1);
+    cbCategoria.setSelectedIndex(0);
     txtDesc.requestFocus();
 }
 

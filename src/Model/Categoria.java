@@ -44,5 +44,14 @@ public class Categoria
         public String toString() {
             return getTipoCategoria();
         }
+        
+        //Esse método serve para definirmos qual nossa regra para categorias iguais.
+        //Ou seja, as categorias serão IGUAIS quando seus Cod_cat forem IGUAIS.
+    @Override
+        public boolean equals(Object o)
+        {
+            Categoria c = (Categoria) o;
+            return this.cod_categoria == c.getCodCategoria();
+        }
  
 }
