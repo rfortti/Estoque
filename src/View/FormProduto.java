@@ -504,22 +504,23 @@ public class FormProduto extends javax.swing.JFrame {
     
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // TODO add your handling code here:
-    if (txtDesc.getText().equals("") || cbTipo.getSelectedIndex() == -1 || cbCategoria.getSelectedIndex() == -1)
-    {
-        JOptionPane.showMessageDialog(null, "É necessário preencher o(s) campo(s) obrigatório(s)\n "
-                + "indicados com ' * ' ! ","ATENÇÃO",JOptionPane.INFORMATION_MESSAGE);
-    }
-    else
-    {
-        if (opcao == 1)
+        if (txtDesc.getText().equals("") || cbTipo.getSelectedIndex() == -1 || 
+            cbCategoria.getSelectedIndex() == -1 || txtMinimo.getText().equals(""))
         {
+            JOptionPane.showMessageDialog(null, "É necessário preencher o(s) campo(s) obrigatório(s)\n "
+                + "indicados com ' * ' ! ","ATENÇÃO",JOptionPane.INFORMATION_MESSAGE);
+        }
+        else
+        {
+            if (opcao == 1)
+           {
             Produto prod = new Produto();
                      
             prod.setCodProduto(Integer.parseInt(txtCod.getText()));
             prod.setDescProduto(txtDesc.getText().toUpperCase());
             prod.setTipoProduto((String)cbTipo.getSelectedItem());
             prod.setMinProduto(Integer.parseInt(txtMinimo.getText()));
-          //  prod.setCod_cat((Integer)cbCategoria.getSelectedItem());
+            //prod.setCod_cat((Categoria)cbCategoria.getSelectedItem());
             Categoria catSelecionada = (Categoria) cbCategoria.getItemAt(cbCategoria.getSelectedIndex());
             prod.setCod_cat(catSelecionada);
             
@@ -537,10 +538,11 @@ public class FormProduto extends javax.swing.JFrame {
             {
                 JOptionPane.showMessageDialog(null, "Erro ao adicionar produto !");
             }
-        }
-        else if (opcao == 2)
-        {
+           }
+            else if (opcao == 2)
+           {
             Produto prod = new Produto();
+            
             prod.setCodProduto(Integer.parseInt(txtCod.getText()));
             prod.setDescProduto(txtDesc.getText().toUpperCase());
             prod.setTipoProduto((String)cbTipo.getSelectedItem());
@@ -555,19 +557,20 @@ public class FormProduto extends javax.swing.JFrame {
             {
                 JOptionPane.showMessageDialog(null, "Erro ao modificar produto!");
             }
+           }
+           preencheTabela();
+           Limpar();
+           Desabilitar();
+        
+           btnNovo.setEnabled(true);
+           btnAlterar.setEnabled(false);
+           btnExcluir.setEnabled(false);
+           btnCancelar.setEnabled(false);
+           btnSalvar.setEnabled(false);
+           lblDescP.setEnabled(true);
+           txtPesquisar.setEnabled(true);
+           btnPesquisar.setEnabled(true);
         }
-        preencheTabela();
-        Limpar();
-        Desabilitar();
-        btnNovo.setEnabled(true);
-        btnAlterar.setEnabled(false);
-        btnExcluir.setEnabled(false);
-        btnCancelar.setEnabled(false);
-        btnSalvar.setEnabled(false);
-        lblDescP.setEnabled(true);
-        txtPesquisar.setEnabled(true);
-        btnPesquisar.setEnabled(true);
-    }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
