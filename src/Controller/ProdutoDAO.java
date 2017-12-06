@@ -82,11 +82,12 @@ public class ProdutoDAO extends GenericDAO {
         try
         {
             this.prepareStmte(sql);
-            this.stmte.setInt(1, produto.getCodProduto());
-            this.stmte.setString(2,produto.getDescProduto());
-            this.stmte.setString(3,produto.getTipoProduto());
-            this.stmte.setInt(4,produto.getMinProduto());
-            this.stmte.setInt(5,produto.getCod_cat().getCodCategoria());
+            
+            this.stmte.setString(1,produto.getDescProduto());
+            this.stmte.setString(2,produto.getTipoProduto());
+            this.stmte.setInt(3,produto.getMinProduto());
+            this.stmte.setInt(4,produto.getCod_cat().getCodCategoria());
+            this.stmte.setInt(5, produto.getCodProduto());
             this.stmte.execute();
             return true;
         }

@@ -42,7 +42,7 @@ public class FormProduto extends javax.swing.JFrame {
         txtCod.setDocument(new AceitaNumerosPonto());
         txtCod.setDocument(new LimitarNumeros(6));
         //txtDesc.setDocument(new AceitaStrings());
-        txtDesc.setDocument(new LimitarLetras(50));
+        //txtDesc.setDocument(new LimitarLetras(50));
         txtMinimo.setDocument(new AceitaNumerosPonto());
         txtMinimo.setDocument(new LimitarNumeros(6));
         txtPesquisar.setDocument(new AceitaStrings());
@@ -522,6 +522,7 @@ public class FormProduto extends javax.swing.JFrame {
           //  prod.setCod_cat((Integer)cbCategoria.getSelectedItem());
             Categoria catSelecionada = (Categoria) cbCategoria.getItemAt(cbCategoria.getSelectedIndex());
             prod.setCod_cat(catSelecionada);
+            
             if (this.produtoDAO.inserir(prod) == true)
             {   
                 String cod = txtCod.getText();
