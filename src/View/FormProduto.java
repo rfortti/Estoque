@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import utilitarios.AceitaNumerosPonto;
 import utilitarios.AceitaStrings;
@@ -67,12 +68,18 @@ public class FormProduto extends javax.swing.JFrame {
     
     private void preencheTabela()
      {
+         tblProduto.getColumnModel().getColumn(0).setPreferredWidth(15);
+         tblProduto.getColumnModel().getColumn(1).setPreferredWidth(250);
+         tblProduto.getColumnModel().getColumn(2).setPreferredWidth(10);
+         tblProduto.getColumnModel().getColumn(3).setPreferredWidth(15);
+         tblProduto.getColumnModel().getColumn(4).setPreferredWidth(50);
+         
         ArrayList<Produto> produto = new ArrayList<Produto>();
         produto = this.produtoDAO.getProdutosByCod();
         
         DefaultTableModel tabela = (DefaultTableModel)tblProduto.getModel();
         tabela.setNumRows(0);
-            
+        
         for (Produto p : produto) 
         {
             if (p != null) 
@@ -684,8 +691,8 @@ public class FormProduto extends javax.swing.JFrame {
        cbTipo.addItem("PAR");
        cbTipo.addItem("PCT");
        cbTipo.addItem("UNI");
-       cbTipo.setSelectedIndex(-1);
-       
+       cbTipo.setSelectedIndex(-1);             
+        
        /*CategoriaDAO cat = new CategoriaDAO(); 
         Categoria[] categ = cat.getCategoriasByTipo();
         
