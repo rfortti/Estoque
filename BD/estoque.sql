@@ -150,6 +150,7 @@ prod_tipo varchar(25) NOT NULL,
 cat_cod int(6) NOT NULL
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;;
 
+-- *********************************************** TRIGGERS ************************************************************************************************
 
 -- TRIGGER(gatilho) Pessoas;
 -- DROP TRIGGER IF EXISTS pes;
@@ -208,6 +209,7 @@ FOR EACH ROW
 	END //
 DELIMITER ;
 
+-- *********************************************** PROCEDURES ***********************************************************************************************
 
 -- PROCEDURE Salva Pessoas Excluidas
 -- DROP PROCEDURE IF EXISTS arquivopes;
@@ -226,7 +228,7 @@ DECLARE cidadepes varchar(30);
 DECLARE fonepes varchar(15);
 DECLARE emailpes varchar(30);
 DECLARE pes CURSOR FOR SELECT * FROM
-				restaurante.pessoa AS lp WHERE pes_nome=cp;
+				estoque.pessoa AS lp WHERE pes_nome=cp;
 DECLARE CONTINUE HANDLER FOR NOT FOUND
 		SET fim = TRUE;
 OPEN pes;
@@ -234,7 +236,7 @@ read_loop: LOOP
 			FETCH pes INTO idpes, tipopes, nomepes, rgpes, cpfpes, enderecopes, bairropes, cidadepes, fonepes, emailpes; -- FETCH = lê a tabela
 				IF fim THEN LEAVE read_loop;
 				END IF;
-				INSERT INTO restaurante.arquivopes VALUES (idpes, tipopes, nomepes, rgpes, cpfpes, enderecopes, bairropes, cidadepes, fonepes, emailpes);
+				INSERT INTO estoque.arquivopes VALUES (idpes, tipopes, nomepes, rgpes, cpfpes, enderecopes, bairropes, cidadepes, fonepes, emailpes);
 			END LOOP;
 CLOSE pes;
 END //
@@ -251,7 +253,7 @@ DECLARE codprod int(6);
 DECLARE descprod varchar(50);
 DECLARE tipoprod varchar(25);
 DECLARE prod CURSOR FOR SELECT * FROM
-				restaurante.produto AS lpr WHERE prod_desc=cpr;
+				estoque.produto AS lpr WHERE prod_desc=cpr;
 DECLARE CONTINUE HANDLER FOR NOT FOUND
 		SET fim = TRUE;
 OPEN prod;
@@ -259,7 +261,7 @@ read_loop: LOOP
 			FETCH prod INTO codprod, descprod, tipoprod; -- FETCH = lê a tabela
 				IF fim THEN LEAVE read_loop;
 				END IF;
-				INSERT INTO restaurante.arquivoprod VALUES (codprod, descprod, tipoprod);
+				INSERT INTO estoque.arquivoprod VALUES (codprod, descprod, tipoprod);
 			END LOOP;
 CLOSE prod;
 END //
@@ -291,8 +293,8 @@ read_loop:  LOOP
 				FETCH rpes INTO ridpes, rtipopes, rnomepes, rrgpes, rcpfpes, renderecopes, rbairropes, rcidadepes, rfonepes, remailpes;	   
 				IF fim THEN LEAVE read_loop;   
 				END IF;	   
-				INSERT INTO restaurante.pessoa VALUES (ridpes, rtipopes, rnomepes, rrgpes, rcpfpes, renderecopes, rbairropes, rcidadepes, rfonepes, remailpes); 
-				DELETE FROM restaurante.arquivopes WHERE pes_nome=rp;
+				INSERT INTO estoque.pessoa VALUES (ridpes, rtipopes, rnomepes, rrgpes, rcpfpes, renderecopes, rbairropes, rcidadepes, rfonepes, remailpes); 
+				DELETE FROM estoque.arquivopes WHERE pes_nome=rp;
 			END LOOP; 
 CLOSE rpes;
  END //
@@ -317,8 +319,8 @@ read_loop:  LOOP
 				FETCH rprod INTO rprodcod, rproddesc, rprodtipo;	   
 				IF fim THEN LEAVE read_loop;   
 				END IF;	   
-				INSERT INTO restaurante.produto VALUES (rprodcod, rproddesc, rprodtipo); 
-				DELETE FROM restaurante.arquivoprod WHERE prod_desc=rpr;
+				INSERT INTO estoque.produto VALUES (rprodcod, rproddesc, rprodtipo); 
+				DELETE FROM estoque.arquivoprod WHERE prod_desc=rpr;
 			END LOOP; 
 CLOSE rprod;
  END //
@@ -332,7 +334,7 @@ CREATE PROCEDURE exibirPessoaExcluida(IN pes_nome VARCHAR(50), OUT estatus BOOLE
 	BEGIN
 		DECLARE fim INT DEFAULT FALSE;
 		DECLARE cp VARCHAR(50);
-		DECLARE pessoam CURSOR FOR SELECT mp.pes_nome FROM restaurante.arquivopes AS mp WHERE mp.pes_nome = pes_nome;
+		DECLARE pessoam CURSOR FOR SELECT mp.pes_nome FROM estoque.arquivopes AS mp WHERE mp.pes_nome = pes_nome;
 		DECLARE CONTINUE HANDLER FOR NOT FOUND SET fim = TRUE;
 		OPEN pessoam;
 			FETCH pessoam INTO cp;
@@ -353,7 +355,7 @@ CREATE PROCEDURE exibirProdutoExcluido(IN prod_desc VARCHAR(50), OUT estatus BOO
 	BEGIN
 		DECLARE fim INT DEFAULT FALSE;
 		DECLARE cpr VARCHAR(50);
-		DECLARE prodm CURSOR FOR SELECT mpr.prod_desc FROM restaurante.arquivoprod AS mpr WHERE mpr.prod_desc = prod_desc;
+		DECLARE prodm CURSOR FOR SELECT mpr.prod_desc FROM estoque.arquivoprod AS mpr WHERE mpr.prod_desc = prod_desc;
 		DECLARE CONTINUE HANDLER FOR NOT FOUND SET fim = TRUE;
 		OPEN prodm;
 			FETCH prodm INTO cpr;
