@@ -16,7 +16,9 @@ import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import utilitarios.AceitaNumerosPonto;
 import utilitarios.AceitaStrings;
 import utilitarios.LimitarLetras;
@@ -68,11 +70,24 @@ public class FormProduto extends javax.swing.JFrame {
     
     private void preencheTabela()
      {
-         tblProduto.getColumnModel().getColumn(0).setPreferredWidth(15);
-         tblProduto.getColumnModel().getColumn(1).setPreferredWidth(250);
-         tblProduto.getColumnModel().getColumn(2).setPreferredWidth(10);
-         tblProduto.getColumnModel().getColumn(3).setPreferredWidth(15);
-         tblProduto.getColumnModel().getColumn(4).setPreferredWidth(50);
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+            esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+            centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+            direita.setHorizontalAlignment(SwingConstants.RIGHT);
+            
+        tblProduto.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        tblProduto.getColumnModel().getColumn(1).setCellRenderer(esquerda);
+        tblProduto.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+        tblProduto.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+        tblProduto.getColumnModel().getColumn(4).setCellRenderer(esquerda);
+         
+        tblProduto.getColumnModel().getColumn(0).setPreferredWidth(15);
+        tblProduto.getColumnModel().getColumn(1).setPreferredWidth(300);
+        tblProduto.getColumnModel().getColumn(2).setPreferredWidth(10);
+        tblProduto.getColumnModel().getColumn(3).setPreferredWidth(15);
+        tblProduto.getColumnModel().getColumn(4).setPreferredWidth(50);
          
         ArrayList<Produto> produto = new ArrayList<Produto>();
         produto = this.produtoDAO.getProdutosByCod();
@@ -634,7 +649,9 @@ public class FormProduto extends javax.swing.JFrame {
             btnExcluir.setEnabled(false);
             btnCancelar.setEnabled(false);
             btnSalvar.setEnabled(false);
-            
+            txtPesquisar.setEnabled(true);
+            btnPesquisar.setEnabled(true);
+           
             preencheTabela();
         }
         else
