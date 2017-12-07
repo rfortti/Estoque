@@ -98,9 +98,10 @@ public class ProdutoDAO extends GenericDAO {
         }
     }
     
-    public Produto getProdutoByDesc(String descproduto)
+    public ArrayList<Produto> getProdutoByDesc(String descproduto)
     {
-        Produto prod = new Produto();
+        
+        ArrayList<Produto> produto = new ArrayList<Produto>();
         
         String sql = "SELECT * FROM produto p JOIN categoria c ON p.cat_cod = c.cat_cod WHERE prod_desc LIKE ?";
         try
@@ -108,17 +109,22 @@ public class ProdutoDAO extends GenericDAO {
             this.prepareStmte(sql);
             this.stmte.setString(1,descproduto+'%');
             ResultSet rs = this.stmte.executeQuery(); //sempre usar quando fazer uma consulta(SELECT)
-            rs.first();
-            prod.setCodProduto(rs.getInt("prod_cod"));
-            prod.setDescProduto(rs.getString("prod_desc"));
-            prod.setTipoProduto(rs.getString("prod_tipo"));
-            prod.setMinProduto(rs.getInt("prod_min"));
+            //rs.first();
+            while (rs.next())
+            {
+                Produto prod = new Produto();
+                prod.setCodProduto(rs.getInt("prod_cod"));
+                prod.setDescProduto(rs.getString("prod_desc"));
+                prod.setTipoProduto(rs.getString("prod_tipo"));
+                prod.setMinProduto(rs.getInt("prod_min"));
             
-            Categoria c = new Categoria();
-            c.setCodCategoria(rs.getInt("cat_cod"));
-            c.setTipo(rs.getString("cat_tipo"));
-                
-            return prod;
+                Categoria c = new Categoria();
+                c.setCodCategoria(rs.getInt("cat_cod"));
+                c.setTipo(rs.getString("cat_tipo"));
+            
+                produto.add(prod);
+            }
+            return produto;
         }
         catch(Exception e)
         {
@@ -126,6 +132,7 @@ public class ProdutoDAO extends GenericDAO {
         }
     }
     
+
     public ArrayList<Produto> getProdutosByCod()
     {
         ArrayList<Produto> produto = new ArrayList<Produto>();

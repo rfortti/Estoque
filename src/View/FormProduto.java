@@ -48,8 +48,8 @@ public class FormProduto extends javax.swing.JFrame {
         //txtDesc.setDocument(new LimitarLetras(50));
         txtMinimo.setDocument(new AceitaNumerosPonto());
         txtMinimo.setDocument(new LimitarNumeros(6));
-        txtPesquisar.setDocument(new AceitaStrings());
-        txtPesquisar.setDocument(new LimitarLetras(50));
+        //txtPesquisar.setDocument(new AceitaStrings());
+        //txtPesquisar.setDocument(new LimitarLetras(50));
     }
 
      //metodo para popular combo categoria
@@ -67,6 +67,28 @@ public class FormProduto extends javax.swing.JFrame {
         }
         //cbCategoria.setSelectedIndex(-1);
     }
+    
+    
+    public void preencheTabela2(String desc){
+        DefaultTableModel tabela2 = (DefaultTableModel)tblProduto.getModel();
+        tabela2.setNumRows(0);
+        ProdutoDAO produto = new ProdutoDAO();
+        
+        for (Produto p : produto.getProdutoByDesc(desc)) 
+        {
+            if (p != null) 
+            {
+                tabela2.addRow(new Object[]{
+                    p.getCodProduto(),
+                    p.getDescProduto(),
+                    p.getTipoProduto(),
+                    p.getMinProduto(),
+                    p.getCod_cat()
+                });
+            }
+        }     
+    }
+    
     
     private void preencheTabela()
      {
@@ -148,6 +170,7 @@ public class FormProduto extends javax.swing.JFrame {
         lblDescP = new javax.swing.JLabel();
         txtPesquisar = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
+        btnPesquisar2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(".: Cadastro de Produtos :.");
@@ -471,6 +494,18 @@ public class FormProduto extends javax.swing.JFrame {
             }
         });
 
+        btnPesquisar2.setText("Pesquisar");
+        btnPesquisar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisar2ActionPerformed(evt);
+            }
+        });
+        btnPesquisar2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnPesquisar2KeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -482,6 +517,8 @@ public class FormProduto extends javax.swing.JFrame {
                 .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnPesquisar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnPesquisar2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -491,7 +528,8 @@ public class FormProduto extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDescP)
                     .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPesquisar))
+                    .addComponent(btnPesquisar)
+                    .addComponent(btnPesquisar2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -736,11 +774,11 @@ public class FormProduto extends javax.swing.JFrame {
         btnSalvar.setEnabled(false);
         
         String descproduto = String.valueOf(txtPesquisar.getText());
-        Produto prod = this.produtoDAO.getProdutoByDesc(descproduto);
+        //Produto prod = this.produtoDAO.getProdutoByDesc(descproduto);
                         
         try
         {
-            if (prod == null)
+            //if (prod == null)
             {
                 JOptionPane.showMessageDialog(null, "Produto não encontrado!");
                 
@@ -757,11 +795,11 @@ public class FormProduto extends javax.swing.JFrame {
                 txtPesquisar.setText("");
                 txtPesquisar.requestFocus();
             }
-            else
+            //else
             {
                 Desabilitar();
-                txtCod.setText(String.valueOf(prod.getCodProduto()));
-                txtDesc.setText(prod.getDescProduto());
+                //txtCod.setText(String.valueOf(prod.getCodProduto()));
+                //txtDesc.setText(prod.getDescProduto());
             }
         }
         catch(Exception e)
@@ -776,6 +814,7 @@ public class FormProduto extends javax.swing.JFrame {
     private void tblProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProdutoMouseClicked
         // TODO add your handling code here:
         int linhaselecionada = tblProduto.getSelectedRow(); //pega a linha selecionada
+        
         txtCod.setText(tblProduto.getValueAt(linhaselecionada, 0).toString());
         txtDesc.setText(tblProduto.getValueAt(linhaselecionada, 1).toString());
         cbTipo.setSelectedItem(tblProduto.getValueAt(linhaselecionada, 2).toString());
@@ -943,6 +982,15 @@ public class FormProduto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbCategoriaActionPerformed
 
+    private void btnPesquisar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisar2ActionPerformed
+        // TODO add your handling code here:  
+        preencheTabela2(txtPesquisar.getText());
+    }//GEN-LAST:event_btnPesquisar2ActionPerformed
+
+    private void btnPesquisar2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnPesquisar2KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPesquisar2KeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -984,6 +1032,7 @@ public class FormProduto extends javax.swing.JFrame {
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnPesquisar;
+    private javax.swing.JButton btnPesquisar2;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox cbCategoria;
     private javax.swing.JComboBox cbTipo;
