@@ -61,15 +61,34 @@ public class FormProduto extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Cadastre pelo menos uma categoria !");
             this.dispose();
         } else {
-            for(Categoria c : listCat){
-                cbCategoria.addItem(c);
+            for(Categoria cat : listCat){
+                cbCategoria.addItem(cat);
             }
         }
-        //cbCategoria.setSelectedIndex(-1);
     }
     
     
-    public void preencheTabela2(String desc){
+    public void preencheTabela2(String desc)
+    {
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+            esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+            centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+            direita.setHorizontalAlignment(SwingConstants.RIGHT);
+            
+        tblProduto.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        tblProduto.getColumnModel().getColumn(1).setCellRenderer(esquerda);
+        tblProduto.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+        tblProduto.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+        tblProduto.getColumnModel().getColumn(4).setCellRenderer(esquerda);
+         
+        tblProduto.getColumnModel().getColumn(0).setPreferredWidth(15);
+        tblProduto.getColumnModel().getColumn(1).setPreferredWidth(300);
+        tblProduto.getColumnModel().getColumn(2).setPreferredWidth(10);
+        tblProduto.getColumnModel().getColumn(3).setPreferredWidth(15);
+        tblProduto.getColumnModel().getColumn(4).setPreferredWidth(50);
+        
         DefaultTableModel tabela2 = (DefaultTableModel)tblProduto.getModel();
         tabela2.setNumRows(0);
         ProdutoDAO produto = new ProdutoDAO();
@@ -170,7 +189,6 @@ public class FormProduto extends javax.swing.JFrame {
         lblDescP = new javax.swing.JLabel();
         txtPesquisar = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
-        btnPesquisar2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(".: Cadastro de Produtos :.");
@@ -438,7 +456,7 @@ public class FormProduto extends javax.swing.JFrame {
                                 .addComponent(txtCod, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -482,6 +500,7 @@ public class FormProduto extends javax.swing.JFrame {
             }
         });
 
+        btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/search.png"))); // NOI18N
         btnPesquisar.setText("Pesquisar");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -494,42 +513,27 @@ public class FormProduto extends javax.swing.JFrame {
             }
         });
 
-        btnPesquisar2.setText("Pesquisar");
-        btnPesquisar2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPesquisar2ActionPerformed(evt);
-            }
-        });
-        btnPesquisar2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                btnPesquisar2KeyPressed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
+                .addGap(22, 22, 22)
                 .addComponent(lblDescP)
                 .addGap(6, 6, 6)
-                .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnPesquisar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnPesquisar2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDescP)
                     .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPesquisar)
-                    .addComponent(btnPesquisar2))
+                    .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -551,9 +555,9 @@ public class FormProduto extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -621,7 +625,8 @@ public class FormProduto extends javax.swing.JFrame {
            preencheTabela();
            Limpar();
            Desabilitar();
-        
+           cbCategoria.removeAllItems();
+            
            btnNovo.setEnabled(true);
            btnAlterar.setEnabled(false);
            btnExcluir.setEnabled(false);
@@ -629,7 +634,6 @@ public class FormProduto extends javax.swing.JFrame {
            btnSalvar.setEnabled(false);
            lblDescP.setEnabled(true);
            txtPesquisar.setEnabled(true);
-           btnPesquisar.setEnabled(true);
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -640,7 +644,6 @@ public class FormProduto extends javax.swing.JFrame {
         
         lblDescP.setEnabled(false);
         txtPesquisar.setEnabled(false);
-        btnPesquisar.setEnabled(false);
         txtCod.setText(String.valueOf(prodDAO.AutoIncCod()));
        Habilitar();
        
@@ -657,7 +660,6 @@ public class FormProduto extends javax.swing.JFrame {
         
         lblDescP.setEnabled(false);
         txtPesquisar.setEnabled(false);
-        btnPesquisar.setEnabled(false);
         
        Habilitar();
        
@@ -688,7 +690,6 @@ public class FormProduto extends javax.swing.JFrame {
             btnCancelar.setEnabled(false);
             btnSalvar.setEnabled(false);
             txtPesquisar.setEnabled(true);
-            btnPesquisar.setEnabled(true);
            
             preencheTabela();
         }
@@ -704,15 +705,17 @@ public class FormProduto extends javax.swing.JFrame {
         lblDescP.setEnabled(true);
         txtPesquisar.setEnabled(true);
         txtPesquisar.setText("");
-        btnPesquisar.setEnabled(true);
         Limpar();
         btnNovo.setEnabled(true);
         btnAlterar.setEnabled(false);
         btnExcluir.setEnabled(false);
         btnCancelar.setEnabled(false);
         btnSalvar.setEnabled(false);
+        btnPesquisar.setEnabled(true);
         Desabilitar();
         txtPesquisar.requestFocus();
+        
+        cbCategoria.removeAllItems();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -720,7 +723,6 @@ public class FormProduto extends javax.swing.JFrame {
         lblDescP.setEnabled(true);
         txtPesquisar.setEnabled(true);
         txtPesquisar.requestFocus();
-        btnPesquisar.setEnabled(true);
         
        Desabilitar();
        
@@ -747,72 +749,15 @@ public class FormProduto extends javax.swing.JFrame {
        cbTipo.addItem("PCT");
        cbTipo.addItem("UNI");
        cbTipo.setSelectedIndex(-1);             
-        
-       /*CategoriaDAO cat = new CategoriaDAO(); 
-        Categoria[] categ = cat.getCategoriasByTipo();
-        
-        for (int i = 0; i < categ.length; i++)
-        {
-            if (categ[i] != null)
-            {
-                cbCategoria.addItem(categ[i].getTipo());
-            }
-        }*/
-        //cbCategoria.setSelectedIndex(-1);
+       
+       cbCategoria.removeAllItems();              
     }//GEN-LAST:event_formWindowOpened
-
-    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        // TODO add your handling code here:
-        lblDescP.setEnabled(false);
-        txtPesquisar.setEnabled(false);
-        btnPesquisar.setEnabled(false);
-        Habilitar();
-        btnNovo.setEnabled(false);
-        btnAlterar.setEnabled(true);
-        btnExcluir.setEnabled(true);
-        btnCancelar.setEnabled(true);
-        btnSalvar.setEnabled(false);
-        
-        String descproduto = String.valueOf(txtPesquisar.getText());
-        //Produto prod = this.produtoDAO.getProdutoByDesc(descproduto);
-                        
-        try
-        {
-            //if (prod == null)
-            {
-                JOptionPane.showMessageDialog(null, "Produto não encontrado!");
-                
-                lblDescP.setEnabled(true);
-                txtPesquisar.setEnabled(true);
-                btnPesquisar.setEnabled(true);
-                Desabilitar();
-                btnNovo.setEnabled(true);
-                btnAlterar.setEnabled(false);
-                btnExcluir.setEnabled(false);
-                btnCancelar.setEnabled(false);
-                btnSalvar.setEnabled(false);
-                
-                txtPesquisar.setText("");
-                txtPesquisar.requestFocus();
-            }
-            //else
-            {
-                Desabilitar();
-                //txtCod.setText(String.valueOf(prod.getCodProduto()));
-                //txtDesc.setText(prod.getDescProduto());
-            }
-        }
-        catch(Exception e)
-        {
-            txtCod.setText("");
-            txtDesc.setText("");
-            txtMinimo.setText("");
-            JOptionPane.showMessageDialog(null, "Produto não encontrado!");
-        }
-    }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void tblProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProdutoMouseClicked
         // TODO add your handling code here:
+        popularComboCategoria();
+        cbCategoria.updateUI();
+       
         int linhaselecionada = tblProduto.getSelectedRow(); //pega a linha selecionada
         
         txtCod.setText(tblProduto.getValueAt(linhaselecionada, 0).toString());
@@ -826,6 +771,10 @@ public class FormProduto extends javax.swing.JFrame {
        btnExcluir.setEnabled(true);
        btnCancelar.setEnabled(true);
        btnSalvar.setEnabled(false);
+       btnPesquisar.setEnabled(false);
+       
+       btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/search.png")));
+       btnPesquisar.setText("Pesquisar");
     }//GEN-LAST:event_tblProdutoMouseClicked
 
     private void txtCodFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCodFocusLost
@@ -902,15 +851,11 @@ public class FormProduto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_rbDescricaoMouseClicked
 
-    private void btnPesquisarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnPesquisarKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnPesquisarKeyPressed
-
     private void txtPesquisarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) //pressionou ENTER
         {  
-            btnPesquisar.doClick(); //clicou no botão Entrar 
+            btnPesquisar.doClick(); //executa o click do botão 
         }
     }//GEN-LAST:event_txtPesquisarKeyPressed
 
@@ -982,14 +927,30 @@ public class FormProduto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbCategoriaActionPerformed
 
-    private void btnPesquisar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisar2ActionPerformed
-        // TODO add your handling code here:  
-        preencheTabela2(txtPesquisar.getText());
-    }//GEN-LAST:event_btnPesquisar2ActionPerformed
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        // TODO add your handling code here:          
+        if (btnPesquisar.getText() == "Pesquisar"){
+            //Altera o Icone do Botão
+            btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Clear.png")));
+            
+            btnPesquisar.setText("Limpar");
+            txtPesquisar.setEnabled(false);
+            preencheTabela2(txtPesquisar.getText());
+        }
+        else if (btnPesquisar.getText() == "Limpar"){
+            Limpar();          
+            DefaultTableModel tabela2 = (DefaultTableModel)tblProduto.getModel();
+            tabela2.setNumRows(0);
+            //Altera o Icone do Botão
+            btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/search.png")));
+            btnPesquisar.setText("Pesquisar");
+            txtPesquisar.setEnabled(true);
+        }
+    }//GEN-LAST:event_btnPesquisarActionPerformed
 
-    private void btnPesquisar2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnPesquisar2KeyPressed
+    private void btnPesquisarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnPesquisarKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnPesquisar2KeyPressed
+    }//GEN-LAST:event_btnPesquisarKeyPressed
 
     /**
      * @param args the command line arguments
@@ -1032,7 +993,6 @@ public class FormProduto extends javax.swing.JFrame {
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnPesquisar;
-    private javax.swing.JButton btnPesquisar2;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox cbCategoria;
     private javax.swing.JComboBox cbTipo;
@@ -1061,6 +1021,9 @@ public class FormProduto extends javax.swing.JFrame {
 
 public void Habilitar()
 {
+    popularComboCategoria();
+    cbCategoria.updateUI();
+        
     txtCod.setEnabled(false);
     txtDesc.setEnabled(true);
     cbTipo.setEnabled(true);
@@ -1084,7 +1047,7 @@ public void Limpar()
     txtDesc.setText("");
     cbTipo.setSelectedIndex(-1);
     txtMinimo.setText("");
-    cbCategoria.setSelectedIndex(0);
+    txtPesquisar.setText("");
     txtDesc.requestFocus();
 }
 

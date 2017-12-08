@@ -118,10 +118,11 @@ public class ProdutoDAO extends GenericDAO {
                 prod.setTipoProduto(rs.getString("prod_tipo"));
                 prod.setMinProduto(rs.getInt("prod_min"));
             
-                Categoria c = new Categoria();
-                c.setCodCategoria(rs.getInt("cat_cod"));
-                c.setTipo(rs.getString("cat_tipo"));
-            
+                Categoria cat = new Categoria();
+                cat.setCodCategoria(rs.getInt("cat_cod"));
+                cat.setTipo(rs.getString("cat_tipo"));
+                prod.setCod_cat(cat);
+                
                 produto.add(prod);
             }
             return produto;
