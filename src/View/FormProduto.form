@@ -167,7 +167,10 @@
                                               <Component id="cbCategoria" max="32767" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="txtMinimo" min="-2" pref="78" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="txtMinimo" min="-2" pref="78" max="-2" attributes="0"/>
+                                              <Component id="btnCategoria" min="-2" pref="23" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
                                   </Group>
                               </Group>
@@ -215,6 +218,7 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="lblCategoria" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="cbCategoria" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnCategoria" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -461,6 +465,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbCategoriaActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnCategoria">
+          <Properties>
+            <Property name="text" type="java.lang.String" value=". . ."/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCategoriaActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

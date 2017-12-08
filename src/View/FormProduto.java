@@ -36,6 +36,7 @@ public class FormProduto extends javax.swing.JFrame {
     private ProdutoDAO produtoDAO;
      
     public FormProduto() {
+                
         initComponents();
         this.produtoDAO = new ProdutoDAO();
         
@@ -185,6 +186,7 @@ public class FormProduto extends javax.swing.JFrame {
         txtMinimo = new javax.swing.JTextField();
         lblCategoria = new javax.swing.JLabel();
         cbCategoria = new javax.swing.JComboBox();
+        btnCategoria = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         lblDescP = new javax.swing.JLabel();
         txtPesquisar = new javax.swing.JTextField();
@@ -404,6 +406,13 @@ public class FormProduto extends javax.swing.JFrame {
             }
         });
 
+        btnCategoria.setText(". . .");
+        btnCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCategoriaActionPerformed(evt);
+            }
+        });
+
         jLayeredPane1.setLayer(lblCod, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(txtCod, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(lblDesc, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -416,6 +425,7 @@ public class FormProduto extends javax.swing.JFrame {
         jLayeredPane1.setLayer(txtMinimo, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(lblCategoria, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(cbCategoria, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(btnCategoria, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -448,7 +458,9 @@ public class FormProduto extends javax.swing.JFrame {
                                                 .addComponent(lblMinimo))
                                             .addComponent(cbCategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtMinimo, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtMinimo, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(btnCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addGroup(jLayeredPane1Layout.createSequentialGroup()
                                 .addGap(26, 26, 26)
                                 .addComponent(lblCod)
@@ -483,7 +495,8 @@ public class FormProduto extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblCategoria)
-                            .addComponent(cbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(cbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCategoria))))
                 .addGap(96, 96, 96))
         );
 
@@ -952,6 +965,11 @@ public class FormProduto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnPesquisarKeyPressed
 
+    private void btnCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCategoriaActionPerformed
+        // TODO add your handling code here:
+        new FormCategoria().setVisible(true);
+    }//GEN-LAST:event_btnCategoriaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -990,6 +1008,7 @@ public class FormProduto extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnCategoria;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnPesquisar;
@@ -1029,6 +1048,7 @@ public void Habilitar()
     cbTipo.setEnabled(true);
     txtMinimo.setEnabled(true);
     cbCategoria.setEnabled(true);
+    btnCategoria.setEnabled(true);
     txtDesc.requestFocus();//recebe o foco
 }
 
@@ -1039,6 +1059,7 @@ public void Desabilitar()
     cbTipo.setEnabled(false);
     txtMinimo.setEnabled(false);
     cbCategoria.setEnabled(false);
+    btnCategoria.setEnabled(false);
 }
 
 public void Limpar()
@@ -1050,5 +1071,9 @@ public void Limpar()
     txtPesquisar.setText("");
     txtDesc.requestFocus();
 }
+
+    private void setModal(boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }
