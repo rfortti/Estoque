@@ -8,6 +8,7 @@ package Controller;
 
 import Model.Categoria;
 import Model.Produto;
+import Model.Tipo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -28,14 +29,14 @@ public class ProdutoDAO extends GenericDAO {
             
     public boolean inserir(Produto produto)
     {
-        String sql = "INSERT INTO produto(prod_cod, prod_desc, prod_tipo, prod_min, cat_cod) VALUES(?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO produto(prod_cod, prod_desc, tipo_cod, prod_min, cat_cod) VALUES(?, ?, ?, ?, ?)";
         
         try
         {
             this.prepareStmte(sql);
             this.stmte.setInt(1,produto.getCodProduto());
             this.stmte.setString(2,produto.getDescProduto());
-            this.stmte.setString(3,produto.getTipoProduto());
+            this.stmte.setInt(3,produto.getCod_tipo().getCodTipo());
             this.stmte.setInt(4,produto.getMinProduto());
             this.stmte.setInt(5,produto.getCod_cat().getCodCategoria());
             this.stmte.execute();
@@ -77,14 +78,14 @@ public class ProdutoDAO extends GenericDAO {
     
      public boolean editar(Produto produto)
     {
-        String sql = "UPDATE produto SET prod_desc = ?, prod_tipo = ?, prod_min = ?, cat_cod = ? WHERE prod_cod = ?";
+        String sql = "UPDATE produto SET prod_desc = ?, tipo_cod = ?, prod_min = ?, cat_cod = ? WHERE prod_cod = ?";
         
         try
         {
             this.prepareStmte(sql);
             
             this.stmte.setString(1,produto.getDescProduto());
-            this.stmte.setString(2,produto.getTipoProduto());
+            this.stmte.setInt(2,produto.getCod_tipo().getCodTipo());
             this.stmte.setInt(3,produto.getMinProduto());
             this.stmte.setInt(4,produto.getCod_cat().getCodCategoria());
             this.stmte.setInt(5, produto.getCodProduto());
@@ -103,7 +104,10 @@ public class ProdutoDAO extends GenericDAO {
         
         ArrayList<Produto> produto = new ArrayList<Produto>();
         
-        String sql = "SELECT * FROM produto p JOIN categoria c ON p.cat_cod = c.cat_cod WHERE prod_desc LIKE ?";
+        String sql = "SELECT * FROM produto p "
+                + "JOIN categoria c ON p.cat_cod = c.cat_cod "
+                + "JOIN tipo t ON p.tipo_cod = t.tipo_cod "
+                + "WHERE prod_desc LIKE ?";
         try
         {
             this.prepareStmte(sql);
@@ -115,9 +119,15 @@ public class ProdutoDAO extends GenericDAO {
                 Produto prod = new Produto();
                 prod.setCodProduto(rs.getInt("prod_cod"));
                 prod.setDescProduto(rs.getString("prod_desc"));
-                prod.setTipoProduto(rs.getString("prod_tipo"));
+                
+                Tipo tipo = new Tipo();
+                tipo.setCodTipo(rs.getInt("tipo_cod"));
+                tipo.setDescTipo(rs.getString("tipo_desc"));
+                prod.setCod_tipo(tipo);
+                
                 prod.setMinProduto(rs.getInt("prod_min"));
-            
+                //prod.setCod_tipo(rs.getInt("tipo_cod"));
+                             
                 Categoria cat = new Categoria();
                 cat.setCodCategoria(rs.getInt("cat_cod"));
                 cat.setTipo(rs.getString("cat_tipo"));
@@ -138,7 +148,10 @@ public class ProdutoDAO extends GenericDAO {
     {
         ArrayList<Produto> produto = new ArrayList<Produto>();
         
-        String sql = "SELECT * FROM produto p JOIN categoria c ON p.cat_cod = c.cat_cod ORDER BY prod_cod ASC";
+        String sql = "SELECT * FROM produto p "
+                + "JOIN categoria c ON p.cat_cod = c.cat_cod "
+                + "JOIN tipo t ON p.tipo_cod = t.tipo_cod "
+                + "ORDER BY prod_cod ASC";
         
         try
         {
@@ -149,9 +162,15 @@ public class ProdutoDAO extends GenericDAO {
                 Produto p = new Produto();
                 p.setCodProduto(rs.getInt("prod_cod"));
                 p.setDescProduto(rs.getString("prod_desc"));
-                p.setTipoProduto(rs.getString("prod_tipo"));
-                p.setMinProduto(rs.getInt("prod_min"));
                 
+                Tipo t = new Tipo();
+                t.setCodTipo(rs.getInt("tipo_cod"));
+                t.setDescTipo(rs.getString("tipo_desc"));
+                p.setCod_tipo(t);
+                
+                p.setMinProduto(rs.getInt("prod_min"));
+                //p.setCod_tipo(rs.getInt("tipo_cod"));
+                                                
                 Categoria c = new Categoria();
                 c.setCodCategoria(rs.getInt("cat_cod"));
                 c.setTipo(rs.getString("cat_tipo"));
@@ -172,7 +191,10 @@ public class ProdutoDAO extends GenericDAO {
     {
         ArrayList<Produto> produto = new ArrayList<Produto>();
         
-        String sql = "SELECT * FROM produto p JOIN categoria c ON p.cat_cod = c.cat_cod ORDER BY prod_desc ASC";
+        String sql = "SELECT * FROM produto p "
+                + "JOIN categoria c ON p.cat_cod = c.cat_cod "
+                + "JOIN tipo t ON p.tipo_cod = t.tipo_cod "
+                + "ORDER BY prod_desc ASC";
         
         try
         {
@@ -183,9 +205,15 @@ public class ProdutoDAO extends GenericDAO {
                 Produto p = new Produto();
                 p.setCodProduto(rs.getInt("prod_cod"));
                 p.setDescProduto(rs.getString("prod_desc"));
-                p.setTipoProduto(rs.getString("prod_tipo"));
-                p.setMinProduto(rs.getInt("prod_min"));
                 
+                Tipo t = new Tipo();
+                t.setCodTipo(rs.getInt("tipo_cod"));
+                t.setDescTipo(rs.getString("tipo_desc"));
+                p.setCod_tipo(t);
+                
+                p.setMinProduto(rs.getInt("prod_min"));
+                //p.setCod_tipo(rs.getInt("tipo_cod"));
+                                                
                 Categoria c = new Categoria();
                 c.setCodCategoria(rs.getInt("cat_cod"));
                 c.setTipo(rs.getString("cat_tipo"));
@@ -206,7 +234,10 @@ public class ProdutoDAO extends GenericDAO {
     {
         ArrayList<Produto> produto = new ArrayList<Produto>();
         
-        String sql = "SELECT * FROM produto p JOIN categoria c ON p.cat_cod = c.cat_cod ORDER BY prod_tipo ASC";
+        String sql = "SELECT * FROM produto p "
+                + "JOIN categoria c ON p.cat_cod = c.cat_cod "
+                + "JOIN tipo t ON p.tipo_cod = t.tipo_cod "
+                + "ORDER BY prod_tipo ASC";
         
         try
         {
@@ -217,9 +248,15 @@ public class ProdutoDAO extends GenericDAO {
                 Produto p = new Produto();
                 p.setCodProduto(rs.getInt("prod_cod"));
                 p.setDescProduto(rs.getString("prod_desc"));
-                p.setTipoProduto(rs.getString("prod_tipo"));
-                p.setMinProduto(rs.getInt("prod_min"));
                
+                Tipo t = new Tipo();
+                t.setCodTipo(rs.getInt("tipo_cod"));
+                t.setDescTipo(rs.getString("tipo_desc"));
+                p.setCod_tipo(t);
+                
+                p.setMinProduto(rs.getInt("prod_min"));
+                //p.setCod_tipo(rs.getInt("tipo_cod"));
+                                               
                 Categoria c = new Categoria();
                 c.setCodCategoria(rs.getInt("cat_cod"));
                 c.setTipo(rs.getString("cat_tipo"));
@@ -240,7 +277,10 @@ public class ProdutoDAO extends GenericDAO {
     {
         ArrayList<Produto> produto = new ArrayList<Produto>();
         
-        String sql = "SELECT * FROM produto p JOIN categoria c ON p.cat_cod = c.cat_cod ORDER BY p.cat_cod ASC";
+        String sql = "SELECT * FROM produto p "
+                + "JOIN categoria c ON p.cat_cod = c.cat_cod "
+                + "JOIN tipo t ON p.tipo_cod = t.tipo_cod "
+                + "ORDER BY p.cat_cod ASC";
         
         try
         {
@@ -251,9 +291,15 @@ public class ProdutoDAO extends GenericDAO {
                 Produto p = new Produto();
                 p.setCodProduto(rs.getInt("prod_cod"));
                 p.setDescProduto(rs.getString("prod_desc"));
-                p.setTipoProduto(rs.getString("prod_tipo"));
-                p.setMinProduto(rs.getInt("prod_min"));
                 
+                Tipo t = new Tipo();
+                t.setCodTipo(rs.getInt("tipo_cod"));
+                t.setDescTipo(rs.getString("tipo_desc"));
+                p.setCod_tipo(t);
+                
+                p.setMinProduto(rs.getInt("prod_min"));
+                //p.setCod_tipo(rs.getInt("tipo_cod"));
+                              
                 Categoria c = new Categoria();
                 c.setCodCategoria(rs.getInt("cat_cod"));
                 c.setTipo(rs.getString("cat_tipo"));

@@ -14,8 +14,9 @@ public class Produto
 {
     private int cod_produto;
     private String desc_produto;
-    private String tipo_produto;
     private int min_produto;
+    
+    private Tipo cod_tipo;
     private Categoria cod_cat;
 
     //ALT + Insert (Getter e Setter) gera os métodos  abaixo
@@ -35,14 +36,6 @@ public class Produto
         this.desc_produto = desc_produto;
     }
 
-    public String getTipoProduto() {
-        return tipo_produto;
-    }
-
-    public void setTipoProduto(String tipo_produto) {
-        this.tipo_produto = tipo_produto;
-    }
-    
     public int getMinProduto() {
         return min_produto;
     }
@@ -50,7 +43,15 @@ public class Produto
     public void setMinProduto(int min_produto) {
         this.min_produto = min_produto;
     }
+    
+    public Tipo getCod_tipo() {
+        return cod_tipo;
+    }
 
+    public void setCod_tipo(Tipo cod_tipo) {
+        this.cod_tipo = cod_tipo;
+    } 
+       
     public Categoria getCod_cat() {
         return cod_cat;
     }
