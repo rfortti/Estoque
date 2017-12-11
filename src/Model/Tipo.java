@@ -47,8 +47,8 @@ public class Tipo
         return getDescTipo();
     }
         
-        //Esse método serve para definirmos qual nossa regra para categorias iguais.
-        //Ou seja, as categorias serão IGUAIS quando seus Cod_cat forem IGUAIS.
+        //Esse método serve para definirmos qual nossa regra para tipos iguais.
+        //Ou seja, os tipos serão IGUAIS quando seus Cod_tipo forem IGUAIS.
     @Override
         public boolean equals(Object o)
         {

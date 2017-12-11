@@ -29,15 +29,15 @@ public class ProdutoDAO extends GenericDAO {
             
     public boolean inserir(Produto produto)
     {
-        String sql = "INSERT INTO produto(prod_cod, prod_desc, tipo_cod, prod_min, cat_cod) VALUES(?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO produto(prod_cod, prod_desc, prod_min, tipo_cod, cat_cod) VALUES(?, ?, ?, ?, ?)";
         
         try
         {
             this.prepareStmte(sql);
             this.stmte.setInt(1,produto.getCodProduto());
             this.stmte.setString(2,produto.getDescProduto());
-            this.stmte.setInt(3,produto.getCod_tipo().getCodTipo());
-            this.stmte.setInt(4,produto.getMinProduto());
+            this.stmte.setInt(3,produto.getMinProduto());
+            this.stmte.setInt(4,produto.getCod_tipo().getCodTipo());
             this.stmte.setInt(5,produto.getCod_cat().getCodCategoria());
             this.stmte.execute();
             return true;
@@ -78,15 +78,15 @@ public class ProdutoDAO extends GenericDAO {
     
      public boolean editar(Produto produto)
     {
-        String sql = "UPDATE produto SET prod_desc = ?, tipo_cod = ?, prod_min = ?, cat_cod = ? WHERE prod_cod = ?";
+        String sql = "UPDATE produto SET prod_desc = ?, prod_min = ?, tipo_cod = ?, cat_cod = ? WHERE prod_cod = ?";
         
         try
         {
             this.prepareStmte(sql);
             
             this.stmte.setString(1,produto.getDescProduto());
-            this.stmte.setInt(2,produto.getCod_tipo().getCodTipo());
-            this.stmte.setInt(3,produto.getMinProduto());
+            this.stmte.setInt(2,produto.getMinProduto());
+            this.stmte.setInt(3,produto.getCod_tipo().getCodTipo());
             this.stmte.setInt(4,produto.getCod_cat().getCodCategoria());
             this.stmte.setInt(5, produto.getCodProduto());
             this.stmte.execute();
@@ -118,15 +118,14 @@ public class ProdutoDAO extends GenericDAO {
             {
                 Produto prod = new Produto();
                 prod.setCodProduto(rs.getInt("prod_cod"));
-                prod.setDescProduto(rs.getString("prod_desc"));
-                
+                prod.setDescProduto(rs.getString("prod_desc"));                               
+                prod.setMinProduto(rs.getInt("prod_min"));
+                //prod.setCod_tipo(rs.getInt("tipo_cod"));
                 Tipo tipo = new Tipo();
                 tipo.setCodTipo(rs.getInt("tipo_cod"));
                 tipo.setDescTipo(rs.getString("tipo_desc"));
+                tipo.setSiglaTipo(rs.getString("tipo_sigla"));
                 prod.setCod_tipo(tipo);
-                
-                prod.setMinProduto(rs.getInt("prod_min"));
-                //prod.setCod_tipo(rs.getInt("tipo_cod"));
                              
                 Categoria cat = new Categoria();
                 cat.setCodCategoria(rs.getInt("cat_cod"));
@@ -161,16 +160,15 @@ public class ProdutoDAO extends GenericDAO {
             while(rs.next()){
                 Produto p = new Produto();
                 p.setCodProduto(rs.getInt("prod_cod"));
-                p.setDescProduto(rs.getString("prod_desc"));
-                
+                p.setDescProduto(rs.getString("prod_desc"));                                
+                p.setMinProduto(rs.getInt("prod_min"));
+                //p.setCod_tipo(rs.getInt("tipo_cod"));
                 Tipo t = new Tipo();
                 t.setCodTipo(rs.getInt("tipo_cod"));
                 t.setDescTipo(rs.getString("tipo_desc"));
-                p.setCod_tipo(t);
+                t.setSiglaTipo(rs.getString("tipo_sigla"));
+                p.setCod_tipo(t);                                
                 
-                p.setMinProduto(rs.getInt("prod_min"));
-                //p.setCod_tipo(rs.getInt("tipo_cod"));
-                                                
                 Categoria c = new Categoria();
                 c.setCodCategoria(rs.getInt("cat_cod"));
                 c.setTipo(rs.getString("cat_tipo"));
@@ -204,15 +202,14 @@ public class ProdutoDAO extends GenericDAO {
             while(rs.next()){
                 Produto p = new Produto();
                 p.setCodProduto(rs.getInt("prod_cod"));
-                p.setDescProduto(rs.getString("prod_desc"));
-                
+                p.setDescProduto(rs.getString("prod_desc"));                                
+                p.setMinProduto(rs.getInt("prod_min"));
+                //p.setCod_tipo(rs.getInt("tipo_cod"));
                 Tipo t = new Tipo();
                 t.setCodTipo(rs.getInt("tipo_cod"));
                 t.setDescTipo(rs.getString("tipo_desc"));
+                t.setSiglaTipo(rs.getString("tipo_sigla"));
                 p.setCod_tipo(t);
-                
-                p.setMinProduto(rs.getInt("prod_min"));
-                //p.setCod_tipo(rs.getInt("tipo_cod"));
                                                 
                 Categoria c = new Categoria();
                 c.setCodCategoria(rs.getInt("cat_cod"));
@@ -237,7 +234,7 @@ public class ProdutoDAO extends GenericDAO {
         String sql = "SELECT * FROM produto p "
                 + "JOIN categoria c ON p.cat_cod = c.cat_cod "
                 + "JOIN tipo t ON p.tipo_cod = t.tipo_cod "
-                + "ORDER BY prod_tipo ASC";
+                + "ORDER BY tipo_cod ASC";
         
         try
         {
@@ -247,15 +244,14 @@ public class ProdutoDAO extends GenericDAO {
             while(rs.next()){
                 Produto p = new Produto();
                 p.setCodProduto(rs.getInt("prod_cod"));
-                p.setDescProduto(rs.getString("prod_desc"));
-               
+                p.setDescProduto(rs.getString("prod_desc"));                                
+                p.setMinProduto(rs.getInt("prod_min"));
+                //p.setCod_tipo(rs.getInt("tipo_cod"));
                 Tipo t = new Tipo();
                 t.setCodTipo(rs.getInt("tipo_cod"));
                 t.setDescTipo(rs.getString("tipo_desc"));
+                t.setSiglaTipo(rs.getString("tipo_sigla"));
                 p.setCod_tipo(t);
-                
-                p.setMinProduto(rs.getInt("prod_min"));
-                //p.setCod_tipo(rs.getInt("tipo_cod"));
                                                
                 Categoria c = new Categoria();
                 c.setCodCategoria(rs.getInt("cat_cod"));
@@ -291,14 +287,13 @@ public class ProdutoDAO extends GenericDAO {
                 Produto p = new Produto();
                 p.setCodProduto(rs.getInt("prod_cod"));
                 p.setDescProduto(rs.getString("prod_desc"));
-                
+                p.setMinProduto(rs.getInt("prod_min"));
+                //p.setCod_tipo(rs.getInt("tipo_cod"));
                 Tipo t = new Tipo();
                 t.setCodTipo(rs.getInt("tipo_cod"));
                 t.setDescTipo(rs.getString("tipo_desc"));
+                t.setSiglaTipo(rs.getString("tipo_sigla"));
                 p.setCod_tipo(t);
-                
-                p.setMinProduto(rs.getInt("prod_min"));
-                //p.setCod_tipo(rs.getInt("tipo_cod"));
                               
                 Categoria c = new Categoria();
                 c.setCodCategoria(rs.getInt("cat_cod"));

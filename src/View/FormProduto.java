@@ -105,7 +105,7 @@ public class FormProduto extends javax.swing.JFrame {
         tblProduto.getColumnModel().getColumn(4).setCellRenderer(esquerda);
          
         tblProduto.getColumnModel().getColumn(0).setPreferredWidth(15);
-        tblProduto.getColumnModel().getColumn(1).setPreferredWidth(300);
+        tblProduto.getColumnModel().getColumn(1).setPreferredWidth(2500);
         tblProduto.getColumnModel().getColumn(2).setPreferredWidth(10);
         tblProduto.getColumnModel().getColumn(3).setPreferredWidth(15);
         tblProduto.getColumnModel().getColumn(4).setPreferredWidth(50);
@@ -121,8 +121,8 @@ public class FormProduto extends javax.swing.JFrame {
                 tabela2.addRow(new Object[]{
                     p.getCodProduto(),
                     p.getDescProduto(),
-                    p.getCod_tipo(),
                     p.getMinProduto(),
+                    p.getCod_tipo(),
                     p.getCod_cat()
                 });
             }
@@ -146,7 +146,7 @@ public class FormProduto extends javax.swing.JFrame {
         tblProduto.getColumnModel().getColumn(4).setCellRenderer(esquerda);
          
         tblProduto.getColumnModel().getColumn(0).setPreferredWidth(15);
-        tblProduto.getColumnModel().getColumn(1).setPreferredWidth(300);
+        tblProduto.getColumnModel().getColumn(1).setPreferredWidth(250);
         tblProduto.getColumnModel().getColumn(2).setPreferredWidth(10);
         tblProduto.getColumnModel().getColumn(3).setPreferredWidth(15);
         tblProduto.getColumnModel().getColumn(4).setPreferredWidth(50);
@@ -164,8 +164,8 @@ public class FormProduto extends javax.swing.JFrame {
                 Object[] obj = new Object[]{
                     p.getCodProduto(),
                     p.getDescProduto(),
-                    p.getCod_tipo(),
                     p.getMinProduto(),
+                    p.getCod_tipo(),
                     p.getCod_cat()
                 };
                 tabela.addRow(obj);
@@ -227,7 +227,7 @@ public class FormProduto extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Descrição", "Tipo", "Est.Minimo", "Categoria"
+                "Código", "Descrição", "Est.Minimo", "Tipo", "Categoria"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -615,9 +615,9 @@ public class FormProduto extends javax.swing.JFrame {
                      
             prod.setCodProduto(Integer.parseInt(txtCod.getText()));
             prod.setDescProduto(txtDesc.getText().toUpperCase());
+            prod.setMinProduto(Integer.parseInt(txtMinimo.getText()));
             Tipo tipoSelecionado = (Tipo) cbTipo.getItemAt(cbTipo.getSelectedIndex());
             prod.setCod_tipo(tipoSelecionado);
-            prod.setMinProduto(Integer.parseInt(txtMinimo.getText()));
             //prod.setCod_cat((Categoria)cbCategoria.getSelectedItem());
             Categoria catSelecionada = (Categoria) cbCategoria.getItemAt(cbCategoria.getSelectedIndex());
             prod.setCod_cat(catSelecionada);
@@ -625,9 +625,10 @@ public class FormProduto extends javax.swing.JFrame {
             if (this.produtoDAO.inserir(prod) == true)
             {   
                 String cod = txtCod.getText();
-                String desc = txtDesc.getText(); 
-                String tipo = (String)cbTipo.getSelectedItem();
+                String desc = txtDesc.getText();
                 String min = txtMinimo.getText();
+                //String tipo = (String)cbTipo.getSelectedItem();
+                Integer tipo = cbTipo.getSelectedIndex();      
                 Integer cat = cbCategoria.getSelectedIndex();             
                                                 
                 JOptionPane.showMessageDialog(null, "Produto " + txtDesc.getText() + " adicionado com sucesso!");
@@ -643,8 +644,8 @@ public class FormProduto extends javax.swing.JFrame {
             
             prod.setCodProduto(Integer.parseInt(txtCod.getText()));
             prod.setDescProduto(txtDesc.getText().toUpperCase());
-            prod.setCod_tipo((Tipo)cbTipo.getSelectedItem());
             prod.setMinProduto(Integer.parseInt(txtMinimo.getText()));
+            prod.setCod_tipo((Tipo)cbTipo.getSelectedItem());
             prod.setCod_cat((Categoria)cbCategoria.getSelectedItem());
         
             if (this.produtoDAO.editar(prod) == true)
@@ -659,6 +660,8 @@ public class FormProduto extends javax.swing.JFrame {
            preencheTabela();
            Limpar();
            Desabilitar();
+           
+           cbTipo.removeAllItems();
            cbCategoria.removeAllItems();
             
            btnNovo.setEnabled(true);
@@ -749,6 +752,7 @@ public class FormProduto extends javax.swing.JFrame {
         Desabilitar();
         txtPesquisar.requestFocus();
         
+        cbTipo.removeAllItems();
         cbCategoria.removeAllItems();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
@@ -784,8 +788,8 @@ public class FormProduto extends javax.swing.JFrame {
        cbTipo.addItem("UNI");
        cbTipo.setSelectedIndex(-1);             
        */
-       cbCategoria.removeAllItems();
        cbTipo.removeAllItems();
+       cbCategoria.removeAllItems();
     }//GEN-LAST:event_formWindowOpened
 
     private void tblProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProdutoMouseClicked
@@ -799,8 +803,8 @@ public class FormProduto extends javax.swing.JFrame {
         
         txtCod.setText(tblProduto.getValueAt(linhaselecionada, 0).toString());
         txtDesc.setText(tblProduto.getValueAt(linhaselecionada, 1).toString());
-        cbTipo.setSelectedItem(tblProduto.getValueAt(linhaselecionada, 2).toString());
-        txtMinimo.setText(tblProduto.getValueAt(linhaselecionada, 3).toString());
+        txtMinimo.setText(tblProduto.getValueAt(linhaselecionada, 2).toString());
+        cbTipo.setSelectedItem(tblProduto.getValueAt(linhaselecionada, 3).toString());
         cbCategoria.setSelectedItem(tblProduto.getValueAt(linhaselecionada, 4));
         
        btnNovo.setEnabled(false);
@@ -851,8 +855,8 @@ public class FormProduto extends javax.swing.JFrame {
                 Object[] obj = new Object[]{
                     p.getCodProduto(),
                     p.getDescProduto(),
-                    p.getCod_tipo(),
                     p.getMinProduto(),
+                    p.getCod_tipo(),                   
                     p.getCod_cat()
                 };
                 tabela.addRow(obj);
@@ -878,8 +882,8 @@ public class FormProduto extends javax.swing.JFrame {
                 Object[] obj = new Object[]{
                     p.getCodProduto(),
                     p.getDescProduto(),
-                    p.getCod_tipo(),
                     p.getMinProduto(),
+                    p.getCod_tipo(),
                     p.getCod_cat()
                 };
                 tabela.addRow(obj);
@@ -923,8 +927,8 @@ public class FormProduto extends javax.swing.JFrame {
                 Object[] obj = new Object[]{
                     p.getCodProduto(),
                     p.getDescProduto(),
-                    p.getCod_tipo(),
                     p.getMinProduto(),
+                    p.getCod_tipo(),
                     p.getCod_cat()
                 };
                 tabela.addRow(obj);
@@ -950,8 +954,8 @@ public class FormProduto extends javax.swing.JFrame {
                 Object[] obj = new Object[]{
                     p.getCodProduto(),
                     p.getDescProduto(),
-                    p.getCod_tipo(),
                     p.getMinProduto(),
+                    p.getCod_tipo(),
                     p.getCod_cat()
                 };
                 tabela.addRow(obj);
@@ -1064,13 +1068,15 @@ public class FormProduto extends javax.swing.JFrame {
 
 public void Habilitar()
 {
+    popularComboTipo();
+    cbTipo.updateUI();
     popularComboCategoria();
     cbCategoria.updateUI();
         
     txtCod.setEnabled(false);
     txtDesc.setEnabled(true);
-    cbTipo.setEnabled(true);
     txtMinimo.setEnabled(true);
+    cbTipo.setEnabled(true);
     cbCategoria.setEnabled(true);
     btnCategoria.setEnabled(true);
     txtDesc.requestFocus();//recebe o foco
@@ -1080,8 +1086,8 @@ public void Desabilitar()
 {
     txtCod.setEnabled(false);
     txtDesc.setEnabled(false);
-    cbTipo.setEnabled(false);
     txtMinimo.setEnabled(false);
+    cbTipo.setEnabled(false);
     cbCategoria.setEnabled(false);
     btnCategoria.setEnabled(false);
 }
@@ -1090,8 +1096,8 @@ public void Limpar()
 {
     txtCod.setText("");
     txtDesc.setText("");
-    cbTipo.setSelectedIndex(-1);
     txtMinimo.setText("");
+    cbTipo.setSelectedIndex(-1);
     txtPesquisar.setText("");
     txtDesc.requestFocus();
 }
