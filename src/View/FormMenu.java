@@ -42,9 +42,9 @@ public class FormMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         btnCategorias = new javax.swing.JButton();
-        btnClientes = new javax.swing.JButton();
+        btnTipos = new javax.swing.JButton();
         btnProdutos = new javax.swing.JButton();
-        btnVendas = new javax.swing.JButton();
+        btnEstoque = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -72,7 +72,7 @@ public class FormMenu extends javax.swing.JFrame {
         jMenuItem9 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle(".:  Sistema C A N T I N A :.");
+        setTitle(".:  Sistema Controle de  E S T O Q U E :.");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -91,19 +91,19 @@ public class FormMenu extends javax.swing.JFrame {
             }
         });
 
-        btnClientes.setFont(new java.awt.Font("Stencil", 0, 14)); // NOI18N
-        btnClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/metric.png"))); // NOI18N
-        btnClientes.setText("Tipos");
-        btnClientes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnClientes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnClientes.addActionListener(new java.awt.event.ActionListener() {
+        btnTipos.setFont(new java.awt.Font("Stencil", 0, 14)); // NOI18N
+        btnTipos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/metric.png"))); // NOI18N
+        btnTipos.setText("Tipos");
+        btnTipos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnTipos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnTipos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClientesActionPerformed(evt);
+                btnTiposActionPerformed(evt);
             }
         });
 
         btnProdutos.setFont(new java.awt.Font("Stencil", 0, 14)); // NOI18N
-        btnProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/box.png"))); // NOI18N
+        btnProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/palete.png"))); // NOI18N
         btnProdutos.setText("Produtos");
         btnProdutos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnProdutos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -113,14 +113,14 @@ public class FormMenu extends javax.swing.JFrame {
             }
         });
 
-        btnVendas.setFont(new java.awt.Font("Stencil", 0, 14)); // NOI18N
-        btnVendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/button_cashbox.png"))); // NOI18N
-        btnVendas.setText("Caixa");
-        btnVendas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnVendas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnVendas.addActionListener(new java.awt.event.ActionListener() {
+        btnEstoque.setFont(new java.awt.Font("Stencil", 0, 14)); // NOI18N
+        btnEstoque.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/empilhadeira.png"))); // NOI18N
+        btnEstoque.setText("ESTOQUE");
+        btnEstoque.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnEstoque.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnEstoque.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVendasActionPerformed(evt);
+                btnEstoqueActionPerformed(evt);
             }
         });
 
@@ -294,21 +294,22 @@ public class FormMenu extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addComponent(btnClientes)
+                .addContainerGap()
+                .addComponent(btnTipos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCategorias)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnProdutos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnVendas)
-                .addGap(18, 18, 18)
+                .addComponent(btnEstoque)
+                .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(lblHora, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -318,9 +319,9 @@ public class FormMenu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnSair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnCategorias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnTipos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnVendas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnEstoque, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -384,15 +385,15 @@ public class FormMenu extends javax.swing.JFrame {
        
     }//GEN-LAST:event_MenuCadastrosActionPerformed
 
-    private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
+    private void btnEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstoqueActionPerformed
         // TODO add your handling code here:
         new FormVenda().setVisible(true);
-    }//GEN-LAST:event_btnVendasActionPerformed
+    }//GEN-LAST:event_btnEstoqueActionPerformed
 
-    private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
+    private void btnTiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTiposActionPerformed
         // TODO add your handling code here:
         new FormTipo().setVisible(true);
-    }//GEN-LAST:event_btnClientesActionPerformed
+    }//GEN-LAST:event_btnTiposActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
@@ -485,10 +486,10 @@ public class FormMenu extends javax.swing.JFrame {
     private javax.swing.JMenu MenuSobre;
     private javax.swing.JMenu MenuUsuario;
     private javax.swing.JButton btnCategorias;
-    private javax.swing.JButton btnClientes;
+    private javax.swing.JButton btnEstoque;
     private javax.swing.JButton btnProdutos;
     private javax.swing.JButton btnSair;
-    private javax.swing.JButton btnVendas;
+    private javax.swing.JButton btnTipos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;

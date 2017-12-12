@@ -61,7 +61,7 @@ public class FormLogin extends javax.swing.JFrame {
             }
         });
 
-        jPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Sistema Cantina:"));
+        jPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Sistema Controle de Estoque:"));
 
         lblUsuario.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/user.png"))); // NOI18N

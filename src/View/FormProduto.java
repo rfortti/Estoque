@@ -105,7 +105,7 @@ public class FormProduto extends javax.swing.JFrame {
         tblProduto.getColumnModel().getColumn(4).setCellRenderer(esquerda);
          
         tblProduto.getColumnModel().getColumn(0).setPreferredWidth(15);
-        tblProduto.getColumnModel().getColumn(1).setPreferredWidth(2500);
+        tblProduto.getColumnModel().getColumn(1).setPreferredWidth(250);
         tblProduto.getColumnModel().getColumn(2).setPreferredWidth(10);
         tblProduto.getColumnModel().getColumn(3).setPreferredWidth(15);
         tblProduto.getColumnModel().getColumn(4).setPreferredWidth(50);
@@ -979,9 +979,11 @@ public class FormProduto extends javax.swing.JFrame {
     private void cbCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCategoriaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbCategoriaActionPerformed
-
+        
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        // TODO add your handling code here:          
+        // TODO add your handling code here:       
+        grupoOrdenar.clearSelection();
+        
         if (btnPesquisar.getText() == "Pesquisar"){
             //Altera o Icone do Botão
             btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Clear.png")));
