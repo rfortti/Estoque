@@ -129,7 +129,7 @@ public class ProdutoDAO extends GenericDAO {
                              
                 Categoria cat = new Categoria();
                 cat.setCodCategoria(rs.getInt("cat_cod"));
-                cat.setTipo(rs.getString("cat_tipo"));
+                cat.setTipoCategoria(rs.getString("cat_tipo"));
                 prod.setCod_cat(cat);
                 
                 produto.add(prod);
@@ -171,7 +171,7 @@ public class ProdutoDAO extends GenericDAO {
                 
                 Categoria c = new Categoria();
                 c.setCodCategoria(rs.getInt("cat_cod"));
-                c.setTipo(rs.getString("cat_tipo"));
+                c.setTipoCategoria(rs.getString("cat_tipo"));
                 p.setCod_cat(c);
                 
                 produto.add(p);
@@ -213,7 +213,7 @@ public class ProdutoDAO extends GenericDAO {
                                                 
                 Categoria c = new Categoria();
                 c.setCodCategoria(rs.getInt("cat_cod"));
-                c.setTipo(rs.getString("cat_tipo"));
+                c.setTipoCategoria(rs.getString("cat_tipo"));
                 p.setCod_cat(c);
                 
                 produto.add(p);
@@ -255,7 +255,7 @@ public class ProdutoDAO extends GenericDAO {
                                                
                 Categoria c = new Categoria();
                 c.setCodCategoria(rs.getInt("cat_cod"));
-                c.setTipo(rs.getString("cat_tipo"));
+                c.setTipoCategoria(rs.getString("cat_tipo"));
                 p.setCod_cat(c);
                 
                 produto.add(p);
@@ -297,7 +297,7 @@ public class ProdutoDAO extends GenericDAO {
                               
                 Categoria c = new Categoria();
                 c.setCodCategoria(rs.getInt("cat_cod"));
-                c.setTipo(rs.getString("cat_tipo"));
+                c.setTipoCategoria(rs.getString("cat_tipo"));
                 p.setCod_cat(c);
                 
                 produto.add(p);

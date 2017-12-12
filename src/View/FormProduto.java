@@ -60,7 +60,7 @@ public class FormProduto extends javax.swing.JFrame {
 
     //metodo para popular combo tipo
     public void popularComboTipo() {
-
+                
         TipoDAO tDAO = new TipoDAO();
         listTipo = tDAO.getTipos(1);
         if (listTipo.isEmpty()) {
@@ -75,7 +75,7 @@ public class FormProduto extends javax.swing.JFrame {
     
      //metodo para popular combo categoria
     public void popularComboCategoria() {
-
+               
         CategoriaDAO CatDAO = new CategoriaDAO();
         listCat = CatDAO.getCategorias(1);
         if (listCat.isEmpty()) {
@@ -128,8 +128,7 @@ public class FormProduto extends javax.swing.JFrame {
             }
         }     
     }
-    
-    
+        
     private void preencheTabela()
      {
         DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
@@ -661,8 +660,8 @@ public class FormProduto extends javax.swing.JFrame {
            Limpar();
            Desabilitar();
            
-           cbTipo.removeAllItems();
-           cbCategoria.removeAllItems();
+           //cbTipo.removeAllItems();
+           //cbCategoria.removeAllItems();
             
            btnNovo.setEnabled(true);
            btnAlterar.setEnabled(false);
@@ -675,13 +674,16 @@ public class FormProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-// TODO add your handling code here:
+        // TODO add your handling code here:
         opcao = 1;
         ProdutoDAO prodDAO = new ProdutoDAO();
-        
-        lblDescP.setEnabled(false);
-        txtPesquisar.setEnabled(false);
-        txtCod.setText(String.valueOf(prodDAO.AutoIncCod()));
+       
+       popularComboTipo(); 
+       
+       lblDescP.setEnabled(false);
+       txtPesquisar.setEnabled(false);
+       txtCod.setText(String.valueOf(prodDAO.AutoIncCod()));
+            
        Habilitar();
        
        btnNovo.setEnabled(false);
@@ -739,21 +741,25 @@ public class FormProduto extends javax.swing.JFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
-        lblDescP.setEnabled(true);
-        txtPesquisar.setEnabled(true);
-        txtPesquisar.setText("");
         Limpar();
+                        
         btnNovo.setEnabled(true);
         btnAlterar.setEnabled(false);
         btnExcluir.setEnabled(false);
         btnCancelar.setEnabled(false);
         btnSalvar.setEnabled(false);
         btnPesquisar.setEnabled(true);
+        
         Desabilitar();
+        
+        lblDescP.setEnabled(true);
+        txtPesquisar.setEnabled(true);
+        
         txtPesquisar.requestFocus();
         
         cbTipo.removeAllItems();
         cbCategoria.removeAllItems();
+        this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -788,23 +794,29 @@ public class FormProduto extends javax.swing.JFrame {
        cbTipo.addItem("UNI");
        cbTipo.setSelectedIndex(-1);             
        */
+       
        cbTipo.removeAllItems();
+       popularComboTipo();
+       cbTipo.updateUI();
+       
        cbCategoria.removeAllItems();
+       popularComboCategoria();
+       cbCategoria.updateUI();
     }//GEN-LAST:event_formWindowOpened
 
     private void tblProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProdutoMouseClicked
         // TODO add your handling code here:
         popularComboCategoria();
-        cbCategoria.updateUI();
+        //cbCategoria.updateUI();
         popularComboTipo();
-        cbTipo.updateUI();
+        //cbTipo.updateUI();
        
         int linhaselecionada = tblProduto.getSelectedRow(); //pega a linha selecionada
         
         txtCod.setText(tblProduto.getValueAt(linhaselecionada, 0).toString());
         txtDesc.setText(tblProduto.getValueAt(linhaselecionada, 1).toString());
         txtMinimo.setText(tblProduto.getValueAt(linhaselecionada, 2).toString());
-        cbTipo.setSelectedItem(tblProduto.getValueAt(linhaselecionada, 3).toString());
+        cbTipo.setSelectedItem(tblProduto.getValueAt(linhaselecionada, 3));
         cbCategoria.setSelectedItem(tblProduto.getValueAt(linhaselecionada, 4));
         
        btnNovo.setEnabled(false);
@@ -1067,12 +1079,7 @@ public class FormProduto extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
 public void Habilitar()
-{
-    popularComboTipo();
-    cbTipo.updateUI();
-    popularComboCategoria();
-    cbCategoria.updateUI();
-        
+{               
     txtCod.setEnabled(false);
     txtDesc.setEnabled(true);
     txtMinimo.setEnabled(true);
@@ -1097,9 +1104,7 @@ public void Limpar()
     txtCod.setText("");
     txtDesc.setText("");
     txtMinimo.setText("");
-    cbTipo.setSelectedIndex(-1);
     txtPesquisar.setText("");
-    txtDesc.requestFocus();
 }
 
     private void setModal(boolean b) {

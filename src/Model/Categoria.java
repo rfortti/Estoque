@@ -19,27 +19,24 @@ public class Categoria
        
    
     //ALT + Insert (Getter e Setter) gera os métodos  abaixo
+
     public int getCodCategoria() {
         return cod_categoria;
     }
-    //Adicionado por AGUADO
+
+    public void setCodCategoria(int cod_categoria) {
+        this.cod_categoria = cod_categoria;
+    }
+
     public String getTipoCategoria() {
         return tipo_categoria;
     }
 
-    public void setCodCategoria(int codcat) {
-        this.cod_categoria = codcat;
-    }
-
-    public String getTipo() {
-        return tipo_categoria;
-    }
-
-    public void setTipo(String tipocat) {
-        this.tipo_categoria = tipocat;
+    public void setTipoCategoria(String tipo_categoria) {
+        this.tipo_categoria = tipo_categoria;
     }
     
-        //Adicionado por AGUADO
+    //Adicionado por AGUADO
         @Override
         public String toString() {
             return getTipoCategoria();
@@ -52,6 +49,6 @@ public class Categoria
         {
             Categoria c = (Categoria) o;
             return this.cod_categoria == c.getCodCategoria();
-        }
- 
+        }   
+         
 }

@@ -33,7 +33,7 @@ public class CategoriaDAO extends GenericDAO
         {
             this.prepareStmte(sql);
             this.stmte.setInt(1,categoria.getCodCategoria());
-            this.stmte.setString(2,categoria.getTipo());
+            this.stmte.setString(2,categoria.getTipoCategoria());
             this.stmte.execute();
             return true;
         }
@@ -77,7 +77,7 @@ public class CategoriaDAO extends GenericDAO
         try
         {
             this.prepareStmte(sql);
-            this.stmte.setString(1,categoria.getTipo());
+            this.stmte.setString(1,categoria.getTipoCategoria());
             this.stmte.setInt(2, categoria.getCodCategoria());
             this.stmte.execute();
             return true;
@@ -100,7 +100,7 @@ public class CategoriaDAO extends GenericDAO
             ResultSet rs = this.stmte.executeQuery(); //sempre usar quando fazer uma consulta(SELECT)
             rs.first();
             cat.setCodCategoria(rs.getInt("cat_cod"));
-            cat.setTipo(rs.getString("cat_tipo"));
+            cat.setTipoCategoria(rs.getString("cat_tipo"));
             return cat;
         }
         catch(Exception e)
@@ -124,7 +124,7 @@ public class CategoriaDAO extends GenericDAO
             while(rs.next()){
                 Categoria c = new Categoria();
                 c.setCodCategoria(rs.getInt("cat_cod"));
-                c.setTipo(rs.getString("cat_tipo"));
+                c.setTipoCategoria(rs.getString("cat_tipo"));
                 categoria.add(c);
                 x++;
             }
@@ -157,7 +157,7 @@ public class CategoriaDAO extends GenericDAO
             while (rs.next()) {
                 Categoria c = new Categoria();
                 c.setCodCategoria(rs.getInt("cat_cod"));
-                c.setTipo(rs.getString("cat_tipo"));
+                c.setTipoCategoria(rs.getString("cat_tipo"));
                 cat.add(c);
                 //x++;
             }

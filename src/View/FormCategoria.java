@@ -38,7 +38,7 @@ public class FormCategoria extends javax.swing.JFrame {
             {
                 Object[] obj = new Object[]{
                     c.getCodCategoria(),
-                    c.getTipo()
+                    c.getTipoCategoria()
                 };
                 tabela.addRow(obj);
             }
@@ -411,7 +411,7 @@ public class FormCategoria extends javax.swing.JFrame {
             Categoria cat = new Categoria();
 
             cat.setCodCategoria(Integer.parseInt(txtCod.getText()));
-            cat.setTipo(txtTipo.getText().toUpperCase());
+            cat.setTipoCategoria(txtTipo.getText().toUpperCase());
                     
             if (this.categoriaDAO.inserir(cat) == true)
             {
@@ -429,7 +429,7 @@ public class FormCategoria extends javax.swing.JFrame {
         {
             Categoria cat = new Categoria();
             cat.setCodCategoria(Integer.parseInt(txtCod.getText()));
-            cat.setTipo(txtTipo.getText().toUpperCase());
+            cat.setTipoCategoria(txtTipo.getText().toUpperCase());
 
             if (this.categoriaDAO.editar(cat) == true) 
             {
@@ -589,7 +589,7 @@ public class FormCategoria extends javax.swing.JFrame {
             } else {
                 Desabilitar();
                 txtCod.setText(String.valueOf(cat.getCodCategoria()));
-                txtTipo.setText(cat.getTipo());
+                txtTipo.setText(cat.getTipoCategoria());
             }
         } catch (Exception e) {
             txtCod.setText("");
@@ -649,7 +649,7 @@ public class FormCategoria extends javax.swing.JFrame {
                 {
                     Object[] obj = new Object[]{
                         c.getCodCategoria(),
-                        c.getTipo()
+                        c.getTipoCategoria()
                     };
                     tabela.addRow(obj);
                 }
