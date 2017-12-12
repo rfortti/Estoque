@@ -234,7 +234,7 @@ public class ProdutoDAO extends GenericDAO {
         String sql = "SELECT * FROM produto p "
                 + "JOIN categoria c ON p.cat_cod = c.cat_cod "
                 + "JOIN tipo t ON p.tipo_cod = t.tipo_cod "
-                + "ORDER BY tipo_cod ASC";
+                + "ORDER BY t.tipo_desc ASC";
         
         try
         {
@@ -276,7 +276,7 @@ public class ProdutoDAO extends GenericDAO {
         String sql = "SELECT * FROM produto p "
                 + "JOIN categoria c ON p.cat_cod = c.cat_cod "
                 + "JOIN tipo t ON p.tipo_cod = t.tipo_cod "
-                + "ORDER BY p.cat_cod ASC";
+                + "ORDER BY c.cat_tipo, p.prod_desc ASC";
         
         try
         {
