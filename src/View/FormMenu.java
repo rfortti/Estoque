@@ -81,7 +81,7 @@ public class FormMenu extends javax.swing.JFrame {
         });
 
         btnCategorias.setFont(new java.awt.Font("Stencil", 0, 14)); // NOI18N
-        btnCategorias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/button_category2.png"))); // NOI18N
+        btnCategorias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/category.png"))); // NOI18N
         btnCategorias.setText("Categorias");
         btnCategorias.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnCategorias.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -92,8 +92,8 @@ public class FormMenu extends javax.swing.JFrame {
         });
 
         btnClientes.setFont(new java.awt.Font("Stencil", 0, 14)); // NOI18N
-        btnClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/button_clients.png"))); // NOI18N
-        btnClientes.setText("Clientes");
+        btnClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/metric.png"))); // NOI18N
+        btnClientes.setText("Tipos");
         btnClientes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnClientes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnClientes.addActionListener(new java.awt.event.ActionListener() {
@@ -103,7 +103,7 @@ public class FormMenu extends javax.swing.JFrame {
         });
 
         btnProdutos.setFont(new java.awt.Font("Stencil", 0, 14)); // NOI18N
-        btnProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/button_products.png"))); // NOI18N
+        btnProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/box.png"))); // NOI18N
         btnProdutos.setText("Produtos");
         btnProdutos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnProdutos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -185,7 +185,7 @@ public class FormMenu extends javax.swing.JFrame {
         MenuCadastros.add(jSeparator2);
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/category2.png"))); // NOI18N
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/category.png"))); // NOI18N
         jMenuItem1.setText("Categorias");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -195,7 +195,7 @@ public class FormMenu extends javax.swing.JFrame {
         MenuCadastros.add(jMenuItem1);
 
         jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, 0));
-        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/products.png"))); // NOI18N
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/box.png"))); // NOI18N
         jMenuItem3.setText("Produtos");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -205,6 +205,7 @@ public class FormMenu extends javax.swing.JFrame {
         MenuCadastros.add(jMenuItem3);
 
         jMenuItem7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
+        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/metric.png"))); // NOI18N
         jMenuItem7.setText("Tipos");
         jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -390,7 +391,7 @@ public class FormMenu extends javax.swing.JFrame {
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
         // TODO add your handling code here:
-        new FormPessoa().setVisible(true);
+        new FormTipo().setVisible(true);
     }//GEN-LAST:event_btnClientesActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
