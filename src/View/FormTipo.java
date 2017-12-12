@@ -132,7 +132,7 @@ public class FormTipo extends javax.swing.JFrame {
         }
 
         jLayeredPane1.setBackground(new java.awt.Color(255, 255, 255));
-        jLayeredPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadastro de Categorias"));
+        jLayeredPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadastro de Tipos de Medidas"));
 
         lblCod.setText("* Código:");
 
