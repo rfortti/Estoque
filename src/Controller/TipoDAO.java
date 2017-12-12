@@ -87,6 +87,35 @@ public class TipoDAO extends GenericDAO
         }
     }
     
+    public ArrayList<Tipo> getTiposByCod() //L I S T A
+    {
+        ArrayList<Tipo> tipo = new ArrayList<Tipo>();
+        //Categoria[] categorias = new Categoria[200];
+        int x = 0;
+        String sql = "SELECT * FROM tipo ORDER BY tipo_cod ASC";
+        
+        try
+        {
+            this.prepareStmte(sql);
+            ResultSet rs = this.stmte.executeQuery(); //sempre usar quando fazer uma consulta(SELECT)
+            
+            while(rs.next()){
+                Tipo t = new Tipo();
+                t.setCodTipo(rs.getInt("tipo_cod"));
+                t.setDescTipo(rs.getString("tipo_desc"));
+                t.setSiglaTipo(rs.getString("tipo_sigla"));
+                tipo.add(t);
+                x++;
+            }
+            return tipo;
+            
+        }
+        catch(Exception e)
+        {
+            return null;
+        }
+    } 
+     
     public Tipo getTipoByDesc(String tipodesc)
     {
         Tipo tipo = new Tipo();

@@ -59,6 +59,7 @@ public class FormMenu extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
         MenuCaixa = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -203,6 +204,15 @@ public class FormMenu extends javax.swing.JFrame {
         });
         MenuCadastros.add(jMenuItem3);
 
+        jMenuItem7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
+        jMenuItem7.setText("Tipos");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        MenuCadastros.add(jMenuItem7);
+
         jMenuBar1.add(MenuCadastros);
 
         MenuCaixa.setText("Caixa");
@@ -222,7 +232,7 @@ public class FormMenu extends javax.swing.JFrame {
 
         MenuConsulta.setText("Consulta");
 
-        jMenuItem10.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
+        jMenuItem10.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F6, 0));
         jMenuItem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/cash.png"))); // NOI18N
         jMenuItem10.setText("Vendas");
         jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
@@ -424,6 +434,12 @@ public class FormMenu extends javax.swing.JFrame {
         new FormConsulta().setVisible(true);
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        // TODO add your handling code here:
+        FormTipo ft = new FormTipo();
+        ft.setVisible(true); // exibe o FormTipo
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -482,6 +498,7 @@ public class FormMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPopupMenu.Separator jSeparator1;
