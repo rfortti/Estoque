@@ -53,8 +53,10 @@ public class FormTipo extends javax.swing.JFrame {
 
         txtCod.setDocument(new AceitaNumerosPonto());
         txtCod.setDocument(new LimitarNumeros(6));
-        txtTipo.setDocument(new AceitaStrings());
-        txtTipo.setDocument(new LimitarLetras(25));
+        txtDesc.setDocument(new AceitaStrings());
+        txtDesc.setDocument(new LimitarLetras(25));
+        txtSigla.setDocument(new AceitaStrings());
+        txtSigla.setDocument(new LimitarLetras(3));
         txtPesquisar.setDocument(new AceitaStrings());
         txtPesquisar.setDocument(new LimitarLetras(25));
     }
@@ -75,7 +77,7 @@ public class FormTipo extends javax.swing.JFrame {
         lblCod = new javax.swing.JLabel();
         txtCod = new javax.swing.JTextField();
         lblDesc = new javax.swing.JLabel();
-        txtTipo = new javax.swing.JTextField();
+        txtDesc = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         btnSalvar = new javax.swing.JButton();
         btnNovo = new javax.swing.JButton();
@@ -148,12 +150,12 @@ public class FormTipo extends javax.swing.JFrame {
 
         lblDesc.setText("* Descrição:");
 
-        txtTipo.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtDesc.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                txtTipoFocusGained(evt);
+                txtDescFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtTipoFocusLost(evt);
+                txtDescFocusLost(evt);
             }
         });
 
@@ -279,7 +281,7 @@ public class FormTipo extends javax.swing.JFrame {
         jLayeredPane1.setLayer(lblCod, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(txtCod, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(lblDesc, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(txtTipo, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(txtDesc, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jPanel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(lblSigla, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -303,7 +305,7 @@ public class FormTipo extends javax.swing.JFrame {
                             .addComponent(lblSigla))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtCod, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtSigla, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -325,7 +327,7 @@ public class FormTipo extends javax.swing.JFrame {
                         .addGap(26, 26, 26)
                         .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblDesc)
-                            .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtDesc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblSigla)
@@ -415,11 +417,18 @@ public class FormTipo extends javax.swing.JFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // TODO add your handling code here:
-    if (txtTipo.getText().equals(""))
+    if (txtDesc.getText().equals(""))
     {
-        JOptionPane.showMessageDialog(null, "É necessário preencher o tipo da categoria ! ","ATENÇÃO",JOptionPane.INFORMATION_MESSAGE);
-        txtTipo.setBackground(java.awt.Color.RED);
-        txtTipo.requestFocus();
+        JOptionPane.showMessageDialog(null, "É necessário preencher a descrição do tipo de medida ! ","ATENÇÃO",JOptionPane.INFORMATION_MESSAGE);
+        txtDesc.setBackground(java.awt.Color.RED);
+        txtDesc.requestFocus();
+    }
+        
+    if (txtSigla.getText().equals(""))
+    {
+        JOptionPane.showMessageDialog(null, "É necessário preencher a sigla da descrição ! ","ATENÇÃO",JOptionPane.INFORMATION_MESSAGE);
+        txtSigla.setBackground(java.awt.Color.RED);
+        txtSigla.requestFocus();
     }
     else
     {
@@ -428,15 +437,15 @@ public class FormTipo extends javax.swing.JFrame {
             Tipo t = new Tipo();
 
             t.setCodTipo(Integer.parseInt(txtCod.getText()));
-            t.setDescTipo(txtTipo.getText().toUpperCase());
+            t.setDescTipo(txtDesc.getText().toUpperCase());
             t.setSiglaTipo(txtSigla.getText().toUpperCase());
                     
             if (this.tipoDAO.inserir(t) == true)
             {
                 String cod = txtCod.getText();                               
-                String tipo = txtTipo.getText();
+                String tipo = txtDesc.getText();
                 String sigla = txtSigla.getText();
-                JOptionPane.showMessageDialog(null, "Tipo " + txtTipo.getText() + " adicionado com sucesso!");
+                JOptionPane.showMessageDialog(null, "Tipo " + txtDesc.getText() + " adicionado com sucesso!");
                 
             } 
             else 
@@ -448,7 +457,7 @@ public class FormTipo extends javax.swing.JFrame {
         {
             Tipo t = new Tipo();
             t.setCodTipo(Integer.parseInt(txtCod.getText()));
-            t.setDescTipo(txtTipo.getText().toUpperCase());
+            t.setDescTipo(txtDesc.getText().toUpperCase());
             t.setSiglaTipo(txtSigla.getText().toUpperCase());
 
             if (this.tipoDAO.editar(t) == true) 
@@ -609,12 +618,12 @@ public class FormTipo extends javax.swing.JFrame {
             } else {
                 Desabilitar();
                 txtCod.setText(String.valueOf(t.getCodTipo()));
-                txtTipo.setText(t.getDescTipo());
+                txtDesc.setText(t.getDescTipo());
                 txtSigla.setText(t.getSiglaTipo());
             }
         } catch (Exception e) {
             txtCod.setText("");
-            txtTipo.setText("");
+            txtDesc.setText("");
             txtSigla.setText("");
             JOptionPane.showMessageDialog(null, "Tipo não encontrado!");
         }
@@ -624,7 +633,7 @@ public class FormTipo extends javax.swing.JFrame {
         // TODO add your handling code here:
         int linhaselecionada = tblTipo.getSelectedRow(); //pega a linha selecionada
         txtCod.setText(tblTipo.getValueAt(linhaselecionada, 0).toString());
-        txtTipo.setText(tblTipo.getValueAt(linhaselecionada, 1).toString());
+        txtDesc.setText(tblTipo.getValueAt(linhaselecionada, 1).toString());
         txtSigla.setText(tblTipo.getValueAt(linhaselecionada, 2).toString());
         
         btnNovo.setEnabled(false);
@@ -644,15 +653,15 @@ public class FormTipo extends javax.swing.JFrame {
         txtCod.setBackground(java.awt.Color.yellow);
     }//GEN-LAST:event_txtCodFocusGained
 
-    private void txtTipoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTipoFocusGained
+    private void txtDescFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDescFocusGained
         // TODO add your handling code here:
-        txtTipo.setBackground(java.awt.Color.yellow);
-    }//GEN-LAST:event_txtTipoFocusGained
+        txtDesc.setBackground(java.awt.Color.yellow);
+    }//GEN-LAST:event_txtDescFocusGained
 
-    private void txtTipoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTipoFocusLost
+    private void txtDescFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDescFocusLost
         // TODO add your handling code here:
-        txtTipo.setBackground(java.awt.Color.white);
-    }//GEN-LAST:event_txtTipoFocusLost
+        txtDesc.setBackground(java.awt.Color.white);
+    }//GEN-LAST:event_txtDescFocusLost
 
     private void rbCodigoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbCodigoMouseClicked
         // TODO add your handling code here:
@@ -765,28 +774,28 @@ public class FormTipo extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbTipo;
     private javax.swing.JTable tblTipo;
     private javax.swing.JTextField txtCod;
+    private javax.swing.JTextField txtDesc;
     private javax.swing.JTextField txtPesquisar;
     private javax.swing.JTextField txtSigla;
-    private javax.swing.JTextField txtTipo;
     // End of variables declaration//GEN-END:variables
 
     public void Habilitar() {
         txtCod.setEnabled(false);
-        txtTipo.setEnabled(true);
+        txtDesc.setEnabled(true);
         txtSigla.setEnabled(true);
-        txtTipo.requestFocus();//recebe o foco
+        txtDesc.requestFocus();//recebe o foco
     }
 
     public void Desabilitar() {
         txtCod.setEnabled(false);
-        txtTipo.setEnabled(false);
+        txtDesc.setEnabled(false);
         txtSigla.setEnabled(false);
     }
 
     public void Limpar() {
         txtCod.setText("");
-        txtTipo.setText("");
+        txtDesc.setText("");
         txtSigla.setText("");
-        txtTipo.requestFocus();
+        txtDesc.requestFocus();
     }
 }
