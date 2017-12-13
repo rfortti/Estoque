@@ -387,7 +387,7 @@ public class FormMenu extends javax.swing.JFrame {
 
     private void btnEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstoqueActionPerformed
         // TODO add your handling code here:
-        new FormVenda().setVisible(true);
+        new FormEstoque().setVisible(true);
     }//GEN-LAST:event_btnEstoqueActionPerformed
 
     private void btnTiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTiposActionPerformed

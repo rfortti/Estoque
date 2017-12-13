@@ -59,7 +59,7 @@ public class FormPessoa extends javax.swing.JFrame {
         initComponents();
         this.pessoaDAO = new PessoaDAO();
         
-        //preencheTabela();
+        preencheTabela();
         
         txtID.setDocument(new AceitaNumerosPonto());
         txtID.setDocument(new LimitarNumeros(6));
@@ -258,7 +258,7 @@ public class FormPessoa extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        cbTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cliente", "Funcionário" }));
+        cbTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Fornecedor", "Funcionário" }));
 
         lblNome.setText("* Nome:");
 

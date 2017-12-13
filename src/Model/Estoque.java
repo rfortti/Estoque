@@ -8,27 +8,55 @@ package Model;
 
 /**
  *
- * @author Strong
+ * @author Multas
  */
-public class Estoque {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
+public class Estoque 
+{
+    private String funcionario;
+    private int item;
+    private String produto;
+    private int qtde;
+    private double valor;
+    
+    //ALT + Insert (Getter e Setter) gera os métodos  abaixo
+    public String getFuncionario() {
+        return funcionario;
     }
 
-    public int get() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setFuncionario(String funcionario) {
+        this.funcionario = funcionario;
     }
 
-    public int getCodCategoria() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int getItem() {
+        return item;
     }
 
-    public String getTipo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setItem(int item) {
+        this.item = item;
+    }
+
+    public String getProduto() {
+        return produto;
+    }
+
+    public void setProduto(String produto) {
+        this.produto = produto;
+    }
+
+    public int getQtde() {
+        return qtde;
+    }
+
+    public void setQtde(int qtde) {
+        this.qtde = qtde;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
     }
     
 }
