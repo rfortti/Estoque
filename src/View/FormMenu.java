@@ -51,7 +51,7 @@ public class FormMenu extends javax.swing.JFrame {
         lblData = new javax.swing.JLabel();
         lblHora = new javax.swing.JLabel();
         lblUsuario = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenuBar = new javax.swing.JMenuBar();
         MenuCadastros = new javax.swing.JMenu();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         mnuFuncionarios = new javax.swing.JMenuItem();
@@ -214,7 +214,7 @@ public class FormMenu extends javax.swing.JFrame {
         });
         MenuCadastros.add(mnuTipos);
 
-        jMenuBar1.add(MenuCadastros);
+        jMenuBar.add(MenuCadastros);
 
         MenuCaixa.setText("Caixa");
         MenuCaixa.setEnabled(false);
@@ -229,7 +229,7 @@ public class FormMenu extends javax.swing.JFrame {
         jMenuItem6.setText("Fechamento");
         MenuCaixa.add(jMenuItem6);
 
-        jMenuBar1.add(MenuCaixa);
+        jMenuBar.add(MenuCaixa);
 
         MenuConsulta.setText("Consulta");
 
@@ -243,11 +243,11 @@ public class FormMenu extends javax.swing.JFrame {
         });
         MenuConsulta.add(jMenuItem10);
 
-        jMenuBar1.add(MenuConsulta);
+        jMenuBar.add(MenuConsulta);
 
         MenuRelatorios.setText("Relatórios");
         MenuRelatorios.setEnabled(false);
-        jMenuBar1.add(MenuRelatorios);
+        jMenuBar.add(MenuRelatorios);
 
         MenuUsuario.setText("Usuário");
 
@@ -261,7 +261,7 @@ public class FormMenu extends javax.swing.JFrame {
         });
         MenuUsuario.add(jMenuItem8);
 
-        jMenuBar1.add(MenuUsuario);
+        jMenuBar.add(MenuUsuario);
 
         MenuSobre.setText("Sobre");
         MenuSobre.addActionListener(new java.awt.event.ActionListener() {
@@ -280,9 +280,9 @@ public class FormMenu extends javax.swing.JFrame {
         });
         MenuSobre.add(jMenuItem9);
 
-        jMenuBar1.add(MenuSobre);
+        jMenuBar.add(MenuSobre);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(jMenuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -492,7 +492,7 @@ public class FormMenu extends javax.swing.JFrame {
     private javax.swing.JButton btnTipos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar jMenuBar;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
