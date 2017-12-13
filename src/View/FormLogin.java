@@ -52,7 +52,7 @@ public class FormLogin extends javax.swing.JFrame {
         btnSair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(".: LOGIN - Sistema Cantina:.");
+        setTitle(".: LOGIN - Sistema Controle de Estoque :.");
         setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -61,7 +61,7 @@ public class FormLogin extends javax.swing.JFrame {
             }
         });
 
-        jPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Sistema Cantina:"));
+        jPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Sistema Controle de Estoque:"));
 
         lblUsuario.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/user.png"))); // NOI18N

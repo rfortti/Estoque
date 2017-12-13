@@ -195,7 +195,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="title" type="java.lang.String" value=".:  Sistema C A N T I N A :."/>
+    <Property name="title" type="java.lang.String" value=".:  Sistema Controle de  E S T O Q U E :."/>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
@@ -228,14 +228,15 @@
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
           <Group type="102" attributes="0">
-              <Component id="btnClientes" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="btnTipos" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnCategorias" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnProdutos" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="btnVendas" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="btnEstoque" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                   <Component id="lblData" min="-2" pref="238" max="-2" attributes="0"/>
                   <Group type="102" attributes="0">
@@ -244,7 +245,7 @@
                       <Component id="lblHora" min="-2" pref="93" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="13" max="32767" attributes="0"/>
               <Component id="btnSair" min="-2" pref="92" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -256,9 +257,9 @@
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="btnSair" max="32767" attributes="0"/>
                   <Component id="btnCategorias" alignment="1" max="32767" attributes="0"/>
-                  <Component id="btnClientes" alignment="1" max="32767" attributes="0"/>
+                  <Component id="btnTipos" alignment="1" max="32767" attributes="0"/>
                   <Component id="btnProdutos" alignment="1" max="32767" attributes="0"/>
-                  <Component id="btnVendas" alignment="1" max="32767" attributes="0"/>
+                  <Component id="btnEstoque" alignment="1" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
@@ -300,7 +301,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCategoriasActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnClientes">
+    <Component class="javax.swing.JButton" name="btnTipos">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Stencil" size="14" style="0"/>
@@ -313,7 +314,7 @@
         <Property name="verticalTextPosition" type="int" value="3"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClientesActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTiposActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnProdutos">
@@ -322,7 +323,7 @@
           <Font name="Stencil" size="14" style="0"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/imagens/box.png"/>
+          <Image iconType="3" name="/imagens/palete.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Produtos"/>
         <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -332,20 +333,20 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProdutosActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnVendas">
+    <Component class="javax.swing.JButton" name="btnEstoque">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Stencil" size="14" style="0"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/imagens/button_cashbox.png"/>
+          <Image iconType="3" name="/imagens/empilhadeira.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Caixa"/>
+        <Property name="text" type="java.lang.String" value="ESTOQUE"/>
         <Property name="horizontalTextPosition" type="int" value="0"/>
         <Property name="verticalTextPosition" type="int" value="3"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVendasActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEstoqueActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnSair">
