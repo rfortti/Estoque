@@ -302,7 +302,7 @@ DECLARE rcidadepes varchar(30);
 DECLARE rfonepes varchar(15);
 DECLARE remailpes varchar(30);
 DECLARE rpes CURSOR FOR SELECT * FROM 
-		arquivopes AS mp WHERE pes_nome=rp;  
+		arquivopes WHERE pes_nome=rp;  
 DECLARE CONTINUE HANDLER FOR NOT FOUND 
                     SET fim = TRUE;  
 OPEN rpes;
@@ -328,7 +328,7 @@ DECLARE rprodcod int(6);
 DECLARE rproddesc varchar(50);
 DECLARE rprodtipo varchar(25);
 DECLARE rprod CURSOR FOR SELECT * FROM 
-		arquivoprod AS mp WHERE prod_desc=rpr;  
+		arquivoprod WHERE prod_desc=rpr;  
 DECLARE CONTINUE HANDLER FOR NOT FOUND 
                     SET fim = TRUE;  
 OPEN rprod;
@@ -347,11 +347,11 @@ DELIMITER ;
 -- PROCEDURE Exclui mortopes e exibe na tabela pessoa
 -- DROP PROCEDURE IF EXISTS exibirPessoaExcluida;
 DELIMITER //
-CREATE PROCEDURE exibirPessoaExcluida(IN pes_nome VARCHAR(50), OUT estatus BOOLEAN)
+CREATE PROCEDURE exibirPessoaExcluida(IN p_nome VARCHAR(50), OUT estatus BOOLEAN)
 	BEGIN
 		DECLARE fim INT DEFAULT FALSE;
 		DECLARE cp VARCHAR(50);
-		DECLARE pessoam CURSOR FOR SELECT mp.pes_nome FROM estoque.arquivopes AS mp WHERE mp.pes_nome = pes_nome;
+		DECLARE pessoam CURSOR FOR SELECT p_nome FROM estoque.arquivopes AS mp WHERE mp.p_nome = p_nome;
 		DECLARE CONTINUE HANDLER FOR NOT FOUND SET fim = TRUE;
 		OPEN pessoam;
 			FETCH pessoam INTO cp;

@@ -28,31 +28,81 @@ public class FormPessoa extends javax.swing.JFrame {
     
      private void preencheTabela()
      {
-        ArrayList<Pessoa> pessoa = new ArrayList<Pessoa>();
-        pessoa = this.pessoaDAO.getPessoaByCod();
-        
-        DefaultTableModel tabela = (DefaultTableModel) tblPessoa.getModel();
-        tabela.setNumRows(0);
+        /*DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+            esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+            centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+            direita.setHorizontalAlignment(SwingConstants.RIGHT);
             
-        for (Pessoa p : pessoa) 
-        {
-            if (p != null) 
+        tblProduto.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        tblProduto.getColumnModel().getColumn(1).setCellRenderer(esquerda);
+        tblProduto.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+        tblProduto.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+        tblProduto.getColumnModel().getColumn(4).setCellRenderer(esquerda);
+         
+        tblProduto.getColumnModel().getColumn(0).setPreferredWidth(15);
+        tblProduto.getColumnModel().getColumn(1).setPreferredWidth(250);
+        tblProduto.getColumnModel().getColumn(2).setPreferredWidth(10);
+        tblProduto.getColumnModel().getColumn(3).setPreferredWidth(15);
+        tblProduto.getColumnModel().getColumn(4).setPreferredWidth(50);
+        */
+         if (cbTipo.getSelectedItem() == "Funcionário")
+         {
+            ArrayList<Pessoa> pessoa = new ArrayList<Pessoa>();
+            pessoa = this.pessoaDAO.getFuncionario();              
+                
+            DefaultTableModel tabela = (DefaultTableModel)tblPessoa.getModel();
+            tabela.setNumRows(0);
+         
+            for (Pessoa fcn : pessoa) 
             {
-                Object[] obj = new Object[]{
-                    p.getP_id(),
-                    p.getP_tipo(),
-                    p.getP_nome(),
-                    p.getP_rg(),
-                    p.getP_cpf(),
-                    p.getP_endereco(),
-                    p.getP_bairro(),
-                    p.getP_cidade(),
-                    p.getP_fone(),
-                    p.getP_email()
+                if (fcn != null) 
+                {
+                    Object[] obj = new Object[]{
+                    fcn.getP_id(),
+                    fcn.getP_tipo(),    
+                    fcn.getP_nome(),
+                    fcn.getP_rg(),
+                    fcn.getP_cpf(),
+                    fcn.getP_endereco(),
+                    fcn.getP_bairro(),
+                    fcn.getP_cidade(),
+                    fcn.getP_fone(),
+                    fcn.getP_email()
                 };
                 tabela.addRow(obj);
+                }
             }
-        }
+         }
+         else if (cbTipo.getSelectedItem() == "Fornecedor")
+         {
+             ArrayList<Pessoa> pessoa = new ArrayList<Pessoa>();
+            pessoa = this.pessoaDAO.getFornecedor();              
+                
+            DefaultTableModel tabela = (DefaultTableModel)tblPessoa.getModel();
+            tabela.setNumRows(0);
+         
+            for (Pessoa fcn : pessoa) 
+            {
+                if (fcn != null) 
+                {
+                    Object[] obj = new Object[]{
+                    fcn.getP_id(),
+                    fcn.getP_tipo(),    
+                    fcn.getP_nome(),
+                    fcn.getP_rg(),
+                    fcn.getP_cpf(),
+                    fcn.getP_endereco(),
+                    fcn.getP_bairro(),
+                    fcn.getP_cidade(),
+                    fcn.getP_fone(),
+                    fcn.getP_email()
+                };
+                tabela.addRow(obj);
+                }
+            }
+         }
     }
      
     public FormPessoa() {
@@ -141,7 +191,7 @@ public class FormPessoa extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Tipo", "Nome", "RG", "CPF", "Endereço", "Bairro", "Cidade", "Fone", "email"
+                "ID", "Tipo", "Nome", "RG", "CPF", "Endereço", "Bairro", "Cidade", "Fone", "email"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -173,7 +223,7 @@ public class FormPessoa extends javax.swing.JFrame {
         }
 
         jLayeredPane1.setBackground(new java.awt.Color(255, 255, 255));
-        jLayeredPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadastro de Pessoas"));
+        jLayeredPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("[ C a d a s t r o  d e  P e s s o a s ]"));
 
         lblID.setText("* ID:");
 
@@ -605,20 +655,9 @@ public class FormPessoa extends javax.swing.JFrame {
     {
         if (opcao == 1)
         {
-            Pessoa p = new Pessoa();
-                     
+            Pessoa p = new Pessoa();       
+                      
             p.setP_id(Integer.parseInt(txtID.getText()));
-            
-            if(cbTipo.getSelectedIndex() == -1)
-            {
-                JOptionPane.showMessageDialog(null, "Selecione um Tipo !");
-            }
-                       
-            if(txtNome.getText() == "")
-            {
-                JOptionPane.showMessageDialog(null, "Digite o nome !");
-            }
-            
             p.setP_tipo(cbTipo.getSelectedItem().toString());
             p.setP_nome(txtNome.getText().toUpperCase());
             p.setP_rg(txtRG.getText());
@@ -628,10 +667,10 @@ public class FormPessoa extends javax.swing.JFrame {
             p.setP_cidade(txtCidade.getText().toUpperCase());
             p.setP_fone(txtFone.getText());
             p.setP_email(txtEmail.getText().toLowerCase());
-        
+                    
             if (this.pessoaDAO.inserir(p) == true)
             {   
-                String id = txtID.getText();
+                Integer id = Integer.parseInt(txtID.getText());
                 String tipo = (cbTipo.getSelectedItem().toString()); 
                 String nome = txtNome.getText();
                 String rg = txtRG.getText();
@@ -647,7 +686,7 @@ public class FormPessoa extends javax.swing.JFrame {
             else
             {
                 JOptionPane.showMessageDialog(null, "Erro ao adicionar pessoa!");
-            }   
+            }
         }
         else if (opcao == 2)
         {
@@ -769,7 +808,9 @@ public class FormPessoa extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        cbTipo.setSelectedIndex(-1);
+        preencheTabela();
+        
+        cbTipo.setSelectedIndex(1);
         lblTipoP.setEnabled(true);
         txtPesquisar.setEnabled(true);
         txtPesquisar.requestFocus();

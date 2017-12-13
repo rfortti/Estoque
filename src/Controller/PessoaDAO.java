@@ -207,10 +207,10 @@ public class PessoaDAO extends GenericDAO
         }
     }
      
-     public Pessoa[] getFunc() //V E T O R
+     public ArrayList<Pessoa> getFuncionario() //L I S T A
      {
-        Pessoa[] pessoa = new Pessoa[100];
-        int x = 0;
+        ArrayList<Pessoa> funcionario = new ArrayList<Pessoa>();
+        
         String sql = "SELECT * FROM pessoa WHERE pes_tipo = 'Funcionário' ORDER BY pes_nome ASC";
         
         try
@@ -218,15 +218,23 @@ public class PessoaDAO extends GenericDAO
             this.prepareStmte(sql);
             ResultSet rs = this.stmte.executeQuery(); //sempre usar quando fazer uma consulta(SELECT)
             
-            while(rs.next()){
-                Pessoa pes = new Pessoa();
+           while(rs.next())
+            {
+                Pessoa fcn = new Pessoa();
+                fcn.setP_id(rs.getInt("pes_id"));
+                fcn.setP_tipo(rs.getString("pes_tipo"));
+                fcn.setP_nome(rs.getString("pes_nome"));
+                fcn.setP_rg(rs.getString("pes_rg"));
+                fcn.setP_cpf(rs.getString("pes_cpf"));
+                fcn.setP_endereco(rs.getString("pes_endereco"));
+                fcn.setP_bairro(rs.getString("pes_bairro"));
+                fcn.setP_cidade(rs.getString("pes_cidade"));
+                fcn.setP_fone(rs.getString("pes_fone"));
+                fcn.setP_email(rs.getString("pes_email"));
                 
-                pes.setP_nome(rs.getString("pes_nome"));
-                
-                pessoa[x] = pes;
-                x++;
+                funcionario.add(fcn);
             }
-            return pessoa;
+            return funcionario;
             
         }
         catch(Exception e)
@@ -235,25 +243,34 @@ public class PessoaDAO extends GenericDAO
         }
     }
      
-     public ArrayList<Pessoa> getCliente() //L I S T A
+     public ArrayList<Pessoa> getFornecedor() //L I S T A
      {
-        ArrayList<Pessoa> pessoa = new ArrayList<Pessoa>();
+        ArrayList<Pessoa> fornecedor = new ArrayList<Pessoa>();
         
-        String sql = "SELECT * FROM pessoa WHERE pes_tipo = 'Cliente' ORDER BY pes_nome ASC";
+        String sql = "SELECT * FROM pessoa WHERE pes_tipo = 'Fornecedor' ORDER BY pes_nome ASC";
         
         try
         {
             this.prepareStmte(sql);
             ResultSet rs = this.stmte.executeQuery(); //sempre usar quando fazer uma consulta(SELECT)
             
-            while(rs.next()){
-                Pessoa pes = new Pessoa();
+           while(rs.next())
+            {
+                Pessoa frn = new Pessoa();
+                frn.setP_id(rs.getInt("pes_id"));
+                frn.setP_tipo(rs.getString("pes_tipo"));
+                frn.setP_nome(rs.getString("pes_nome"));
+                frn.setP_rg(rs.getString("pes_rg"));
+                frn.setP_cpf(rs.getString("pes_cpf"));
+                frn.setP_endereco(rs.getString("pes_endereco"));
+                frn.setP_bairro(rs.getString("pes_bairro"));
+                frn.setP_cidade(rs.getString("pes_cidade"));
+                frn.setP_fone(rs.getString("pes_fone"));
+                frn.setP_email(rs.getString("pes_email"));
                 
-                pes.setP_nome(rs.getString("pes_nome"));
-                
-                pessoa.add(pes);
+                fornecedor.add(frn);
             }
-            return pessoa;
+            return fornecedor;
             
         }
         catch(Exception e)
