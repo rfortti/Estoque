@@ -21,7 +21,7 @@ pes_email VARCHAR(30) NULL
 
 -- Inserindo os dados na tabela pessoa;
 INSERT INTO pessoa (pes_id, pes_tipo, pes_nome, pes_rg, pes_cpf, pes_endereco, pes_bairro, pes_cidade, pes_fone, pes_email) VALUES 
-	(1,"Funcionario","ADM",NULL,"111.111.111.11","RUA 1","UM","A","(11)11111111",NULL);	
+	(1,"Funcionario","ADM","","111.111.111.11","RUA 1","UM","A","(11)1111-1111","");	
 
 -- Criando a tabela usuario;
 CREATE TABLE usuario(

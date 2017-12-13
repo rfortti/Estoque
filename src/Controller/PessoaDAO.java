@@ -25,8 +25,8 @@ public class PessoaDAO extends GenericDAO
     
     public boolean inserir(Pessoa pessoa)
     {
-        String sql = "INSERT INTO pessoa (p_cod, p_tipo, p_nome, p_rg, p_cpf, "
-                + "p_endereco, p_bairro, p_cidade, p_fone, p_email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO pessoa (pes_cod, pes_tipo, pes_nome, pes_rg, pes_cpf, "
+                + "pes_endereco, pes_bairro, pes_cidade, pes_fone, pes_email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         try
         {
@@ -52,7 +52,7 @@ public class PessoaDAO extends GenericDAO
     
     public boolean excluir(Pessoa pessoa)
     {
-        String sql = "DELETE FROM pessoa WHERE p_cod = ?";
+        String sql = "DELETE FROM pessoa WHERE pes_cod = ?";
         
         try
         {
@@ -79,8 +79,8 @@ public class PessoaDAO extends GenericDAO
     
     public boolean editar(Pessoa pessoa)
     {
-        String sql = "UPDATE pessoa SET p_tipo = ?, p_nome = ?, p_rg = ?, p_cpf = ?, "
-                + "p_endereco = ?, p_bairro = ?, p_cidade = ?, p_fone = ?, p_email = ? WHERE p_cod = ?";
+        String sql = "UPDATE pessoa SET pes_tipo = ?, pes_nome = ?, pes_rg = ?, pes_cpf = ?, "
+                + "pes_endereco = ?, pes_bairro = ?, pes_cidade = ?, pes_fone = ?, pes_email = ? WHERE pes_cod = ?";
         
         try
         {
@@ -104,29 +104,29 @@ public class PessoaDAO extends GenericDAO
         }
     }
      
-    public Pessoa getPesquisaByNome(String pnome)
+    public Pessoa getPesquisaByNome(String pesnome)
     {
         Pessoa p = new Pessoa();
         
-        String sql = "SELECT * FROM pessoa WHERE p_nome LIKE ?";
+        String sql = "SELECT * FROM pessoa WHERE pes_nome LIKE ?";
         
         try
         {
             this.prepareStmte(sql);
             //this.stmte.setString(1,'%'+pnome+'%');// busca pelo nome ou sobrenome
-            this.stmte.setString(1,pnome+'%');// busca pelo primeiro nome
+            this.stmte.setString(1,pesnome+'%');// busca pelo primeiro nome
             ResultSet rs = this.stmte.executeQuery(); //sempre usar quando fazer uma consulta(SELECT)
             rs.first();
-            p.setP_cod(rs.getInt("p_cod"));
-            p.setP_tipo(rs.getString("p_tipo"));
-            p.setP_nome(rs.getString("p_nome"));
-            p.setP_rg(rs.getString("p_rg"));
-            p.setP_cpf(rs.getString("p_cpf"));
-            p.setP_endereco(rs.getString("p_endereco"));
-            p.setP_bairro(rs.getString("p_bairro"));
-            p.setP_cidade(rs.getString("p_cidade"));
-            p.setP_fone(rs.getString("p_fone"));
-            p.setP_email(rs.getString("p_email"));
+            p.setP_cod(rs.getInt("pes_cod"));
+            p.setP_tipo(rs.getString("pes_tipo"));
+            p.setP_nome(rs.getString("pes_nome"));
+            p.setP_rg(rs.getString("pes_rg"));
+            p.setP_cpf(rs.getString("pes_cpf"));
+            p.setP_endereco(rs.getString("pes_endereco"));
+            p.setP_bairro(rs.getString("pes_bairro"));
+            p.setP_cidade(rs.getString("pes_cidade"));
+            p.setP_fone(rs.getString("pes_fone"));
+            p.setP_email(rs.getString("pes_email"));
             return p;
         }
         catch(Exception e)
@@ -139,7 +139,7 @@ public class PessoaDAO extends GenericDAO
      {
         ArrayList<Pessoa> pessoa = new ArrayList<Pessoa>();
         
-        String sql = "SELECT * FROM pessoa ORDER BY p_cod ASC";
+        String sql = "SELECT * FROM pessoa ORDER BY pes_cod ASC";
         
         try
         {
@@ -149,16 +149,16 @@ public class PessoaDAO extends GenericDAO
             while(rs.next())
             {
                 Pessoa p = new Pessoa();
-                p.setP_cod(rs.getInt("p_cod"));
-                p.setP_tipo(rs.getString("p_tipo"));
-                p.setP_nome(rs.getString("p_nome"));
-                p.setP_rg(rs.getString("p_rg"));
-                p.setP_cpf(rs.getString("p_cpf"));
-                p.setP_endereco(rs.getString("p_endereco"));
-                p.setP_bairro(rs.getString("p_bairro"));
-                p.setP_cidade(rs.getString("p_cidade"));
-                p.setP_fone(rs.getString("p_fone"));
-                p.setP_email(rs.getString("p_email"));
+                p.setP_cod(rs.getInt("pes_cod"));
+                p.setP_tipo(rs.getString("pes_tipo"));
+                p.setP_nome(rs.getString("pes_nome"));
+                p.setP_rg(rs.getString("pes_rg"));
+                p.setP_cpf(rs.getString("pes_cpf"));
+                p.setP_endereco(rs.getString("pes_endereco"));
+                p.setP_bairro(rs.getString("pes_bairro"));
+                p.setP_cidade(rs.getString("pes_cidade"));
+                p.setP_fone(rs.getString("pes_fone"));
+                p.setP_email(rs.getString("pes_email"));
                 
                 pessoa.add(p);
             }
@@ -175,7 +175,7 @@ public class PessoaDAO extends GenericDAO
      {
         ArrayList<Pessoa> pessoa = new ArrayList<Pessoa>();
         
-        String sql = "SELECT * FROM pessoa ORDER BY p_nome ASC";
+        String sql = "SELECT * FROM pessoa ORDER BY pes_nome ASC";
         
         try
         {
@@ -185,16 +185,16 @@ public class PessoaDAO extends GenericDAO
            while(rs.next())
             {
                 Pessoa p = new Pessoa();
-                p.setP_cod(rs.getInt("p_cod"));
-                p.setP_tipo(rs.getString("p_tipo"));
-                p.setP_nome(rs.getString("p_nome"));
-                p.setP_rg(rs.getString("p_rg"));
-                p.setP_cpf(rs.getString("p_cpf"));
-                p.setP_endereco(rs.getString("p_endereco"));
-                p.setP_bairro(rs.getString("p_bairro"));
-                p.setP_cidade(rs.getString("p_cidade"));
-                p.setP_fone(rs.getString("p_fone"));
-                p.setP_email(rs.getString("p_email"));
+                p.setP_cod(rs.getInt("pes_cod"));
+                p.setP_tipo(rs.getString("pes_tipo"));
+                p.setP_nome(rs.getString("pes_nome"));
+                p.setP_rg(rs.getString("pes_rg"));
+                p.setP_cpf(rs.getString("pes_cpf"));
+                p.setP_endereco(rs.getString("pes_endereco"));
+                p.setP_bairro(rs.getString("pes_bairro"));
+                p.setP_cidade(rs.getString("pes_cidade"));
+                p.setP_fone(rs.getString("pes_fone"));
+                p.setP_email(rs.getString("pes_email"));
                 
                 pessoa.add(p);
             }
@@ -211,7 +211,7 @@ public class PessoaDAO extends GenericDAO
      {
         Pessoa[] pessoa = new Pessoa[100];
         int x = 0;
-        String sql = "SELECT * FROM pessoa WHERE p_tipo = 'Funcionário' ORDER BY p_nome ASC";
+        String sql = "SELECT * FROM pessoa WHERE pes_tipo = 'Funcionário' ORDER BY pes_nome ASC";
         
         try
         {
@@ -219,11 +219,11 @@ public class PessoaDAO extends GenericDAO
             ResultSet rs = this.stmte.executeQuery(); //sempre usar quando fazer uma consulta(SELECT)
             
             while(rs.next()){
-                Pessoa p = new Pessoa();
+                Pessoa pes = new Pessoa();
                 
-                p.setP_nome(rs.getString("p_nome"));
+                pes.setP_nome(rs.getString("pes_nome"));
                 
-                pessoa[x] = p;
+                pessoa[x] = pes;
                 x++;
             }
             return pessoa;
@@ -239,7 +239,7 @@ public class PessoaDAO extends GenericDAO
      {
         ArrayList<Pessoa> pessoa = new ArrayList<Pessoa>();
         
-        String sql = "SELECT * FROM pessoa WHERE p_tipo = 'Cliente' ORDER BY p_nome ASC";
+        String sql = "SELECT * FROM pessoa WHERE pes_tipo = 'Cliente' ORDER BY pes_nome ASC";
         
         try
         {
@@ -247,11 +247,11 @@ public class PessoaDAO extends GenericDAO
             ResultSet rs = this.stmte.executeQuery(); //sempre usar quando fazer uma consulta(SELECT)
             
             while(rs.next()){
-                Pessoa p = new Pessoa();
+                Pessoa pes = new Pessoa();
                 
-                p.setP_nome(rs.getString("p_nome"));
+                pes.setP_nome(rs.getString("pes_nome"));
                 
-                pessoa.add(p);
+                pessoa.add(pes);
             }
             return pessoa;
             
@@ -263,7 +263,7 @@ public class PessoaDAO extends GenericDAO
     }
      
      public int AutoIncCod(){
-        String sql = "SELECT (MAX(p_cod) + 1) as codigo FROM pessoa";
+        String sql = "SELECT (MAX(pes_cod) + 1) as codigo FROM pessoa";
         this.prepareStmte(sql);
         ResultSet rs;
         int retorno = 0;
