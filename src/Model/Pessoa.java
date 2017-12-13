@@ -14,7 +14,7 @@ import java.sql.ResultSet;
  */
 public class Pessoa 
 {
-    private int p_cod;
+    private int p_id;
     private String p_tipo;
     private String p_nome;
     private String p_rg;
@@ -27,12 +27,12 @@ public class Pessoa
     
     //ALT + Insert (Getter e Setter) gera os métodos  abaixo
 
-    public int getP_cod() {
-        return p_cod;
+    public int getP_id() {
+        return p_id;
     }
 
-    public void setP_cod(int p_cod) {
-        this.p_cod = p_cod;
+    public void setP_id(int p_id) {
+        this.p_id = p_id;
     }
 
     public String getP_tipo() {

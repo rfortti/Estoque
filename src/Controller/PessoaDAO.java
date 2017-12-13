@@ -25,13 +25,13 @@ public class PessoaDAO extends GenericDAO
     
     public boolean inserir(Pessoa pessoa)
     {
-        String sql = "INSERT INTO pessoa (pes_cod, pes_tipo, pes_nome, pes_rg, pes_cpf, "
+        String sql = "INSERT INTO pessoa (pes_id, pes_tipo, pes_nome, pes_rg, pes_cpf, "
                 + "pes_endereco, pes_bairro, pes_cidade, pes_fone, pes_email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         try
         {
             this.prepareStmte(sql);
-            this.stmte.setInt(1,pessoa.getP_cod());
+            this.stmte.setInt(1,pessoa.getP_id());
             this.stmte.setString(2,pessoa.getP_tipo());
             this.stmte.setString(3,pessoa.getP_nome());
             this.stmte.setString(4,pessoa.getP_rg());
@@ -52,12 +52,12 @@ public class PessoaDAO extends GenericDAO
     
     public boolean excluir(Pessoa pessoa)
     {
-        String sql = "DELETE FROM pessoa WHERE pes_cod = ?";
+        String sql = "DELETE FROM pessoa WHERE pes_id = ?";
         
         try
         {
             this.prepareStmte(sql);
-            this.stmte.setInt(1, pessoa.getP_cod());
+            this.stmte.setInt(1, pessoa.getP_id());
             //this.stmte.execute();
             
             int exec = this.stmte.executeUpdate();
@@ -80,7 +80,7 @@ public class PessoaDAO extends GenericDAO
     public boolean editar(Pessoa pessoa)
     {
         String sql = "UPDATE pessoa SET pes_tipo = ?, pes_nome = ?, pes_rg = ?, pes_cpf = ?, "
-                + "pes_endereco = ?, pes_bairro = ?, pes_cidade = ?, pes_fone = ?, pes_email = ? WHERE pes_cod = ?";
+                + "pes_endereco = ?, pes_bairro = ?, pes_cidade = ?, pes_fone = ?, pes_email = ? WHERE pes_id = ?";
         
         try
         {
@@ -94,7 +94,7 @@ public class PessoaDAO extends GenericDAO
             this.stmte.setString(7,pessoa.getP_cidade());
             this.stmte.setString(8,pessoa.getP_fone());
             this.stmte.setString(9,pessoa.getP_email());
-            this.stmte.setInt(10,pessoa.getP_cod());
+            this.stmte.setInt(10,pessoa.getP_id());
             this.stmte.execute();
             return true;
         }
@@ -117,7 +117,7 @@ public class PessoaDAO extends GenericDAO
             this.stmte.setString(1,pesnome+'%');// busca pelo primeiro nome
             ResultSet rs = this.stmte.executeQuery(); //sempre usar quando fazer uma consulta(SELECT)
             rs.first();
-            p.setP_cod(rs.getInt("pes_cod"));
+            p.setP_id(rs.getInt("pes_id"));
             p.setP_tipo(rs.getString("pes_tipo"));
             p.setP_nome(rs.getString("pes_nome"));
             p.setP_rg(rs.getString("pes_rg"));
@@ -139,7 +139,7 @@ public class PessoaDAO extends GenericDAO
      {
         ArrayList<Pessoa> pessoa = new ArrayList<Pessoa>();
         
-        String sql = "SELECT * FROM pessoa ORDER BY pes_cod ASC";
+        String sql = "SELECT * FROM pessoa ORDER BY pes_id ASC";
         
         try
         {
@@ -149,7 +149,7 @@ public class PessoaDAO extends GenericDAO
             while(rs.next())
             {
                 Pessoa p = new Pessoa();
-                p.setP_cod(rs.getInt("pes_cod"));
+                p.setP_id(rs.getInt("pes_id"));
                 p.setP_tipo(rs.getString("pes_tipo"));
                 p.setP_nome(rs.getString("pes_nome"));
                 p.setP_rg(rs.getString("pes_rg"));
@@ -185,7 +185,7 @@ public class PessoaDAO extends GenericDAO
            while(rs.next())
             {
                 Pessoa p = new Pessoa();
-                p.setP_cod(rs.getInt("pes_cod"));
+                p.setP_id(rs.getInt("pes_id"));
                 p.setP_tipo(rs.getString("pes_tipo"));
                 p.setP_nome(rs.getString("pes_nome"));
                 p.setP_rg(rs.getString("pes_rg"));
@@ -263,7 +263,7 @@ public class PessoaDAO extends GenericDAO
     }
      
      public int AutoIncCod(){
-        String sql = "SELECT (MAX(pes_cod) + 1) as codigo FROM pessoa";
+        String sql = "SELECT (MAX(pes_id) + 1) as codigo FROM pessoa";
         this.prepareStmte(sql);
         ResultSet rs;
         int retorno = 0;

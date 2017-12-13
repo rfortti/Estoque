@@ -39,7 +39,7 @@ public class FormPessoa extends javax.swing.JFrame {
             if (p != null) 
             {
                 Object[] obj = new Object[]{
-                    p.getP_cod(),
+                    p.getP_id(),
                     p.getP_tipo(),
                     p.getP_nome(),
                     p.getP_rg(),
@@ -58,10 +58,11 @@ public class FormPessoa extends javax.swing.JFrame {
     public FormPessoa() {
         initComponents();
         this.pessoaDAO = new PessoaDAO();
-        preencheTabela();
         
-        txtCod.setDocument(new AceitaNumerosPonto());
-        txtCod.setDocument(new LimitarNumeros(6));
+        //preencheTabela();
+        
+        txtID.setDocument(new AceitaNumerosPonto());
+        txtID.setDocument(new LimitarNumeros(6));
         txtNome.setDocument(new AceitaStrings());
         txtNome.setDocument(new LimitarLetras(50));
         txtRG.setDocument(new AceitaNumerosPonto());
@@ -91,8 +92,8 @@ public class FormPessoa extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPessoa = new javax.swing.JTable();
         jLayeredPane1 = new javax.swing.JLayeredPane();
-        lblCod = new javax.swing.JLabel();
-        txtCod = new javax.swing.JTextField();
+        lblID = new javax.swing.JLabel();
+        txtID = new javax.swing.JTextField();
         lblTipo = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         btnSalvar = new javax.swing.JButton();
@@ -174,14 +175,14 @@ public class FormPessoa extends javax.swing.JFrame {
         jLayeredPane1.setBackground(new java.awt.Color(255, 255, 255));
         jLayeredPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadastro de Pessoas"));
 
-        lblCod.setText("* Código:");
+        lblID.setText("* ID:");
 
-        txtCod.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtID.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                txtCodFocusGained(evt);
+                txtIDFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtCodFocusLost(evt);
+                txtIDFocusLost(evt);
             }
         });
 
@@ -347,8 +348,8 @@ public class FormPessoa extends javax.swing.JFrame {
             }
         });
 
-        jLayeredPane1.setLayer(lblCod, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(txtCod, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(lblID, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(txtID, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(lblTipo, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(cbTipo, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -384,7 +385,7 @@ public class FormPessoa extends javax.swing.JFrame {
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
                         .addGap(40, 40, 40)
                         .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblCod)
+                            .addComponent(lblID)
                             .addComponent(lblNome))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -408,7 +409,7 @@ public class FormPessoa extends javax.swing.JFrame {
                                 .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jLayeredPane1Layout.createSequentialGroup()
                                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtCod, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
                                         .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
@@ -437,8 +438,8 @@ public class FormPessoa extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCod)
-                    .addComponent(txtCod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblID)
+                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblTipo)
                     .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -606,7 +607,7 @@ public class FormPessoa extends javax.swing.JFrame {
         {
             Pessoa p = new Pessoa();
                      
-            p.setP_cod(Integer.parseInt(txtCod.getText()));
+            p.setP_id(Integer.parseInt(txtID.getText()));
             
             if(cbTipo.getSelectedIndex() == -1)
             {
@@ -630,7 +631,7 @@ public class FormPessoa extends javax.swing.JFrame {
         
             if (this.pessoaDAO.inserir(p) == true)
             {   
-                String cod = txtCod.getText();
+                String id = txtID.getText();
                 String tipo = (cbTipo.getSelectedItem().toString()); 
                 String nome = txtNome.getText();
                 String rg = txtRG.getText();
@@ -651,7 +652,7 @@ public class FormPessoa extends javax.swing.JFrame {
         else if (opcao == 2)
         {
             Pessoa p = new Pessoa();
-            p.setP_cod(Integer.parseInt(txtCod.getText()));
+            p.setP_id(Integer.parseInt(txtID.getText()));
             p.setP_tipo(cbTipo.getSelectedItem().toString());
             p.setP_nome(txtNome.getText().toUpperCase());
             p.setP_rg(txtRG.getText());
@@ -693,7 +694,7 @@ public class FormPessoa extends javax.swing.JFrame {
         lblTipoP.setEnabled(false);
         txtPesquisar.setEnabled(false);
         btnPesquisar.setEnabled(false);
-        txtCod.setText(String.valueOf(pesDAO.AutoIncCod()));
+        txtID.setText(String.valueOf(pesDAO.AutoIncCod()));
         
        Habilitar();
        
@@ -724,7 +725,7 @@ public class FormPessoa extends javax.swing.JFrame {
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         // TODO add your handling code here:
         Pessoa p = new Pessoa();
-        p.setP_cod(Integer.parseInt(txtCod.getText()));
+        p.setP_id(Integer.parseInt(txtID.getText()));
         
        int dialogButton = JOptionPane.showConfirmDialog (null, "Tem certeza que deseja excluir?","Warning",0);// 0 = botão Sim e Não
 
@@ -782,7 +783,7 @@ public class FormPessoa extends javax.swing.JFrame {
        btnCancelar.setEnabled(false);
        btnSalvar.setEnabled(false);
        
-       txtCod.setBackground(java.awt.Color.white);
+       txtID.setBackground(java.awt.Color.white);
        
        grupoOrdenar.add(rbCodigo);
        grupoOrdenar.add(rbNome);
@@ -828,7 +829,7 @@ public class FormPessoa extends javax.swing.JFrame {
             else
             {
                 Desabilitar();
-                txtCod.setText(String.valueOf(p.getP_cod()));
+                txtID.setText(String.valueOf(p.getP_id()));
                 cbTipo.setSelectedItem(p.getP_tipo());
                 txtNome.setText(String.valueOf(p.getP_nome()));
                 txtRG.setText(String.valueOf(p.getP_rg()));
@@ -842,7 +843,7 @@ public class FormPessoa extends javax.swing.JFrame {
         }
         catch(Exception e)
         {
-            txtCod.setText("");
+            txtID.setText("");
             cbTipo.setSelectedItem(0);
             JOptionPane.showMessageDialog(null, "Pessoa não encontrada!");
         }
@@ -857,7 +858,7 @@ public class FormPessoa extends javax.swing.JFrame {
         btnSalvar.setEnabled(false);
        
         int linhaselecionada = tblPessoa.getSelectedRow(); //pega a linha selecionada
-        txtCod.setText(tblPessoa.getValueAt(linhaselecionada, 0).toString());
+        txtID.setText(tblPessoa.getValueAt(linhaselecionada, 0).toString());
         cbTipo.setSelectedItem(tblPessoa.getValueAt(linhaselecionada, 1).toString());
         txtNome.setText(tblPessoa.getValueAt(linhaselecionada, 2).toString());
         txtRG.setText(tblPessoa.getValueAt(linhaselecionada, 3).toString());
@@ -870,15 +871,15 @@ public class FormPessoa extends javax.swing.JFrame {
         
     }//GEN-LAST:event_tblPessoaMouseClicked
 
-    private void txtCodFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCodFocusLost
+    private void txtIDFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIDFocusLost
         // TODO add your handling code here:
-        txtCod.setBackground(java.awt.Color.white);
-    }//GEN-LAST:event_txtCodFocusLost
+        txtID.setBackground(java.awt.Color.white);
+    }//GEN-LAST:event_txtIDFocusLost
 
-    private void txtCodFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCodFocusGained
+    private void txtIDFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIDFocusGained
         // TODO add your handling code here:
-        txtCod.setBackground(java.awt.Color.yellow);
-    }//GEN-LAST:event_txtCodFocusGained
+        txtID.setBackground(java.awt.Color.yellow);
+    }//GEN-LAST:event_txtIDFocusGained
 
     private void rbCodigoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbCodigoMouseClicked
         // TODO add your handling code here:
@@ -895,7 +896,7 @@ public class FormPessoa extends javax.swing.JFrame {
                 if (p != null) 
                 {
                     Object[] obj = new Object[]{
-                    p.getP_cod(),
+                    p.getP_id(),
                     p.getP_tipo(),
                     p.getP_nome(),
                     p.getP_rg(),
@@ -927,7 +928,7 @@ public class FormPessoa extends javax.swing.JFrame {
                 if (p != null) 
                 {
                     Object[] obj = new Object[]{
-                    p.getP_cod(),
+                    p.getP_id(),
                     p.getP_tipo(),
                     p.getP_nome(),
                     p.getP_rg(),
@@ -1088,10 +1089,10 @@ public class FormPessoa extends javax.swing.JFrame {
     private javax.swing.JLabel lblBairro;
     private javax.swing.JLabel lblCPF;
     private javax.swing.JLabel lblCidade;
-    private javax.swing.JLabel lblCod;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblEndereco;
     private javax.swing.JLabel lblFone;
+    private javax.swing.JLabel lblID;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblRG;
     private javax.swing.JLabel lblTipo;
@@ -1102,10 +1103,10 @@ public class FormPessoa extends javax.swing.JFrame {
     private javax.swing.JTextField txtBairro;
     private javax.swing.JTextField txtCPF;
     private javax.swing.JTextField txtCidade;
-    private javax.swing.JTextField txtCod;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEndereco;
     private javax.swing.JTextField txtFone;
+    private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtPesquisar;
     private javax.swing.JTextField txtRG;
@@ -1113,7 +1114,7 @@ public class FormPessoa extends javax.swing.JFrame {
 
 public void Habilitar()
 {
-    txtCod.setEnabled(false);
+    txtID.setEnabled(false);
     cbTipo.setEnabled(true);
     txtNome.setEnabled(true);
     txtRG.setEnabled(true);
@@ -1128,7 +1129,7 @@ public void Habilitar()
 
 public void Desabilitar()
 {
-    txtCod.setEnabled(false);
+    txtID.setEnabled(false);
     cbTipo.setEnabled(false);
     txtNome.setEnabled(false);
     txtRG.setEnabled(false);
@@ -1142,7 +1143,7 @@ public void Desabilitar()
 
 public void Limpar()
 {
-    txtCod.setText("");
+    txtID.setText("");
     cbTipo.setSelectedIndex(-1);
     txtNome.setText("");
     txtRG.setText("");
@@ -1152,7 +1153,7 @@ public void Limpar()
     txtCidade.setText("");
     txtFone.setText("");
     txtEmail.setText("");
-    txtCod.requestFocus();
+    txtID.requestFocus();
 }
 
 }
