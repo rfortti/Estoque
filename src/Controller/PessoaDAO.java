@@ -104,11 +104,20 @@ public class PessoaDAO extends GenericDAO
         }
     }
      
-    public ArrayList<Pessoa> getPesquisaByNome(String pesnome)
+    public ArrayList<Pessoa> getFindByTipo(int parametro, String pesnome)
     {
         ArrayList<Pessoa> pessoa = new ArrayList<Pessoa>();
         
-        String sql = "SELECT * FROM pessoa WHERE pes_nome LIKE ?";
+        String sql = "";
+        if(parametro == 1){
+            //ORDENA PELO ID DO TIPO
+           sql = "SELECT * FROM pessoa WHERE pes_tipo = 'Fornecedor' AND pes_nome LIKE ? ORDER BY pes_nome ASC";
+        }else if(parametro == 2){
+            //ORDENA PELO NOME DO TIPO
+            sql = "SELECT * FROM pessoa WHERE pes_tipo = 'Funcionário' AND pes_nome LIKE ? ORDER BY pes_nome ASC";
+        }
+        
+        //String sql = "SELECT * FROM pessoa WHERE pes_nome LIKE ? AND pes_tipo = 'Fornecedor' ORDER BY pes_nome ASC";
         
         try
         {
@@ -258,25 +267,23 @@ public class PessoaDAO extends GenericDAO
         {
             this.prepareStmte(sql);
             ResultSet rs = this.stmte.executeQuery(); //sempre usar quando fazer uma consulta(SELECT)
-            
-           while(rs.next())
+            //rs.first();
+            while (rs.next())
             {
-                Pessoa frn = new Pessoa();
-                frn.setP_id(rs.getInt("pes_id"));
-                frn.setP_tipo(rs.getString("pes_tipo"));
-                frn.setP_nome(rs.getString("pes_nome"));
-                frn.setP_rg(rs.getString("pes_rg"));
-                frn.setP_cpf(rs.getString("pes_cpf"));
-                frn.setP_endereco(rs.getString("pes_endereco"));
-                frn.setP_bairro(rs.getString("pes_bairro"));
-                frn.setP_cidade(rs.getString("pes_cidade"));
-                frn.setP_fone(rs.getString("pes_fone"));
-                frn.setP_email(rs.getString("pes_email"));
-                
-                fornecedor.add(frn);
+                Pessoa pes = new Pessoa();
+                pes.setP_id(rs.getInt("pes_id"));
+                pes.setP_tipo(rs.getString("pes_tipo"));
+                pes.setP_nome(rs.getString("pes_nome"));
+                pes.setP_rg(rs.getString("pes_rg"));
+                pes.setP_cpf(rs.getString("pes_cpf"));
+                pes.setP_endereco(rs.getString("pes_endereco"));
+                pes.setP_bairro(rs.getString("pes_bairro"));
+                pes.setP_cidade(rs.getString("pes_cidade"));
+                pes.setP_fone(rs.getString("pes_fone"));
+                pes.setP_email(rs.getString("pes_email"));
+                fornecedor.add(pes);
             }
             return fornecedor;
-            
         }
         catch(Exception e)
         {

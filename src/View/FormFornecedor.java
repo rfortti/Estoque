@@ -12,6 +12,8 @@ import View.FormMenu;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import utilitarios.AceitaNumeros;
 import utilitarios.AceitaNumerosPonto;
@@ -23,15 +25,16 @@ import utilitarios.LimitarNumeros;
  *
  * @author Strong
  */
-public class FormPessoa extends javax.swing.JFrame {
+public class FormFornecedor extends javax.swing.JFrame {
 
     private PessoaDAO pessoaDAO;
               
-    public FormPessoa() {
+    public FormFornecedor() {
         initComponents();
         this.pessoaDAO = new PessoaDAO();
         
-        preencheTabela(pessoaDAO.getPessoaByCod().toString());
+        preencheTabela();
+        //preencheTabela2(txtPesquisar.getText());
         
         txtID.setDocument(new AceitaNumerosPonto());
         txtID.setDocument(new LimitarNumeros(6));
@@ -51,7 +54,55 @@ public class FormPessoa extends javax.swing.JFrame {
         txtPesquisar.setDocument(new LimitarLetras(50));
     }
 
-    private void preencheTabela(String desc)
+    private void preencheTabela()
+     {/*
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+            esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+            centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+            direita.setHorizontalAlignment(SwingConstants.RIGHT);
+            
+        tblProduto.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        tblProduto.getColumnModel().getColumn(1).setCellRenderer(esquerda);
+        tblProduto.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+        tblProduto.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+        tblProduto.getColumnModel().getColumn(4).setCellRenderer(esquerda);
+         
+        tblProduto.getColumnModel().getColumn(0).setPreferredWidth(15);
+        tblProduto.getColumnModel().getColumn(1).setPreferredWidth(250);
+        tblProduto.getColumnModel().getColumn(2).setPreferredWidth(10);
+        tblProduto.getColumnModel().getColumn(3).setPreferredWidth(15);
+        tblProduto.getColumnModel().getColumn(4).setPreferredWidth(50);
+        */ 
+        ArrayList<Pessoa> pessoa = new ArrayList<Pessoa>();
+        pessoa = this.pessoaDAO.getFornecedor();
+        
+        DefaultTableModel tabela = (DefaultTableModel)tblPessoa.getModel();
+        tabela.setNumRows(0);
+        
+        for (Pessoa f : pessoa) 
+        {
+            if (f != null) 
+            {
+                Object[] obj = new Object[]{
+                    f.getP_id(),
+                    f.getP_tipo(),    
+                    f.getP_nome(),
+                    f.getP_rg(),
+                    f.getP_cpf(),
+                    f.getP_endereco(),
+                    f.getP_bairro(),
+                    f.getP_cidade(),
+                    f.getP_fone(),
+                    f.getP_email()
+                };
+                tabela.addRow(obj);
+            }
+        }        
+    }
+    
+    private void preencheTabela2(String desc)
      {
         /*DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
@@ -73,15 +124,15 @@ public class FormPessoa extends javax.swing.JFrame {
         tblProduto.getColumnModel().getColumn(4).setPreferredWidth(50);
         */
                        
-        DefaultTableModel tabela = (DefaultTableModel)tblPessoa.getModel();
-        tabela.setNumRows(0);
+        DefaultTableModel tabela2 = (DefaultTableModel)tblPessoa.getModel();
+        tabela2.setNumRows(0);
         PessoaDAO pessoa = new PessoaDAO();
          
         for (Pessoa fcn : pessoa.getFindByTipo(1,desc)) 
         {
             if (fcn != null) 
             {
-                tabela.addRow(new Object[]{
+                tabela2.addRow(new Object[]{
                     fcn.getP_id(),
                     fcn.getP_tipo(),    
                     fcn.getP_nome(),
@@ -140,9 +191,6 @@ public class FormPessoa extends javax.swing.JFrame {
         lblTipoP = new javax.swing.JLabel();
         txtPesquisar = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
-        jPanelTipo = new javax.swing.JPanel();
-        rbForn = new javax.swing.JRadioButton();
-        rbFunc = new javax.swing.JRadioButton();
         btnClear = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -192,7 +240,7 @@ public class FormPessoa extends javax.swing.JFrame {
         }
 
         jLayeredPane1.setBackground(new java.awt.Color(255, 255, 255));
-        jLayeredPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("[ C a d a s t r o  d e  P e s s o a s ]"));
+        jLayeredPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("[ C a d a s t r o  d e  F o r n e c e d o r e s ]"));
 
         lblID.setText("* ID:");
 
@@ -511,42 +559,6 @@ public class FormPessoa extends javax.swing.JFrame {
             }
         });
 
-        jPanelTipo.setBorder(javax.swing.BorderFactory.createTitledBorder("Pesquisar por Tipo:"));
-
-        rbForn.setText("Fornecedor");
-        rbForn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                rbFornMouseClicked(evt);
-            }
-        });
-
-        rbFunc.setText("Funcionário");
-        rbFunc.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                rbFuncMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanelTipoLayout = new javax.swing.GroupLayout(jPanelTipo);
-        jPanelTipo.setLayout(jPanelTipoLayout);
-        jPanelTipoLayout.setHorizontalGroup(
-            jPanelTipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelTipoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(rbForn)
-                .addGap(45, 45, 45)
-                .addComponent(rbFunc)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanelTipoLayout.setVerticalGroup(
-            jPanelTipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelTipoLayout.createSequentialGroup()
-                .addGroup(jPanelTipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rbForn)
-                    .addComponent(rbFunc))
-                .addGap(0, 10, Short.MAX_VALUE))
-        );
-
         btnClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Clear.png"))); // NOI18N
         btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -558,10 +570,8 @@ public class FormPessoa extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanelTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(98, Short.MAX_VALUE)
                 .addComponent(lblTipoP)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -569,14 +579,10 @@ public class FormPessoa extends javax.swing.JFrame {
                 .addComponent(btnPesquisar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(85, 85, 85))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanelTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -585,10 +591,8 @@ public class FormPessoa extends javax.swing.JFrame {
                         .addComponent(lblTipoP)
                         .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnPesquisar)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
-
-        jPanelTipo.getAccessibleContext().setAccessibleName("Pesquisar por Tipo");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -599,14 +603,13 @@ public class FormPessoa extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 115, Short.MAX_VALUE)
+                        .addGap(0, 126, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(117, 117, 117))
+                            .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(106, 106, 106)))))
+                                .addGap(44, 44, 44)))
+                        .addGap(117, 117, 117)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -696,7 +699,7 @@ public class FormPessoa extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Erro ao modificar pessoa!");
             }
         }
-        preencheTabela(pessoaDAO.getPessoaByCod().toString());
+        preencheTabela();
         Limpar();
         Desabilitar();
         btnNovo.setEnabled(true);
@@ -766,7 +769,7 @@ public class FormPessoa extends javax.swing.JFrame {
             btnCancelar.setEnabled(false);
             btnSalvar.setEnabled(false);
             
-            preencheTabela(pessoaDAO.getPessoaByCod().toString());
+            preencheTabela();
         }
         else
         {
@@ -793,10 +796,10 @@ public class FormPessoa extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        preencheTabela(pessoaDAO.getPessoaByCod().toString());
-        
-        cbTipo.setSelectedIndex(-1);
-        
+        preencheTabela();
+                
+        cbTipo.setSelectedIndex(0);
+       
         lblTipoP.setEnabled(true);
         txtPesquisar.setEnabled(true);
         txtPesquisar.requestFocus();
@@ -810,22 +813,14 @@ public class FormPessoa extends javax.swing.JFrame {
        btnCancelar.setEnabled(false);
        btnSalvar.setEnabled(false);
        
-       txtID.setBackground(java.awt.Color.white);
+       txtID.setBackground(java.awt.Color.white);     
        
-       grupoOrdenar.add(rbForn);
-       grupoOrdenar.add(rbFunc);
-       
-       //rbForn.setSelected(true);// inicia selecionado
        txtPesquisar.requestFocus();
     }//GEN-LAST:event_formWindowOpened
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         // TODO add your handling code here:
-                
-        //String pnome = String.valueOf(txtPesquisar.getText());
-        //Pessoa p = this.pessoaDAO.getPesquisaByNome(pnome);
-        preencheTabela(pessoaDAO.getPessoaByCod().toString());
-        
+                     
         try
         {
             if (txtPesquisar.getText() == null)
@@ -839,7 +834,7 @@ public class FormPessoa extends javax.swing.JFrame {
             else
             {
                 txtPesquisar.setEnabled(false);
-                preencheTabela(txtPesquisar.getText());
+                preencheTabela2(txtPesquisar.getText());
             }
         }
         catch(Exception e)
@@ -881,70 +876,6 @@ public class FormPessoa extends javax.swing.JFrame {
         // TODO add your handling code here:
         txtID.setBackground(java.awt.Color.yellow);
     }//GEN-LAST:event_txtIDFocusGained
-
-    private void rbFornMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbFornMouseClicked
-        // TODO add your handling code here:
-        if (rbForn.isSelected())
-         {
-            ArrayList<Pessoa> pessoa = new ArrayList<Pessoa>();
-            pessoa = this.pessoaDAO.getFornecedor();
-            
-            DefaultTableModel tabela = (DefaultTableModel)tblPessoa.getModel();
-            tabela.setNumRows(0);
-            
-            for (Pessoa frn : pessoa) 
-            {
-                if (frn != null) 
-                {
-                    Object[] obj = new Object[]{
-                    frn.getP_id(),
-                    frn.getP_tipo(),
-                    frn.getP_nome(),
-                    frn.getP_rg(),
-                    frn.getP_cpf(),
-                    frn.getP_endereco(),
-                    frn.getP_bairro(),
-                    frn.getP_cidade(),
-                    frn.getP_fone(),
-                    frn.getP_email()
-                    };
-                    tabela.addRow(obj);
-                }
-            }   
-         }
-    }//GEN-LAST:event_rbFornMouseClicked
-
-    private void rbFuncMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbFuncMouseClicked
-        // TODO add your handling code here:
-        if (rbFunc.isSelected())
-         {
-            ArrayList<Pessoa> pessoa = new ArrayList<Pessoa>();
-            pessoa = this.pessoaDAO.getFuncionario();
-            
-            DefaultTableModel tabela = (DefaultTableModel)tblPessoa.getModel();
-            tabela.setNumRows(0);
-            
-            for (Pessoa fnc : pessoa) 
-            {
-                if (fnc != null) 
-                {
-                    Object[] obj = new Object[]{
-                    fnc.getP_id(),
-                    fnc.getP_tipo(),
-                    fnc.getP_nome(),
-                    fnc.getP_rg(),
-                    fnc.getP_cpf(),
-                    fnc.getP_endereco(),
-                    fnc.getP_bairro(),
-                    fnc.getP_cidade(),
-                    fnc.getP_fone(),
-                    fnc.getP_email()
-                    };
-                    tabela.addRow(obj);
-                }
-            }   
-         }
-    }//GEN-LAST:event_rbFuncMouseClicked
 
     private void txtNomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeFocusGained
         // TODO add your handling code here:
@@ -1085,7 +1016,7 @@ public class FormPessoa extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormPessoa().setVisible(true);
+                new FormFornecedor().setVisible(true);
             }
         });
     }
@@ -1103,7 +1034,6 @@ public class FormPessoa extends javax.swing.JFrame {
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanelTipo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBairro;
     private javax.swing.JLabel lblCPF;
@@ -1116,8 +1046,6 @@ public class FormPessoa extends javax.swing.JFrame {
     private javax.swing.JLabel lblRG;
     private javax.swing.JLabel lblTipo;
     private javax.swing.JLabel lblTipoP;
-    private javax.swing.JRadioButton rbForn;
-    private javax.swing.JRadioButton rbFunc;
     private javax.swing.JTable tblPessoa;
     private javax.swing.JTextField txtBairro;
     private javax.swing.JTextField txtCPF;
@@ -1134,7 +1062,7 @@ public class FormPessoa extends javax.swing.JFrame {
 public void Habilitar()
 {
     txtID.setEnabled(false);
-    cbTipo.setEnabled(true);
+    cbTipo.setEnabled(false);
     txtNome.setEnabled(true);
     txtRG.setEnabled(true);
     txtCPF.setEnabled(true);
@@ -1163,7 +1091,7 @@ public void Desabilitar()
 public void Limpar()
 {
     txtID.setText("");
-    cbTipo.setSelectedIndex(-1);
+    cbTipo.setSelectedIndex(0);
     txtNome.setText("");
     txtRG.setText("");
     txtCPF.setText("");
