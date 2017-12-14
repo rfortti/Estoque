@@ -107,14 +107,15 @@ public class PessoaDAO extends GenericDAO
     public ArrayList<Pessoa> getFindByTipo(int parametro, String pesnome)
     {
         ArrayList<Pessoa> pessoa = new ArrayList<Pessoa>();
+        String msg = "Dados não encontrado !";
         
         String sql = "";
         if(parametro == 1){
-            //ORDENA PELO ID DO TIPO
+            //BUSCA PELO TIPO "Fornecedor"
            sql = "SELECT * FROM pessoa WHERE pes_tipo = 'Fornecedor' AND pes_nome LIKE ? ORDER BY pes_nome ASC";
         }else if(parametro == 2){
-            //ORDENA PELO NOME DO TIPO
-            sql = "SELECT * FROM pessoa WHERE pes_tipo = 'Funcionário' AND pes_nome LIKE ? ORDER BY pes_nome ASC";
+            //BUSCA PELO TIPO "Funcionário"
+           sql = "SELECT * FROM pessoa WHERE pes_tipo = 'Funcionário' AND pes_nome LIKE ? ORDER BY pes_nome ASC";
         }
         
         //String sql = "SELECT * FROM pessoa WHERE pes_nome LIKE ? AND pes_tipo = 'Fornecedor' ORDER BY pes_nome ASC";
@@ -129,17 +130,17 @@ public class PessoaDAO extends GenericDAO
             while (rs.next())
             {
                 Pessoa pes = new Pessoa();
-                pes.setP_id(rs.getInt("pes_id"));
-                pes.setP_tipo(rs.getString("pes_tipo"));
-                pes.setP_nome(rs.getString("pes_nome"));
-                pes.setP_rg(rs.getString("pes_rg"));
-                pes.setP_cpf(rs.getString("pes_cpf"));
-                pes.setP_endereco(rs.getString("pes_endereco"));
-                pes.setP_bairro(rs.getString("pes_bairro"));
-                pes.setP_cidade(rs.getString("pes_cidade"));
-                pes.setP_fone(rs.getString("pes_fone"));
-                pes.setP_email(rs.getString("pes_email"));
-            pessoa.add(pes);
+                    pes.setP_id(rs.getInt("pes_id"));
+                    pes.setP_tipo(rs.getString("pes_tipo"));
+                    pes.setP_nome(rs.getString("pes_nome"));
+                    pes.setP_rg(rs.getString("pes_rg"));
+                    pes.setP_cpf(rs.getString("pes_cpf"));
+                    pes.setP_endereco(rs.getString("pes_endereco"));
+                    pes.setP_bairro(rs.getString("pes_bairro"));
+                    pes.setP_cidade(rs.getString("pes_cidade"));
+                    pes.setP_fone(rs.getString("pes_fone"));
+                    pes.setP_email(rs.getString("pes_email"));
+                pessoa.add(pes);   
             }
             return pessoa;
         }

@@ -669,7 +669,7 @@ public class FormEstoque extends javax.swing.JFrame {
 
     private void btnFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFornecedorActionPerformed
         // TODO add your handling code here:
-        new FormPessoa().setVisible(true);
+        new FormFuncionario().setVisible(true);
     }//GEN-LAST:event_btnFornecedorActionPerformed
 
     private void btnConcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConcluirActionPerformed

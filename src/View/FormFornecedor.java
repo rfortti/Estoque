@@ -55,7 +55,7 @@ public class FormFornecedor extends javax.swing.JFrame {
     }
 
     private void preencheTabela()
-     {/*
+     {
         DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
@@ -63,18 +63,28 @@ public class FormFornecedor extends javax.swing.JFrame {
             centralizado.setHorizontalAlignment(SwingConstants.CENTER);
             direita.setHorizontalAlignment(SwingConstants.RIGHT);
             
-        tblProduto.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-        tblProduto.getColumnModel().getColumn(1).setCellRenderer(esquerda);
-        tblProduto.getColumnModel().getColumn(2).setCellRenderer(centralizado);
-        tblProduto.getColumnModel().getColumn(3).setCellRenderer(centralizado);
-        tblProduto.getColumnModel().getColumn(4).setCellRenderer(esquerda);
+        tblPessoa.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        tblPessoa.getColumnModel().getColumn(1).setCellRenderer(esquerda);
+        tblPessoa.getColumnModel().getColumn(2).setCellRenderer(esquerda);
+        tblPessoa.getColumnModel().getColumn(3).setCellRenderer(esquerda);
+        tblPessoa.getColumnModel().getColumn(4).setCellRenderer(esquerda);
+        tblPessoa.getColumnModel().getColumn(5).setCellRenderer(esquerda);
+        tblPessoa.getColumnModel().getColumn(6).setCellRenderer(esquerda);
+        tblPessoa.getColumnModel().getColumn(7).setCellRenderer(esquerda);
+        tblPessoa.getColumnModel().getColumn(8).setCellRenderer(esquerda);
+        tblPessoa.getColumnModel().getColumn(9).setCellRenderer(esquerda);
          
-        tblProduto.getColumnModel().getColumn(0).setPreferredWidth(15);
-        tblProduto.getColumnModel().getColumn(1).setPreferredWidth(250);
-        tblProduto.getColumnModel().getColumn(2).setPreferredWidth(10);
-        tblProduto.getColumnModel().getColumn(3).setPreferredWidth(15);
-        tblProduto.getColumnModel().getColumn(4).setPreferredWidth(50);
-        */ 
+        tblPessoa.getColumnModel().getColumn(0).setPreferredWidth(5);//ID
+        tblPessoa.getColumnModel().getColumn(1).setPreferredWidth(50);//Tipo
+        tblPessoa.getColumnModel().getColumn(2).setPreferredWidth(100);//Nome
+        tblPessoa.getColumnModel().getColumn(3).setPreferredWidth(60);//RG
+        tblPessoa.getColumnModel().getColumn(4).setPreferredWidth(70);//CPF
+        tblPessoa.getColumnModel().getColumn(5).setPreferredWidth(100);//Endereço
+        tblPessoa.getColumnModel().getColumn(6).setPreferredWidth(50);//Bairro
+        tblPessoa.getColumnModel().getColumn(7).setPreferredWidth(50);//Cidade
+        tblPessoa.getColumnModel().getColumn(8).setPreferredWidth(70);//Fone
+        tblPessoa.getColumnModel().getColumn(9).setPreferredWidth(100);//e-Mail
+        
         ArrayList<Pessoa> pessoa = new ArrayList<Pessoa>();
         pessoa = this.pessoaDAO.getFornecedor();
         
@@ -104,45 +114,53 @@ public class FormFornecedor extends javax.swing.JFrame {
     
     private void preencheTabela2(String desc)
      {
-        /*DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
             esquerda.setHorizontalAlignment(SwingConstants.LEFT);
             centralizado.setHorizontalAlignment(SwingConstants.CENTER);
             direita.setHorizontalAlignment(SwingConstants.RIGHT);
-            
-        tblProduto.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-        tblProduto.getColumnModel().getColumn(1).setCellRenderer(esquerda);
-        tblProduto.getColumnModel().getColumn(2).setCellRenderer(centralizado);
-        tblProduto.getColumnModel().getColumn(3).setCellRenderer(centralizado);
-        tblProduto.getColumnModel().getColumn(4).setCellRenderer(esquerda);
+        tblPessoa.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        tblPessoa.getColumnModel().getColumn(1).setCellRenderer(esquerda);
+        tblPessoa.getColumnModel().getColumn(2).setCellRenderer(esquerda);
+        tblPessoa.getColumnModel().getColumn(3).setCellRenderer(esquerda);
+        tblPessoa.getColumnModel().getColumn(4).setCellRenderer(esquerda);
+        tblPessoa.getColumnModel().getColumn(5).setCellRenderer(esquerda);
+        tblPessoa.getColumnModel().getColumn(6).setCellRenderer(esquerda);
+        tblPessoa.getColumnModel().getColumn(7).setCellRenderer(esquerda);
+        tblPessoa.getColumnModel().getColumn(8).setCellRenderer(esquerda);
+        tblPessoa.getColumnModel().getColumn(9).setCellRenderer(esquerda);
          
-        tblProduto.getColumnModel().getColumn(0).setPreferredWidth(15);
-        tblProduto.getColumnModel().getColumn(1).setPreferredWidth(250);
-        tblProduto.getColumnModel().getColumn(2).setPreferredWidth(10);
-        tblProduto.getColumnModel().getColumn(3).setPreferredWidth(15);
-        tblProduto.getColumnModel().getColumn(4).setPreferredWidth(50);
-        */
-                       
+        tblPessoa.getColumnModel().getColumn(0).setPreferredWidth(5);//ID
+        tblPessoa.getColumnModel().getColumn(1).setPreferredWidth(50);//Tipo
+        tblPessoa.getColumnModel().getColumn(2).setPreferredWidth(100);//Nome
+        tblPessoa.getColumnModel().getColumn(3).setPreferredWidth(60);//RG
+        tblPessoa.getColumnModel().getColumn(4).setPreferredWidth(70);//CPF
+        tblPessoa.getColumnModel().getColumn(5).setPreferredWidth(100);//Endereço
+        tblPessoa.getColumnModel().getColumn(6).setPreferredWidth(50);//Bairro
+        tblPessoa.getColumnModel().getColumn(7).setPreferredWidth(50);//Cidade
+        tblPessoa.getColumnModel().getColumn(8).setPreferredWidth(70);//Fone
+        tblPessoa.getColumnModel().getColumn(9).setPreferredWidth(100);//e-Mail
+        
         DefaultTableModel tabela2 = (DefaultTableModel)tblPessoa.getModel();
         tabela2.setNumRows(0);
         PessoaDAO pessoa = new PessoaDAO();
          
-        for (Pessoa fcn : pessoa.getFindByTipo(1,desc)) 
+        for (Pessoa frn : pessoa.getFindByTipo(1,desc)) //parametro 1 = Busac por Fornecedor
         {
-            if (fcn != null) 
+            if (frn != null) 
             {
                 tabela2.addRow(new Object[]{
-                    fcn.getP_id(),
-                    fcn.getP_tipo(),    
-                    fcn.getP_nome(),
-                    fcn.getP_rg(),
-                    fcn.getP_cpf(),
-                    fcn.getP_endereco(),
-                    fcn.getP_bairro(),
-                    fcn.getP_cidade(),
-                    fcn.getP_fone(),
-                    fcn.getP_email()
+                    frn.getP_id(),
+                    frn.getP_tipo(),    
+                    frn.getP_nome(),
+                    frn.getP_rg(),
+                    frn.getP_cpf(),
+                    frn.getP_endereco(),
+                    frn.getP_bairro(),
+                    frn.getP_cidade(),
+                    frn.getP_fone(),
+                    frn.getP_email()
                 });
                 //tabela.addRow(obj);
             }
@@ -798,7 +816,7 @@ public class FormFornecedor extends javax.swing.JFrame {
         // TODO add your handling code here:
         preencheTabela();
                 
-        cbTipo.setSelectedIndex(0);
+        cbTipo.setSelectedIndex(0); //Fornecedor
        
         lblTipoP.setEnabled(true);
         txtPesquisar.setEnabled(true);
@@ -825,14 +843,15 @@ public class FormFornecedor extends javax.swing.JFrame {
         {
             if (txtPesquisar.getText() == null)
             {
-                JOptionPane.showMessageDialog(null, "Pessoa não encontrada!");
-                                                
+                JOptionPane.showMessageDialog(null, "Pessoa não encontrada!");                                
                 Limpar();          
                 DefaultTableModel tabela = (DefaultTableModel)tblPessoa.getModel();
                 tabela.setNumRows(0);
             }
             else
             {
+                btnClear.setEnabled(true);
+                btnPesquisar.setEnabled(false);
                 txtPesquisar.setEnabled(false);
                 preencheTabela2(txtPesquisar.getText());
             }
@@ -974,9 +993,11 @@ public class FormFornecedor extends javax.swing.JFrame {
         int dialogButton = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja limpar todos os campos ?", "Warning", 0);// 0 = botão Sim e Não
 
         if (dialogButton == JOptionPane.YES_OPTION) {
+            btnClear.setEnabled(false);
             Limpar();
             
-            grupoOrdenar.clearSelection();
+            //grupoOrdenar.clearSelection();
+            btnPesquisar.setEnabled(true);
             txtPesquisar.setText("");
             txtPesquisar.setEnabled(true);
             txtPesquisar.requestFocus();
