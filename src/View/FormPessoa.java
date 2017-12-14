@@ -26,8 +26,32 @@ import utilitarios.LimitarNumeros;
 public class FormPessoa extends javax.swing.JFrame {
 
     private PessoaDAO pessoaDAO;
-    
-     private void preencheTabela()
+              
+    public FormPessoa() {
+        initComponents();
+        this.pessoaDAO = new PessoaDAO();
+        
+        preencheTabela(pessoaDAO.getPessoaByCod().toString());
+        
+        txtID.setDocument(new AceitaNumerosPonto());
+        txtID.setDocument(new LimitarNumeros(6));
+        txtNome.setDocument(new AceitaStrings());
+        txtNome.setDocument(new LimitarLetras(50));
+        txtRG.setDocument(new AceitaNumerosPonto());
+        txtRG.setDocument(new LimitarLetras(12));
+        txtCPF.setDocument(new AceitaNumerosPonto());
+        txtCPF.setDocument(new LimitarDigitos(14));
+        txtBairro.setDocument(new AceitaStrings());
+        txtBairro.setDocument(new LimitarLetras(30));
+        txtCidade.setDocument(new AceitaStrings());
+        txtCidade.setDocument(new LimitarLetras(30));
+        txtFone.setDocument(new AceitaNumeros());
+        txtFone.setDocument(new LimitarDigitos(14));
+        txtPesquisar.setDocument(new AceitaStrings());
+        txtPesquisar.setDocument(new LimitarLetras(50));
+    }
+
+    private void preencheTabela(String desc)
      {
         /*DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
@@ -48,19 +72,16 @@ public class FormPessoa extends javax.swing.JFrame {
         tblProduto.getColumnModel().getColumn(3).setPreferredWidth(15);
         tblProduto.getColumnModel().getColumn(4).setPreferredWidth(50);
         */
-                  
-         
-        ArrayList<Pessoa> pessoa = new ArrayList<Pessoa>();
-        pessoa = this.pessoaDAO.getPessoaByCod();              
-                
+                       
         DefaultTableModel tabela = (DefaultTableModel)tblPessoa.getModel();
         tabela.setNumRows(0);
+        PessoaDAO pessoa = new PessoaDAO();
          
-        for (Pessoa fcn : pessoa) 
+        for (Pessoa fcn : pessoa.getPesquisaByNome(desc)) 
         {
             if (fcn != null) 
             {
-                Object[] obj = new Object[]{
+                tabela.addRow(new Object[]{
                     fcn.getP_id(),
                     fcn.getP_tipo(),    
                     fcn.getP_nome(),
@@ -71,36 +92,11 @@ public class FormPessoa extends javax.swing.JFrame {
                     fcn.getP_cidade(),
                     fcn.getP_fone(),
                     fcn.getP_email()
-                };
-                tabela.addRow(obj);
+                });
+                //tabela.addRow(obj);
             }
         }
     }
-     
-    public FormPessoa() {
-        initComponents();
-        this.pessoaDAO = new PessoaDAO();
-        
-        preencheTabela();
-        
-        txtID.setDocument(new AceitaNumerosPonto());
-        txtID.setDocument(new LimitarNumeros(6));
-        txtNome.setDocument(new AceitaStrings());
-        txtNome.setDocument(new LimitarLetras(50));
-        txtRG.setDocument(new AceitaNumerosPonto());
-        txtRG.setDocument(new LimitarLetras(12));
-        txtCPF.setDocument(new AceitaNumerosPonto());
-        txtCPF.setDocument(new LimitarDigitos(14));
-        txtBairro.setDocument(new AceitaStrings());
-        txtBairro.setDocument(new LimitarLetras(30));
-        txtCidade.setDocument(new AceitaStrings());
-        txtCidade.setDocument(new LimitarLetras(30));
-        txtFone.setDocument(new AceitaNumeros());
-        txtFone.setDocument(new LimitarDigitos(14));
-        txtPesquisar.setDocument(new AceitaStrings());
-        txtPesquisar.setDocument(new LimitarLetras(50));
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -397,59 +393,60 @@ public class FormPessoa extends javax.swing.JFrame {
         jLayeredPane1.setLayout(jLayeredPane1Layout);
         jLayeredPane1Layout.setHorizontalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblCidade)
-                            .addComponent(lblEndereco)
-                            .addComponent(lblEmail)))
-                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblID)
-                            .addComponent(lblNome))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
-                            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                                    .addComponent(lblFone)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtFone, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18)
-                            .addComponent(lblBairro)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(lblRG)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtRG, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGap(18, 18, 18)
-                            .addComponent(lblCPF)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addGap(185, 185, 185)
-                .addComponent(lblTipo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
+            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblCidade)
+                                    .addComponent(lblEndereco)
+                                    .addComponent(lblEmail)))
+                            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                                .addGap(40, 40, 40)
+                                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblID)
+                                    .addComponent(lblNome))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
+                                    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                                            .addComponent(lblFone)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(txtFone, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(18, 18, 18)
+                                    .addComponent(lblBairro)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                                    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(lblRG)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(txtRG, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGap(18, 18, 18)
+                                    .addComponent(lblCPF)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                        .addGap(185, 185, 185)
+                        .addComponent(lblTipo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -562,7 +559,7 @@ public class FormPessoa extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(123, 123, 123)
+                .addContainerGap()
                 .addComponent(jPanelTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52)
                 .addComponent(lblTipoP)
@@ -572,7 +569,7 @@ public class FormPessoa extends javax.swing.JFrame {
                 .addComponent(btnPesquisar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -601,11 +598,15 @@ public class FormPessoa extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(117, 117, 117)))
+                        .addGap(0, 115, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(117, 117, 117))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(106, 106, 106)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -695,7 +696,7 @@ public class FormPessoa extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Erro ao modificar pessoa!");
             }
         }
-        preencheTabela();
+        preencheTabela(pessoaDAO.getPessoaByCod().toString());
         Limpar();
         Desabilitar();
         btnNovo.setEnabled(true);
@@ -765,7 +766,7 @@ public class FormPessoa extends javax.swing.JFrame {
             btnCancelar.setEnabled(false);
             btnSalvar.setEnabled(false);
             
-            preencheTabela();
+            preencheTabela(pessoaDAO.getPessoaByCod().toString());
         }
         else
         {
@@ -792,7 +793,7 @@ public class FormPessoa extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        preencheTabela();
+        preencheTabela(pessoaDAO.getPessoaByCod().toString());
         
         cbTipo.setSelectedIndex(-1);
         
@@ -820,58 +821,32 @@ public class FormPessoa extends javax.swing.JFrame {
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         // TODO add your handling code here:
-        lblTipoP.setEnabled(false);
-        txtPesquisar.setEnabled(false);
-        btnPesquisar.setEnabled(false);
-        Habilitar();
-        btnNovo.setEnabled(false);
-        btnAlterar.setEnabled(true);
-        btnExcluir.setEnabled(true);
-        btnCancelar.setEnabled(true);
-        btnSalvar.setEnabled(false);
-        
-        String pnome = String.valueOf(txtPesquisar.getText());
-        Pessoa p = this.pessoaDAO.getPesquisaByNome(pnome);
+                
+        //String pnome = String.valueOf(txtPesquisar.getText());
+        //Pessoa p = this.pessoaDAO.getPesquisaByNome(pnome);
+        preencheTabela(pessoaDAO.getPessoaByCod().toString());
         
         try
         {
-            if (p == null)
+            if (txtPesquisar.getText() == null)
             {
                 JOptionPane.showMessageDialog(null, "Pessoa não encontrada!");
-                
-                lblTipoP.setEnabled(true);
-                txtPesquisar.setEnabled(true);
-                btnPesquisar.setEnabled(true);
-                Desabilitar();
-                btnNovo.setEnabled(true);
-                btnAlterar.setEnabled(false);
-                btnExcluir.setEnabled(false);
-                btnCancelar.setEnabled(false);
-                btnSalvar.setEnabled(false);
-                
-                txtPesquisar.setText("");
-                txtPesquisar.requestFocus();
+                                                
+                Limpar();          
+                DefaultTableModel tabela = (DefaultTableModel)tblPessoa.getModel();
+                tabela.setNumRows(0);
             }
             else
             {
-                Desabilitar();
-                txtID.setText(String.valueOf(p.getP_id()));
-                cbTipo.setSelectedItem(p.getP_tipo());
-                txtNome.setText(String.valueOf(p.getP_nome()));
-                txtRG.setText(String.valueOf(p.getP_rg()));
-                txtCPF.setText(String.valueOf(p.getP_cpf()));
-                txtEndereco.setText(String.valueOf(p.getP_endereco()));
-                txtBairro.setText(String.valueOf(p.getP_bairro()));
-                txtCidade.setText(String.valueOf(p.getP_cidade()));
-                txtFone.setText(String.valueOf(p.getP_fone()));
-                txtEmail.setText(String.valueOf(p.getP_email()));
+                txtPesquisar.setEnabled(false);
+                preencheTabela(txtPesquisar.getText());
             }
         }
         catch(Exception e)
         {
-            txtID.setText("");
+            Limpar();
             cbTipo.setSelectedItem(0);
-            JOptionPane.showMessageDialog(null, "Pessoa não encontrada!");
+            JOptionPane.showMessageDialog(null, cbTipo.getSelectedItem() +" não encontrado!");
         }
     }//GEN-LAST:event_btnPesquisarActionPerformed
 

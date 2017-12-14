@@ -104,9 +104,9 @@ public class PessoaDAO extends GenericDAO
         }
     }
      
-    public Pessoa getPesquisaByNome(String pesnome)
+    public ArrayList<Pessoa> getPesquisaByNome(String pesnome)
     {
-        Pessoa p = new Pessoa();
+        ArrayList<Pessoa> pessoa = new ArrayList<Pessoa>();
         
         String sql = "SELECT * FROM pessoa WHERE pes_nome LIKE ?";
         
@@ -114,20 +114,25 @@ public class PessoaDAO extends GenericDAO
         {
             this.prepareStmte(sql);
             //this.stmte.setString(1,'%'+pnome+'%');// busca pelo nome ou sobrenome
-            this.stmte.setString(1,pesnome+'%');// busca pelo primeiro nome
+            this.stmte.setString(1,pesnome+'%');// busca pela primeiro letra do nome
             ResultSet rs = this.stmte.executeQuery(); //sempre usar quando fazer uma consulta(SELECT)
-            rs.first();
-            p.setP_id(rs.getInt("pes_id"));
-            p.setP_tipo(rs.getString("pes_tipo"));
-            p.setP_nome(rs.getString("pes_nome"));
-            p.setP_rg(rs.getString("pes_rg"));
-            p.setP_cpf(rs.getString("pes_cpf"));
-            p.setP_endereco(rs.getString("pes_endereco"));
-            p.setP_bairro(rs.getString("pes_bairro"));
-            p.setP_cidade(rs.getString("pes_cidade"));
-            p.setP_fone(rs.getString("pes_fone"));
-            p.setP_email(rs.getString("pes_email"));
-            return p;
+            //rs.first();
+            while (rs.next())
+            {
+                Pessoa pes = new Pessoa();
+                pes.setP_id(rs.getInt("pes_id"));
+                pes.setP_tipo(rs.getString("pes_tipo"));
+                pes.setP_nome(rs.getString("pes_nome"));
+                pes.setP_rg(rs.getString("pes_rg"));
+                pes.setP_cpf(rs.getString("pes_cpf"));
+                pes.setP_endereco(rs.getString("pes_endereco"));
+                pes.setP_bairro(rs.getString("pes_bairro"));
+                pes.setP_cidade(rs.getString("pes_cidade"));
+                pes.setP_fone(rs.getString("pes_fone"));
+                pes.setP_email(rs.getString("pes_email"));
+            pessoa.add(pes);
+            }
+            return pessoa;
         }
         catch(Exception e)
         {

@@ -599,8 +599,10 @@ public class FormTipo extends javax.swing.JFrame {
         String tipodesc = String.valueOf(txtPesquisar.getText());
         Tipo t = this.tipoDAO.getTipoByDesc(tipodesc);
 
-        try {
-            if (t == null) {
+        try 
+        {
+            if (t == null) 
+            {
                 JOptionPane.showMessageDialog(null, "Tipo não encontrado!");
 
                 lblTipoP.setEnabled(true);
@@ -615,7 +617,9 @@ public class FormTipo extends javax.swing.JFrame {
 
                 txtPesquisar.setText("");
                 txtPesquisar.requestFocus();
-            } else {
+            } 
+            else 
+            {
                 Desabilitar();
                 txtCod.setText(String.valueOf(t.getCodTipo()));
                 txtDesc.setText(t.getDescTipo());
