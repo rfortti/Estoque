@@ -14,46 +14,54 @@ import Controller.CategoriaDAO;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Strong
  */
-public class FormCategoria extends javax.swing.JFrame {
-
+public class FormCategoria extends javax.swing.JFrame 
+{
     private CategoriaDAO categoriaDAO;
 
-    private void preencheTabela() {
+    private void preencheTabela()
+    {
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+            esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+            centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+            direita.setHorizontalAlignment(SwingConstants.RIGHT);
+            
+        tblCategoria.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        tblCategoria.getColumnModel().getColumn(1).setCellRenderer(esquerda);
+                 
+        tblCategoria.getColumnModel().getColumn(0).setPreferredWidth(15);
+        tblCategoria.getColumnModel().getColumn(1).setPreferredWidth(250);
+                 
         ArrayList<Categoria> categoria = new ArrayList<Categoria>();
         categoria = this.categoriaDAO.getCategoriasByCod();
-        //Categoria[] categorias = this.categoriaDAO.getCategoriasByCod();
-        DefaultTableModel tabela = (DefaultTableModel) tblCategoria.getModel();
+        
+        DefaultTableModel tabela = (DefaultTableModel)tblCategoria.getModel();
         tabela.setNumRows(0);
-
-        // for (int i = 0; i < categorias.length; i++) {
-        for (Categoria c : categoria) 
+        
+        for (Categoria cat : categoria) 
         {
-            if (c != null) 
+            if (cat != null) 
             {
                 Object[] obj = new Object[]{
-                    c.getCodCategoria(),
-                    c.getTipoCategoria()
+                    cat.getCodCategoria(),
+                    cat.getTipoCategoria()                    
                 };
                 tabela.addRow(obj);
             }
-        }
-        /*if (categorias[i] != null) {
-         Object[] obj = new Object[]{
-         categorias[i].getCodCategoria(),
-         categorias[i].getTipo()
-         };
-         tabela.addRow(obj);
-         }*/
-
+        }        
     }
 
-    public FormCategoria() {
+    public FormCategoria() 
+    {
         initComponents();
         this.categoriaDAO = new CategoriaDAO();
         preencheTabela();
@@ -65,7 +73,6 @@ public class FormCategoria extends javax.swing.JFrame {
         txtPesquisar.setDocument(new AceitaStrings());
         txtPesquisar.setDocument(new LimitarLetras(25));
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -285,7 +292,7 @@ public class FormCategoria extends javax.swing.JFrame {
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 2, Short.MAX_VALUE))
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -297,7 +304,7 @@ public class FormCategoria extends javax.swing.JFrame {
                             .addComponent(txtCod, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -348,13 +355,13 @@ public class FormCategoria extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(41, 41, 41)
+                .addGap(54, 54, 54)
                 .addComponent(lblTipoP)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnPesquisar)
-                .addGap(225, 225, 225))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -383,7 +390,7 @@ public class FormCategoria extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLayeredPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -557,50 +564,31 @@ public class FormCategoria extends javax.swing.JFrame {
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         // TODO add your handling code here:
-        lblTipoP.setEnabled(false);
-        txtPesquisar.setEnabled(false);
-        btnPesquisar.setEnabled(false);
-        Habilitar();
-        btnNovo.setEnabled(false);
-        btnAlterar.setEnabled(true);
-        btnExcluir.setEnabled(true);
-        btnCancelar.setEnabled(true);
-        btnSalvar.setEnabled(false);
-
-        String tipocategoria = String.valueOf(txtPesquisar.getText());
-        Categoria cat = this.categoriaDAO.getCategoriaByTipo(tipocategoria);
-
-        try {
-            if (cat == null) {
-                JOptionPane.showMessageDialog(null, "Categoria não encontrada!");
-
-                lblTipoP.setEnabled(true);
-                txtPesquisar.setEnabled(true);
-                btnPesquisar.setEnabled(true);
-                Desabilitar();
-                btnNovo.setEnabled(true);
-                btnAlterar.setEnabled(false);
-                btnExcluir.setEnabled(false);
-                btnCancelar.setEnabled(false);
-                btnSalvar.setEnabled(false);
-
-                txtPesquisar.setText("");
-                txtPesquisar.requestFocus();
-            } else {
-                Desabilitar();
-                txtCod.setText(String.valueOf(cat.getCodCategoria()));
-                txtTipo.setText(cat.getTipoCategoria());
-            }
-        } catch (Exception e) {
-            txtCod.setText("");
-            txtTipo.setText("");
-            JOptionPane.showMessageDialog(null, "Categoria não encontrada!");
+        grupoOrdenar.clearSelection();
+        
+        if (btnPesquisar.getText() == "Pesquisar"){
+            //Altera o Icone do Botão
+            btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Clear.png")));
+            
+            btnPesquisar.setText("Limpar");
+            txtPesquisar.setEnabled(false);
+            //preencheTabela2(txtPesquisar.getText());
+        }
+        else if (btnPesquisar.getText() == "Limpar"){
+            Limpar();          
+            DefaultTableModel tabela2 = (DefaultTableModel)tblCategoria.getModel();
+            tabela2.setNumRows(0);
+            //Altera o Icone do Botão
+            btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/search.png")));
+            btnPesquisar.setText("Pesquisar");
+            txtPesquisar.setEnabled(true);
         }
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void tblCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCategoriaMouseClicked
         // TODO add your handling code here:
         int linhaselecionada = tblCategoria.getSelectedRow(); //pega a linha selecionada
+        
         txtCod.setText(tblCategoria.getValueAt(linhaselecionada, 0).toString());
         txtTipo.setText(tblCategoria.getValueAt(linhaselecionada, 1).toString());
 
@@ -609,6 +597,9 @@ public class FormCategoria extends javax.swing.JFrame {
         btnExcluir.setEnabled(true);
         btnCancelar.setEnabled(true);
         btnSalvar.setEnabled(false);
+        
+        btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/search.png")));
+        btnPesquisar.setText("Pesquisar");
     }//GEN-LAST:event_tblCategoriaMouseClicked
 
     private void txtCodFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCodFocusLost
