@@ -164,7 +164,7 @@ public class FormMenu extends javax.swing.JFrame {
         MenuCadastros.add(jSeparator1);
 
         mnuFuncionarios.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
-        mnuFuncionarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/employee.png"))); // NOI18N
+        mnuFuncionarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/mnu_func.png"))); // NOI18N
         mnuFuncionarios.setText("Funcionários");
         mnuFuncionarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -174,7 +174,7 @@ public class FormMenu extends javax.swing.JFrame {
         MenuCadastros.add(mnuFuncionarios);
 
         mnuFornecedores.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
-        mnuFornecedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/truck.png"))); // NOI18N
+        mnuFornecedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/mnu_forn.png"))); // NOI18N
         mnuFornecedores.setText("Fornecedores");
         mnuFornecedores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -185,7 +185,7 @@ public class FormMenu extends javax.swing.JFrame {
         MenuCadastros.add(jSeparator2);
 
         mnuCategorias.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
-        mnuCategorias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/category.png"))); // NOI18N
+        mnuCategorias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/mnu_categorias.png"))); // NOI18N
         mnuCategorias.setText("Categorias");
         mnuCategorias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -195,7 +195,7 @@ public class FormMenu extends javax.swing.JFrame {
         MenuCadastros.add(mnuCategorias);
 
         mnuProdutos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, 0));
-        mnuProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/box.png"))); // NOI18N
+        mnuProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/mnu_produtos.png"))); // NOI18N
         mnuProdutos.setText("Produtos");
         mnuProdutos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -205,7 +205,7 @@ public class FormMenu extends javax.swing.JFrame {
         MenuCadastros.add(mnuProdutos);
 
         mnuTipos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
-        mnuTipos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/metric.png"))); // NOI18N
+        mnuTipos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/mnu_tipos.png"))); // NOI18N
         mnuTipos.setText("Tipos");
         mnuTipos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
