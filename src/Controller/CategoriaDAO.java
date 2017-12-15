@@ -109,6 +109,40 @@ public class CategoriaDAO extends GenericDAO
         }
     }
     
+    public ArrayList<Categoria> getFindByCat(int parametro, String categ)
+    {
+        ArrayList<Categoria> categoria = new ArrayList<Categoria>();
+                
+        String sql = "";
+        if(parametro == 1){
+            //BUSCA PELO CÓDIGO
+           sql = "SELECT * FROM categoria WHERE cat_cod LIKE ? ORDER BY cat_cod ASC";
+        }else if(parametro == 2){
+            //BUSCA PELO TIPO
+           sql = "SELECT * FROM categoria WHERE cat_tipo LIKE ? ORDER BY cat_tipo ASC";
+        }
+                        
+        try
+        {
+            this.prepareStmte(sql);
+            this.stmte.setString(1,categ+'%');// busca pela primeiro letra do nome
+            ResultSet rs = this.stmte.executeQuery(); //sempre usar quando fazer uma consulta(SELECT)
+            //rs.first();
+            while (rs.next())
+            {
+                Categoria cat = new Categoria();
+                    cat.setCodCategoria(rs.getInt("cat_cod"));
+                    cat.setTipoCategoria(rs.getString("cat_tipo"));
+                categoria.add(cat);   
+            }
+            return categoria;
+        }
+        catch(Exception e)
+        {
+            return null;
+        }
+    }
+    
     public ArrayList<Categoria> getCategoriasByCod() //L I S T A
     {
         ArrayList<Categoria> categoria = new ArrayList<Categoria>();

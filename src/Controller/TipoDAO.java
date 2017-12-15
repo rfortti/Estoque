@@ -86,11 +86,49 @@ public class TipoDAO extends GenericDAO
             return false;
         }
     }
-    
+   
+     public ArrayList<Tipo> getFindByTipo(int parametro, String tip)
+    {
+        ArrayList<Tipo> tipo = new ArrayList<Tipo>();
+                
+        String sql = "";
+        if(parametro == 1){
+            //BUSCA PELO CÓDIGO
+           sql = "SELECT * FROM tipo WHERE tipo_cod LIKE ? ORDER BY tipo_cod ASC";
+        }else if(parametro == 2){
+            //BUSCA PELO TIPO
+           sql = "SELECT * FROM tipo WHERE tipo_desc LIKE ? ORDER BY tipo_desc ASC";
+        }else if(parametro == 3){
+            //BUSCA PELO TIPO
+           sql = "SELECT * FROM tipo WHERE tipo_sigla LIKE ? ORDER BY tipo_sigla ASC";
+        }
+                        
+        try
+        {
+            this.prepareStmte(sql);
+            this.stmte.setString(1,tip+'%');// busca pela primeiro letra do nome
+            ResultSet rs = this.stmte.executeQuery(); //sempre usar quando fazer uma consulta(SELECT)
+            //rs.first();
+            while (rs.next())
+            {
+                Tipo t = new Tipo();
+                    t.setCodTipo(rs.getInt("tipo_cod"));
+                    t.setDescTipo(rs.getString("tipo_desc"));
+                    t.setSiglaTipo(rs.getString("tipo_sigla"));
+                tipo.add(t);   
+            }
+            return tipo;
+        }
+        catch(Exception e)
+        {
+            return null;
+        }
+    } 
+     
     public ArrayList<Tipo> getTiposByCod() //L I S T A
     {
         ArrayList<Tipo> tipo = new ArrayList<Tipo>();
-        //Categoria[] categorias = new Categoria[200];
+        
         int x = 0;
         String sql = "SELECT * FROM tipo ORDER BY tipo_cod ASC";
         
@@ -116,21 +154,28 @@ public class TipoDAO extends GenericDAO
         }
     } 
      
-    public Tipo getTipoByDesc(String tipodesc)
+    public ArrayList<Tipo> getTiposByDesc() //L I S T A
     {
-        Tipo tipo = new Tipo();
+        ArrayList<Tipo> tipo = new ArrayList<Tipo>();
         
-        String sql = "SELECT * FROM tipo WHERE tipo_desc LIKE ?";
+        int x = 0;
+        String sql = "SELECT * FROM tipo ORDER BY tipo_desc ASC";
+        
         try
         {
             this.prepareStmte(sql);
-            this.stmte.setString(1,'%'+tipodesc);
             ResultSet rs = this.stmte.executeQuery(); //sempre usar quando fazer uma consulta(SELECT)
-            rs.first();
-            tipo.setCodTipo(rs.getInt("tipo_cod"));
-            tipo.setDescTipo(rs.getString("tipo_desc"));
-            tipo.setSiglaTipo(rs.getString("tipo_sigla"));
+            
+            while(rs.next()){
+                Tipo t = new Tipo();
+                t.setCodTipo(rs.getInt("tipo_cod"));
+                t.setDescTipo(rs.getString("tipo_desc"));
+                t.setSiglaTipo(rs.getString("tipo_sigla"));
+                tipo.add(t);
+                x++;
+            }
             return tipo;
+            
         }
         catch(Exception e)
         {

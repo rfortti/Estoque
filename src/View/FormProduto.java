@@ -828,6 +828,8 @@ public class FormProduto extends javax.swing.JFrame {
        
        btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/search.png")));
        btnPesquisar.setText("Pesquisar");
+       btnPesquisar.setEnabled(false);
+       txtPesquisar.setEnabled(false);
     }//GEN-LAST:event_tblProdutoMouseClicked
 
     private void txtCodFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCodFocusLost

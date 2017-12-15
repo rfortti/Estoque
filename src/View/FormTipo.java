@@ -14,6 +14,8 @@ import utilitarios.LimitarNumeros;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -24,14 +26,29 @@ public class FormTipo extends javax.swing.JFrame {
 
     private TipoDAO tipoDAO;
 
-    private void preencheTabela() {
+    private void preencheTabela()
+    {
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+            esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+            centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+            direita.setHorizontalAlignment(SwingConstants.RIGHT);
+            
+        tblTipo.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        tblTipo.getColumnModel().getColumn(1).setCellRenderer(esquerda);
+        tblTipo.getColumnModel().getColumn(2).setCellRenderer(esquerda);
+                 
+        tblTipo.getColumnModel().getColumn(0).setPreferredWidth(5);
+        tblTipo.getColumnModel().getColumn(1).setPreferredWidth(450);
+        tblTipo.getColumnModel().getColumn(2).setPreferredWidth(5);
+                 
         ArrayList<Tipo> tipo = new ArrayList<Tipo>();
         tipo = this.tipoDAO.getTiposByCod();
-        //Categoria[] categorias = this.categoriaDAO.getCategoriasByCod();
-        DefaultTableModel tabela = (DefaultTableModel) tblTipo.getModel();
+        
+        DefaultTableModel tabela = (DefaultTableModel)tblTipo.getModel();
         tabela.setNumRows(0);
-
-        // for (int i = 0; i < categorias.length; i++) {
+        
         for (Tipo t : tipo) 
         {
             if (t != null) 
@@ -42,6 +59,41 @@ public class FormTipo extends javax.swing.JFrame {
                     t.getSiglaTipo()
                 };
                 tabela.addRow(obj);
+            }
+        }        
+    }
+
+    private void preencheTabela2(String desc)
+     {
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+            esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+            centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+            direita.setHorizontalAlignment(SwingConstants.RIGHT);
+            
+        tblTipo.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        tblTipo.getColumnModel().getColumn(1).setCellRenderer(esquerda);
+        tblTipo.getColumnModel().getColumn(2).setCellRenderer(esquerda);
+                 
+        tblTipo.getColumnModel().getColumn(0).setPreferredWidth(5);
+        tblTipo.getColumnModel().getColumn(1).setPreferredWidth(450);
+        tblTipo.getColumnModel().getColumn(2).setPreferredWidth(5);
+                               
+        DefaultTableModel tabela = (DefaultTableModel)tblTipo.getModel();
+        tabela.setNumRows(0);
+        TipoDAO tipo2 = new TipoDAO();
+         
+        for (Tipo t : tipo2.getFindByTipo(2,desc)) // parametro 2 = Busac por Funcionário 
+        {
+            if (t != null) 
+            {
+                tabela.addRow(new Object[]{
+                    t.getCodTipo(),
+                    t.getDescTipo(),
+                    t.getSiglaTipo()
+                });
+                //tabela.addRow(obj);
             }
         }
     }
@@ -90,7 +142,7 @@ public class FormTipo extends javax.swing.JFrame {
         lblSigla = new javax.swing.JLabel();
         txtSigla = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
-        lblTipoP = new javax.swing.JLabel();
+        lblTipo = new javax.swing.JLabel();
         txtPesquisar = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
 
@@ -296,7 +348,7 @@ public class FormTipo extends javax.swing.JFrame {
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 20, Short.MAX_VALUE))
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -310,7 +362,7 @@ public class FormTipo extends javax.swing.JFrame {
                             .addComponent(txtSigla, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -339,7 +391,7 @@ public class FormTipo extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        lblTipoP.setText("Tipo:");
+        lblTipo.setText("Tipo:");
 
         txtPesquisar.setBackground(new java.awt.Color(255, 255, 204));
         txtPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -348,6 +400,7 @@ public class FormTipo extends javax.swing.JFrame {
             }
         });
 
+        btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/search.png"))); // NOI18N
         btnPesquisar.setText("Pesquisar");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -365,23 +418,23 @@ public class FormTipo extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(lblTipoP)
+                .addGap(65, 65, 65)
+                .addComponent(lblTipo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnPesquisar)
-                .addGap(225, 225, 225))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTipoP)
+                    .addComponent(lblTipo)
                     .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPesquisar))
-                .addContainerGap())
+                    .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -404,11 +457,9 @@ public class FormTipo extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-
-        jLayeredPane1.getAccessibleContext().setAccessibleName("Cadastro de Tipos de Medidas");
 
         pack();
         setLocationRelativeTo(null);
@@ -477,7 +528,7 @@ public class FormTipo extends javax.swing.JFrame {
         btnExcluir.setEnabled(false);
         btnCancelar.setEnabled(false);
         btnSalvar.setEnabled(false);
-        lblTipoP.setEnabled(true);
+        lblTipo.setEnabled(true);
         txtPesquisar.setEnabled(true);
         btnPesquisar.setEnabled(true);
     }
@@ -486,9 +537,9 @@ public class FormTipo extends javax.swing.JFrame {
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
 // TODO add your handling code here:
         opcao = 1;
-        TipoDAO tDAO = new TipoDAO();
+        TipoDAO tDAO = new TipoDAO();      
         
-        lblTipoP.setEnabled(false);
+        txtDesc.setEnabled(false);
         txtPesquisar.setEnabled(false);
         btnPesquisar.setEnabled(false);
         txtCod.setText(String.valueOf(tDAO.AutoIncCod()));
@@ -506,7 +557,7 @@ public class FormTipo extends javax.swing.JFrame {
         // TODO add your handling code here:
         opcao = 2;
 
-        lblTipoP.setEnabled(false);
+        txtDesc.setEnabled(false);
         txtPesquisar.setEnabled(false);
         btnPesquisar.setEnabled(false);
 
@@ -545,8 +596,8 @@ public class FormTipo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
-        lblTipoP.setEnabled(true);
+        // TODO add your handlblTipoe here:
+        txtDesc.setEnabled(true);
         txtPesquisar.setEnabled(true);
         txtPesquisar.setText("");
         btnPesquisar.setEnabled(true);
@@ -561,8 +612,8 @@ public class FormTipo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
-        lblTipoP.setEnabled(true);
+        // TODO add your handlblTipoe here:
+        txtDesc.setEnabled(true);
         txtPesquisar.setEnabled(true);
         txtPesquisar.requestFocus();
         btnPesquisar.setEnabled(true);
@@ -586,56 +637,31 @@ public class FormTipo extends javax.swing.JFrame {
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         // TODO add your handling code here:
-        lblTipoP.setEnabled(false);
-        txtPesquisar.setEnabled(false);
-        btnPesquisar.setEnabled(false);
-        Habilitar();
-        btnNovo.setEnabled(false);
-        btnAlterar.setEnabled(true);
-        btnExcluir.setEnabled(true);
-        btnCancelar.setEnabled(true);
-        btnSalvar.setEnabled(false);
-
-        String tipodesc = String.valueOf(txtPesquisar.getText());
-        Tipo t = this.tipoDAO.getTipoByDesc(tipodesc);
-
-        try 
-        {
-            if (t == null) 
-            {
-                JOptionPane.showMessageDialog(null, "Tipo não encontrado!");
-
-                lblTipoP.setEnabled(true);
-                txtPesquisar.setEnabled(true);
-                btnPesquisar.setEnabled(true);
-                Desabilitar();
-                btnNovo.setEnabled(true);
-                btnAlterar.setEnabled(false);
-                btnExcluir.setEnabled(false);
-                btnCancelar.setEnabled(false);
-                btnSalvar.setEnabled(false);
-
-                txtPesquisar.setText("");
-                txtPesquisar.requestFocus();
-            } 
-            else 
-            {
-                Desabilitar();
-                txtCod.setText(String.valueOf(t.getCodTipo()));
-                txtDesc.setText(t.getDescTipo());
-                txtSigla.setText(t.getSiglaTipo());
-            }
-        } catch (Exception e) {
-            txtCod.setText("");
-            txtDesc.setText("");
-            txtSigla.setText("");
-            JOptionPane.showMessageDialog(null, "Tipo não encontrado!");
+        grupoOrdenar.clearSelection();
+        
+        if (btnPesquisar.getText() == "Pesquisar"){
+            //Altera o Icone do Botão
+            btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Clear.png")));
+            
+            btnPesquisar.setText("Limpar");
+            txtPesquisar.setEnabled(false);
+            preencheTabela2(txtPesquisar.getText());
+        }
+        else if (btnPesquisar.getText() == "Limpar"){
+            Limpar();          
+            DefaultTableModel tabela2 = (DefaultTableModel)tblTipo.getModel();
+            tabela2.setNumRows(0);
+            //Altera o Icone do Botão
+            btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/search.png")));
+            btnPesquisar.setText("Pesquisar");
+            txtPesquisar.setEnabled(true);
         }
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void tblTipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTipoMouseClicked
         // TODO add your handling code here:
         int linhaselecionada = tblTipo.getSelectedRow(); //pega a linha selecionada
+        
         txtCod.setText(tblTipo.getValueAt(linhaselecionada, 0).toString());
         txtDesc.setText(tblTipo.getValueAt(linhaselecionada, 1).toString());
         txtSigla.setText(tblTipo.getValueAt(linhaselecionada, 2).toString());
@@ -645,6 +671,11 @@ public class FormTipo extends javax.swing.JFrame {
         btnExcluir.setEnabled(true);
         btnCancelar.setEnabled(true);
         btnSalvar.setEnabled(false);
+        
+        btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/search.png")));
+        btnPesquisar.setText("Pesquisar");
+        btnPesquisar.setEnabled(false);
+        txtPesquisar.setEnabled(false);
     }//GEN-LAST:event_tblTipoMouseClicked
 
     private void txtCodFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCodFocusLost
@@ -693,7 +724,26 @@ public class FormTipo extends javax.swing.JFrame {
 
     private void rbTipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbTipoMouseClicked
         // TODO add your handling code here:
-        
+        if (rbTipo.isSelected()) {
+            ArrayList<Tipo> tipo = new ArrayList<Tipo>();
+            tipo = this.tipoDAO.getTiposByDesc();
+            
+            DefaultTableModel tabela = (DefaultTableModel) tblTipo.getModel();
+            tabela.setNumRows(0);          
+            
+            for (Tipo t : tipo) 
+            {
+                if (t != null) 
+                {
+                    Object[] obj = new Object[]{
+                        t.getCodTipo(),
+                        t.getDescTipo(),
+                        t.getSiglaTipo()
+                    };
+                    tabela.addRow(obj);
+                }
+            }
+        }    
     }//GEN-LAST:event_rbTipoMouseClicked
 
     private void btnPesquisarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnPesquisarKeyPressed
@@ -773,7 +823,7 @@ public class FormTipo extends javax.swing.JFrame {
     private javax.swing.JLabel lblCod;
     private javax.swing.JLabel lblDesc;
     private javax.swing.JLabel lblSigla;
-    private javax.swing.JLabel lblTipoP;
+    private javax.swing.JLabel lblTipo;
     private javax.swing.JRadioButton rbCodigo;
     private javax.swing.JRadioButton rbTipo;
     private javax.swing.JTable tblTipo;
@@ -800,6 +850,7 @@ public class FormTipo extends javax.swing.JFrame {
         txtCod.setText("");
         txtDesc.setText("");
         txtSigla.setText("");
-        txtDesc.requestFocus();
+        txtPesquisar.setText("");
+        txtPesquisar.requestFocus();
     }
 }

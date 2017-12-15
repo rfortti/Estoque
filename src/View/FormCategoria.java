@@ -38,8 +38,8 @@ public class FormCategoria extends javax.swing.JFrame
         tblCategoria.getColumnModel().getColumn(0).setCellRenderer(centralizado);
         tblCategoria.getColumnModel().getColumn(1).setCellRenderer(esquerda);
                  
-        tblCategoria.getColumnModel().getColumn(0).setPreferredWidth(15);
-        tblCategoria.getColumnModel().getColumn(1).setPreferredWidth(250);
+        tblCategoria.getColumnModel().getColumn(0).setPreferredWidth(5);
+        tblCategoria.getColumnModel().getColumn(1).setPreferredWidth(500);
                  
         ArrayList<Categoria> categoria = new ArrayList<Categoria>();
         categoria = this.categoriaDAO.getCategoriasByCod();
@@ -60,6 +60,38 @@ public class FormCategoria extends javax.swing.JFrame
         }        
     }
 
+    private void preencheTabela2(String desc)
+     {
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+            esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+            centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+            direita.setHorizontalAlignment(SwingConstants.RIGHT);
+            
+        tblCategoria.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        tblCategoria.getColumnModel().getColumn(1).setCellRenderer(esquerda);
+                 
+        tblCategoria.getColumnModel().getColumn(0).setPreferredWidth(5);//ID
+        tblCategoria.getColumnModel().getColumn(1).setPreferredWidth(500);//Tipo
+                               
+        DefaultTableModel tabela = (DefaultTableModel)tblCategoria.getModel();
+        tabela.setNumRows(0);
+        CategoriaDAO categoria = new CategoriaDAO();
+         
+        for (Categoria cat : categoria.getFindByCat(2,desc)) // parametro 2 = Busac por Funcionário 
+        {
+            if (cat != null) 
+            {
+                tabela.addRow(new Object[]{
+                    cat.getCodCategoria(),
+                    cat.getTipoCategoria()    
+                });
+                //tabela.addRow(obj);
+            }
+        }
+    }
+    
     public FormCategoria() 
     {
         initComponents();
@@ -338,6 +370,7 @@ public class FormCategoria extends javax.swing.JFrame
             }
         });
 
+        btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/search.png"))); // NOI18N
         btnPesquisar.setText("Pesquisar");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -370,7 +403,7 @@ public class FormCategoria extends javax.swing.JFrame
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTipoP)
                     .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPesquisar))
+                    .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -390,7 +423,7 @@ public class FormCategoria extends javax.swing.JFrame
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, Short.MAX_VALUE)
+                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -572,7 +605,7 @@ public class FormCategoria extends javax.swing.JFrame
             
             btnPesquisar.setText("Limpar");
             txtPesquisar.setEnabled(false);
-            //preencheTabela2(txtPesquisar.getText());
+            preencheTabela2(txtPesquisar.getText());
         }
         else if (btnPesquisar.getText() == "Limpar"){
             Limpar();          
@@ -600,6 +633,8 @@ public class FormCategoria extends javax.swing.JFrame
         
         btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/search.png")));
         btnPesquisar.setText("Pesquisar");
+        btnPesquisar.setEnabled(false);
+        txtPesquisar.setEnabled(false);
     }//GEN-LAST:event_tblCategoriaMouseClicked
 
     private void txtCodFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCodFocusLost
@@ -755,7 +790,8 @@ public class FormCategoria extends javax.swing.JFrame
     public void Limpar() {
         txtCod.setText("");
         txtTipo.setText("");
-        txtTipo.requestFocus();
+        txtPesquisar.setText("");
+        txtPesquisar.requestFocus();
     }
 
 }
