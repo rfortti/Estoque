@@ -87,28 +87,7 @@ public class CategoriaDAO extends GenericDAO
             return false;
         }
     }
-    
-    public Categoria getCategoriaByTipo(String tipocategoria)
-    {
-        Categoria cat = new Categoria();
-        
-        String sql = "SELECT * FROM categoria WHERE cat_tipo LIKE ?";
-        try
-        {
-            this.prepareStmte(sql);
-            this.stmte.setString(1,tipocategoria+'%');
-            ResultSet rs = this.stmte.executeQuery(); //sempre usar quando fazer uma consulta(SELECT)
-            rs.first();
-            cat.setCodCategoria(rs.getInt("cat_cod"));
-            cat.setTipoCategoria(rs.getString("cat_tipo"));
-            return cat;
-        }
-        catch(Exception e)
-        {
-            return null;
-        }
-    }
-    
+            
     public ArrayList<Categoria> getFindByCat(int parametro, String categ)
     {
         ArrayList<Categoria> categoria = new ArrayList<Categoria>();
@@ -149,6 +128,34 @@ public class CategoriaDAO extends GenericDAO
         //Categoria[] categorias = new Categoria[200];
         int x = 0;
         String sql = "SELECT * FROM categoria ORDER BY cat_cod ASC";
+        
+        try
+        {
+            this.prepareStmte(sql);
+            ResultSet rs = this.stmte.executeQuery(); //sempre usar quando fazer uma consulta(SELECT)
+            
+            while(rs.next()){
+                Categoria c = new Categoria();
+                c.setCodCategoria(rs.getInt("cat_cod"));
+                c.setTipoCategoria(rs.getString("cat_tipo"));
+                categoria.add(c);
+                x++;
+            }
+            return categoria;
+            
+        }
+        catch(Exception e)
+        {
+            return null;
+        }
+    }
+    
+    public ArrayList<Categoria> getCategoriasByTipo()
+    {
+       ArrayList<Categoria> categoria = new ArrayList<Categoria>();
+        
+        int x = 0;
+        String sql = "SELECT * FROM categoria ORDER BY cat_tipo ASC";
         
         try
         {

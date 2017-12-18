@@ -659,7 +659,8 @@ public class FormCategoria extends javax.swing.JFrame
 
     private void rbCodigoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbCodigoMouseClicked
         // TODO add your handling code here:
-        if (rbCodigo.isSelected()) {
+        if (rbCodigo.isSelected()) 
+        {
             ArrayList<Categoria> categoria = new ArrayList<Categoria>();
             categoria = this.categoriaDAO.getCategoriasByCod();
             //Categoria[] categorias = this.categoriaDAO.getCategoriasByCod();
@@ -697,7 +698,26 @@ public class FormCategoria extends javax.swing.JFrame
 
     private void rbTipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbTipoMouseClicked
         // TODO add your handling code here:
-        
+        if (rbTipo.isSelected()) 
+        {
+            ArrayList<Categoria> categoria = new ArrayList<Categoria>();
+            categoria = this.categoriaDAO.getCategoriasByTipo();
+            
+            DefaultTableModel tabela = (DefaultTableModel) tblCategoria.getModel();
+            tabela.setNumRows(0);           
+            
+            for (Categoria c : categoria) 
+            {
+                if (c != null) 
+                {
+                    Object[] obj = new Object[]{
+                        c.getCodCategoria(),
+                        c.getTipoCategoria()
+                    };
+                    tabela.addRow(obj);
+                }
+            }
+        }
     }//GEN-LAST:event_rbTipoMouseClicked
 
     private void btnPesquisarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnPesquisarKeyPressed

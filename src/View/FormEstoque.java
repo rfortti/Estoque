@@ -669,7 +669,7 @@ public class FormEstoque extends javax.swing.JFrame {
 
     private void btnFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFornecedorActionPerformed
         // TODO add your handling code here:
-        new FormFuncionario().setVisible(true);
+        new FormFornecedor().setVisible(true);
     }//GEN-LAST:event_btnFornecedorActionPerformed
 
     private void btnConcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConcluirActionPerformed
@@ -765,6 +765,7 @@ public class FormEstoque extends javax.swing.JFrame {
 
     private void btnFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFuncionarioActionPerformed
         // TODO add your handling code here:
+        new FormFuncionario().setVisible(true);
     }//GEN-LAST:event_btnFuncionarioActionPerformed
 
     private void txtItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtItemActionPerformed
