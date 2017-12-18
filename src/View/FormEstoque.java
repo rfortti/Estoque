@@ -92,6 +92,8 @@ public class FormEstoque extends javax.swing.JFrame {
         btnProduto = new javax.swing.JButton();
         lblDestino = new javax.swing.JLabel();
         txtDestino = new javax.swing.JTextField();
+        txtTotal = new javax.swing.JTextField();
+        lblTotal = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(".: Controle Caixa :.");
@@ -113,11 +115,11 @@ public class FormEstoque extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Item", "Descrição", "Qtde", "Valor"
+                "Cod.Pedido", "Data", "Tipo", "Funcionário", "Destino", "Cod. Item", "Produto", "Qtde.", "Valor Unitário"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -135,6 +137,11 @@ public class FormEstoque extends javax.swing.JFrame {
             tblProdutos.getColumnModel().getColumn(1).setResizable(false);
             tblProdutos.getColumnModel().getColumn(2).setResizable(false);
             tblProdutos.getColumnModel().getColumn(3).setResizable(false);
+            tblProdutos.getColumnModel().getColumn(4).setResizable(false);
+            tblProdutos.getColumnModel().getColumn(5).setResizable(false);
+            tblProdutos.getColumnModel().getColumn(6).setResizable(false);
+            tblProdutos.getColumnModel().getColumn(7).setResizable(false);
+            tblProdutos.getColumnModel().getColumn(8).setResizable(false);
         }
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -150,7 +157,7 @@ public class FormEstoque extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -262,7 +269,7 @@ public class FormEstoque extends javax.swing.JFrame {
                 .addGroup(pnlEstoqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rbEntrada)
                     .addComponent(rbSaida))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlEstoqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnSaida, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEntrada, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -372,12 +379,14 @@ public class FormEstoque extends javax.swing.JFrame {
                     .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblQtde)
                     .addComponent(lblValor))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addGroup(pnlProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblDestino))
                 .addContainerGap())
         );
+
+        lblTotal.setText("Valor Total");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -386,38 +395,45 @@ public class FormEstoque extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblHora, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblFuncionario)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                        .addComponent(lblFornecedor)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(pnlProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblFuncionario)
+                                .addComponent(txtItem, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cbFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                                .addComponent(lblFornecedor)
+                                .addComponent(lblSituacao)
+                                .addGap(22, 22, 22)
+                                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cbFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnConcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(pnlEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(35, 35, 35))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(pnlProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(txtItem, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblSituacao)
-                                        .addGap(22, 22, 22)
-                                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnConcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(pnlEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 402, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(lblTotal)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtTotal, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblHora, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -431,7 +447,7 @@ public class FormEstoque extends javax.swing.JFrame {
                     .addComponent(cbFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblFornecedor)
                     .addComponent(btnFornecedor))
-                .addGap(35, 35, 35)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(pnlEstoque, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -443,14 +459,18 @@ public class FormEstoque extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(txtItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(lblSituacao))))
-                    .addComponent(pnlProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pnlProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTotal))
+                .addGap(11, 11, 11)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
-                        .addComponent(lblData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(lblData, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE))
                     .addComponent(lblHora, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
@@ -466,9 +486,7 @@ public class FormEstoque extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 1, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -509,7 +527,9 @@ public class FormEstoque extends javax.swing.JFrame {
                 cbProduto.addItem(p.getDescProduto());
             }
         }
-
+        
+        somarColunaTotal();
+        
         btnConcluir.setEnabled(true);
         grupoPgto.add(rbEntrada);
         grupoPgto.add(rbSaida);
@@ -523,26 +543,50 @@ public class FormEstoque extends javax.swing.JFrame {
 
     private void btnEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntradaActionPerformed
         // TODO add your handling code here:
+        Date dataSistema = new Date();
+        SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyyy");
+        
         try {
-            String item = txtItem.getText();
+            String ped_cod = txtItem.getText();
+            String ped_data = data.format(dataSistema);
+            String ped_tipo = "";
+            if (rbEntrada.isSelected())
+            {
+                ped_tipo = "E";   
+            }
+            else if (rbSaida.isSelected())
+            {
+                ped_tipo = "S";
+            }
+            
+            String pes_id = cbFuncionario.getSelectedItem().toString();
+            String ped_destino = txtDestino.getText();
             String produto = cbProduto.getSelectedItem().toString();
             String qtde = txtQtde.getText();
             String valor = txtValor.getText();
 
             double valorItem = 0;
+            
 
             DecimalFormat df = new DecimalFormat("#,###.00");
             valorItem = Double.parseDouble(qtde) * Double.parseDouble(valor);
-
+            
+            
             DefaultTableModel tabelaProdutos = (DefaultTableModel) tblProdutos.getModel();
             Object[] obj = new Object[]{
-                item,
+                ped_cod,
+                ped_data,
+                ped_tipo,
+                pes_id,
+                ped_destino,
+                ped_cod,
                 produto,
                 qtde,
                 //valorItem
                 df.format(valorItem)
             };
-
+            
+            somarColunaTotal();
             //df.format(total);
             //txtTPagar.setText(String.valueOf(total));
             tabelaProdutos.addRow(obj);
@@ -694,21 +738,38 @@ public class FormEstoque extends javax.swing.JFrame {
         {
             try 
             {                
-                for (int x = 0; x < tblProdutos.getRowCount(); x++) {
-                    int ped_Item = Integer.parseInt(tblProdutos.getValueAt(x, 0).toString());
-                    ped.setPedItem(ped_Item);
+                for (int x = 0; x < tblProdutos.getRowCount(); x++) 
+                {
+                    int ped_Cod = Integer.parseInt(tblProdutos.getValueAt(x, 0).toString());
+                    ped.setPed_cod(ped_Cod);
+                    
+                    String ped_Data = lblData.getText();
+                    ped.setPed_data(ConverteData.converteData(ped_Data));
+                    
+                    String ped_Tipo = String.valueOf(tblProdutos.getValueAt(x, 1).toString());
+                    ped.setPed_tipo(ped_Tipo);
 
-                    String ped_Produto = String.valueOf(tblProdutos.getValueAt(x, 1).toString());
-                    ped.setPedProduto(ped_Produto);
-
-                    int ped_Qtde = Integer.parseInt(tblProdutos.getValueAt(x, 2).toString());
-                    ped.setPedQtde(ped_Qtde);
-
-                    float ped_Vtotal = Float.parseFloat(tblProdutos.getValueAt(x, 3).toString().replace(".", "").replace(",", "."));
-                    ped.setPedVtotal(ped_Vtotal);
-
+                    int pes_Id = Integer.parseInt(tblProdutos.getValueAt(x, 2).toString());
+                    ped.setPes_id(pes_Id);
+                    
+                    String ped_Destino = String.valueOf(tblProdutos.getValueAt(x, 3).toString());
+                    ped.setPed_destino(ped_Tipo);
+                    
+                    int item_Cod = Integer.parseInt(tblProdutos.getValueAt(x, 4).toString());
+                    ped.setItem_cod(item_Cod);
+                    
+                    int ped_Qtde = Integer.parseInt(tblProdutos.getValueAt(x, 5).toString());
+                    ped.setItem_qtde(ped_Qtde);
+                    
+                    float ped_Valor = Float.parseFloat(tblProdutos.getValueAt(x, 6).toString().replace(".", "").replace(",", "."));
+                    ped.setItem_valor(ped_Valor);
+                                                            
+                    int prod_Cod = Integer.valueOf(tblProdutos.getValueAt(x, 8).toString());
+                    ped.setProd_cod(prod_Cod);
+                   
+                    
                     String ped_Cliente = "";
-
+                    /*
                     if (rbEntrada.isSelected()) {
                         String ped_Pgto = "à Vista";
                         ped.setPedPgto(ped_Pgto);
@@ -718,10 +779,7 @@ public class FormEstoque extends javax.swing.JFrame {
                         ped_Cliente = cbFornecedor.getSelectedItem().toString();
                         ped.setPedCliente(ped_Cliente);
                     }
-
-                    String ped_Data = lblData.getText();
-                    ped.setPedData(ConverteData.converteData(ped_Data));
-
+                    
                     if (rbEntrada.isSelected()) {
                         String ped_Situacao = "P A G O";
                         ped.setPedSituacao(ped_Situacao);
@@ -729,10 +787,10 @@ public class FormEstoque extends javax.swing.JFrame {
                         String ped_Situacao = "Em Aberto";
                         ped.setPedSituacao(ped_Situacao);
                     }
-
+                    
                     String ped_Func = cbFuncionario.getSelectedItem().toString();
-                    ped.setPedFunc(ped_Func);
-
+                    ped.getPes_id(ped_Func);
+                    */
                     if (this.pedidoDAO.inserir(ped) == true) {
                         JOptionPane.showMessageDialog(null, "Pedido do(a) cliente [ " + cbFornecedor.getSelectedItem() + " ] inserido com sucesso ! \n\n"
                                 + "Obrigado e Volte Sempre !!", "ATENÇÃO", JOptionPane.INFORMATION_MESSAGE);
@@ -831,6 +889,7 @@ public class FormEstoque extends javax.swing.JFrame {
     private javax.swing.JLabel lblProduto;
     private javax.swing.JLabel lblQtde;
     private javax.swing.JLabel lblSituacao;
+    private javax.swing.JLabel lblTotal;
     private javax.swing.JLabel lblValor;
     private javax.swing.JPanel pnlEstoque;
     private javax.swing.JPanel pnlProduto;
@@ -840,6 +899,7 @@ public class FormEstoque extends javax.swing.JFrame {
     private javax.swing.JTextField txtDestino;
     private javax.swing.JTextField txtItem;
     private javax.swing.JTextField txtQtde;
+    private javax.swing.JTextField txtTotal;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 
@@ -863,5 +923,24 @@ public class FormEstoque extends javax.swing.JFrame {
         DefaultTableModel tabelaProdutos = (DefaultTableModel) tblProdutos.getModel();
         tabelaProdutos.setNumRows(0);
         txtItem.setText("1");
+    }
+    
+    public void somarColunaTotal()  
+    {
+        DecimalFormat df = new DecimalFormat("R$ "+"#,###,##0.00");
+        
+        int linhaselecionada = tblProdutos.getSelectedRow(); //pega a linha selecionada
+                        
+        DefaultTableModel modelo = (DefaultTableModel)tblProdutos.getModel();    
+        double soma = 0;
+                
+        for (int i=0; i<tblProdutos.getRowCount(); i++)   
+        {    
+            double valor = Double.parseDouble(String.valueOf(modelo.getValueAt(i,8))); //pega a coluna Valor Total     
+            soma += valor;    
+        }    
+        
+        String novoValor = String.valueOf(df.format(soma));  
+        txtTotal.setText(novoValor.replace(".","").replace(".", ","));
     }
 }

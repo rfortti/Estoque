@@ -64,7 +64,6 @@ public class FormMenu extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         MenuConsulta = new javax.swing.JMenu();
-        jMenuItem10 = new javax.swing.JMenuItem();
         MenuRelatorios = new javax.swing.JMenu();
         MenuUsuario = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
@@ -232,17 +231,6 @@ public class FormMenu extends javax.swing.JFrame {
         jMenuBar.add(MenuCaixa);
 
         MenuConsulta.setText("Consulta");
-
-        jMenuItem10.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F6, 0));
-        jMenuItem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/cash.png"))); // NOI18N
-        jMenuItem10.setText("Vendas");
-        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem10ActionPerformed(evt);
-            }
-        });
-        MenuConsulta.add(jMenuItem10);
-
         jMenuBar.add(MenuConsulta);
 
         MenuRelatorios.setText("Relatórios");
@@ -431,11 +419,6 @@ public class FormMenu extends javax.swing.JFrame {
         new FormLogin().setVisible(true);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
-    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-        // TODO add your handling code here:
-        new FormConsulta().setVisible(true);
-    }//GEN-LAST:event_jMenuItem10ActionPerformed
-
     private void mnuTiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuTiposActionPerformed
         // TODO add your handling code here:
         FormTipo ft = new FormTipo();
@@ -493,7 +476,6 @@ public class FormMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar;
-    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem8;

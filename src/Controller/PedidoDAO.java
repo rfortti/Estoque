@@ -40,6 +40,14 @@ public class PedidoDAO extends GenericDAO
             this.stmte.setInt(4,pedido.getPes_id());
             this.stmte.setString(5,pedido.getPed_destino());
             this.stmte.execute();
+            
+            this.prepareStmte(sql2);
+            this.stmte.setInt(1,pedido.getItem_cod());
+            this.stmte.setInt(2,pedido.getItem_qtde());
+            this.stmte.setFloat(3,pedido.getItem_valor());
+            this.stmte.setInt(4,pedido.getPed_cod());
+            this.stmte.setInt(5,pedido.getProd_cod());
+            this.stmte.execute();
             return true;
         }
         catch(SQLException e)
