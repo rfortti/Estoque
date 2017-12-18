@@ -692,8 +692,8 @@ public class FormEstoque extends javax.swing.JFrame {
 
         if (tabelaProdutos.getRowCount() != 0)// && cbCliente.getSelectedIndex() != -1)
         {
-            try {
-
+            try 
+            {                
                 for (int x = 0; x < tblProdutos.getRowCount(); x++) {
                     int ped_Item = Integer.parseInt(tblProdutos.getValueAt(x, 0).toString());
                     ped.setPedItem(ped_Item);
