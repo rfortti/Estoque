@@ -51,21 +51,17 @@ public class PedidoDAO extends GenericDAO
     
     public boolean editar(Pedido pedido)
     {
-        String sql = "UPDATE pedido SET ped_produto = ?, ped_qtde = ?, ped_vtotal = ?, ped_pgto = ?, ped_cliente = ?,"
-                +" ped_data = ?, ped_situacao = ?, ped_func = ? WHERE ped_item = ?";
+        String sql = "UPDATE pedido SET ped_cod = ?, ped_data = ?, ped_tipo = ?, pes_id = ?, ped_destino = ? "
+                +" WHERE ped_cod = ?";
         
         try
         {
-             this.prepareStmte(sql);
-            this.stmte.setString(1,pedido);
-            this.stmte.setInt(2,pedido);
-            this.stmte.setDouble(3,pedido);
-            this.stmte.setString(4,pedido);
-            this.stmte.setString(5,pedido);
-            this.stmte.setString(6,pedido);
-            this.stmte.setString(7,pedido.getPedSituacao());
-            this.stmte.setString(8,pedido.getPedFunc());
-            this.stmte.setInt(9, pedido.getPedItem());
+            this.prepareStmte(sql);
+            this.stmte.setInt(1,pedido.getPed_cod());
+            this.stmte.setString(2,pedido.getPed_data());
+            this.stmte.setString(3,pedido.getPed_tipo());
+            this.stmte.setInt(4,pedido.getPes_id());
+            this.stmte.setString(5,pedido.getPed_destino());
             this.stmte.execute();
             return true;
         }
