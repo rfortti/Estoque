@@ -10,89 +10,92 @@ package Model;
  *
  * @author Multas
  */
-public class Pedido 
+public class Pedido
 {
-    private int ped_item;
-    private String ped_produto;
-    private int ped_qtde;
-    private float ped_vtotal;
-    private String ped_pgto;
-    private String ped_cliente;
+    private int ped_cod;
     private String ped_data;
-    private String ped_situacao;
-    private String ped_func;
+    private String ped_tipo;
+    private int pes_id;
+    private String ped_destino;
+    
+    private int item_cod;
+    private int item_qtde;
+    private float item_valor;
+    private int prod_cod;
     
     //ALT + Insert (Getter e Setter) gera os métodos  abaixo
-    public int getPedItem() {
-        return ped_item;
+
+    public int getPed_cod() {
+        return ped_cod;
     }
 
-    public void setPedItem(int ped_item) {
-        this.ped_item = ped_item;
+    public void setPed_cod(int ped_cod) {
+        this.ped_cod = ped_cod;
     }
 
-    public String getPedProduto() {
-        return ped_produto;
-    }
-
-    public void setPedProduto(String ped_produto) {
-        this.ped_produto = ped_produto;
-    }
-
-    public int getPedQtde() {
-        return ped_qtde;
-    }
-
-    public void setPedQtde(int ped_qtde) {
-        this.ped_qtde = ped_qtde;
-    }
-
-    public double getPedVtotal() {
-        return ped_vtotal;
-    }
-
-    public void setPedVtotal(float ped_vtotal) {
-        this.ped_vtotal = ped_vtotal;
-    }
-
-    public String getPedPgto() {
-        return ped_pgto;
-    }
-
-    public void setPedPgto(String ped_pgto) {
-        this.ped_pgto = ped_pgto;
-    }
-
-    public String getPedCliente() {
-        return ped_cliente;
-    }
-
-    public void setPedCliente(String ped_cliente) {
-        this.ped_cliente = ped_cliente;
-    }
-
-    public String getPedData() {
+    public String getPed_data() {
         return ped_data;
     }
 
-    public void setPedData(String ped_data) {
+    public void setPed_data(String ped_data) {
         this.ped_data = ped_data;
     }
 
-    public String getPedSituacao() {
-        return ped_situacao;
+    public String getPed_tipo() {
+        return ped_tipo;
     }
 
-    public void setPedSituacao(String ped_situacao) {
-        this.ped_situacao = ped_situacao;
+    public void setPed_tipo(String ped_tipo) {
+        this.ped_tipo = ped_tipo;
+    }
+
+    public int getPes_id() {
+        return pes_id;
+    }
+
+    public void setPes_id(int pes_id) {
+        this.pes_id = pes_id;
+    }
+
+    public String getPed_destino() {
+        return ped_destino;
+    }
+
+    public void setPed_destino(String ped_destino) {
+        this.ped_destino = ped_destino;
+    }
+
+    public int getItem_cod() {
+        return item_cod;
+    }
+
+    public void setItem_cod(int item_cod) {
+        this.item_cod = item_cod;
+    }
+
+    public int getItem_qtde() {
+        return item_qtde;
+    }
+
+    public void setItem_qtde(int item_qtde) {
+        this.item_qtde = item_qtde;
+    }
+
+    public float getItem_valor() {
+        return item_valor;
+    }
+
+    public void setItem_valor(float item_valor) {
+        this.item_valor = item_valor;
+    }
+
+    public int getProd_cod() {
+        return prod_cod;
+    }
+
+    public void setProd_cod(int prod_cod) {
+        this.prod_cod = prod_cod;
     }
     
-    public String getPedFunc() {
-        return ped_func;
-    }
-
-    public void setPedFunc(String ped_func) {
-        this.ped_func = ped_func;
-    }
     
 }

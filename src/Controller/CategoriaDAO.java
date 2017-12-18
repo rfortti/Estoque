@@ -27,7 +27,7 @@ public class CategoriaDAO extends GenericDAO
             
     public boolean inserir(Categoria categoria)
     {
-        String sql = "INSERT INTO categoria (cat_cod, cat_tipo) VALUES (?, ?)";
+        String sql = "INSERT INTO tblcategoria (cat_cod, cat_tipo) VALUES (?, ?)";
         
         try
         {
@@ -45,7 +45,7 @@ public class CategoriaDAO extends GenericDAO
     
     public boolean excluir(Categoria categoria)
     {
-        String sql = "DELETE FROM categoria WHERE cat_cod = ?";
+        String sql = "DELETE FROM tblcategoria WHERE cat_cod = ?";
         
         try
         {
@@ -72,7 +72,7 @@ public class CategoriaDAO extends GenericDAO
     
      public boolean editar(Categoria categoria)
     {
-        String sql = "UPDATE categoria SET cat_tipo = ? WHERE cat_cod = ?";
+        String sql = "UPDATE tblcategoria SET cat_tipo = ? WHERE cat_cod = ?";
         
         try
         {
@@ -95,10 +95,10 @@ public class CategoriaDAO extends GenericDAO
         String sql = "";
         if(parametro == 1){
             //BUSCA PELO CÓDIGO
-           sql = "SELECT * FROM categoria WHERE cat_cod LIKE ? ORDER BY cat_cod ASC";
+           sql = "SELECT * FROM tblcategoria WHERE cat_cod LIKE ? ORDER BY cat_cod ASC";
         }else if(parametro == 2){
             //BUSCA PELO TIPO
-           sql = "SELECT * FROM categoria WHERE cat_tipo LIKE ? ORDER BY cat_tipo ASC";
+           sql = "SELECT * FROM tblcategoria WHERE cat_tipo LIKE ? ORDER BY cat_tipo ASC";
         }
                         
         try
@@ -127,7 +127,7 @@ public class CategoriaDAO extends GenericDAO
         ArrayList<Categoria> categoria = new ArrayList<Categoria>();
         //Categoria[] categorias = new Categoria[200];
         int x = 0;
-        String sql = "SELECT * FROM categoria ORDER BY cat_cod ASC";
+        String sql = "SELECT * FROM tblcategoria ORDER BY cat_cod ASC";
         
         try
         {
@@ -155,7 +155,7 @@ public class CategoriaDAO extends GenericDAO
        ArrayList<Categoria> categoria = new ArrayList<Categoria>();
         
         int x = 0;
-        String sql = "SELECT * FROM categoria ORDER BY cat_tipo ASC";
+        String sql = "SELECT * FROM tblcategoria ORDER BY cat_tipo ASC";
         
         try
         {
@@ -185,10 +185,10 @@ public class CategoriaDAO extends GenericDAO
         String sql = "";
         if(parametro == 1){
             //ORDENA PELO ID DA CATEGORIA
-           sql = "SELECT * FROM categoria ORDER BY cat_cod ASC";
+           sql = "SELECT * FROM tblcategoria ORDER BY cat_cod ASC";
         }else if(parametro == 2){
             //ORDENA PELO NOME DA CATEGORIA
-            sql = "SELECT * FROM categoria ORDER BY cat_tipo ASC";
+            sql = "SELECT * FROM tblcategoria ORDER BY cat_tipo ASC";
         }
                
         try {
@@ -210,7 +210,7 @@ public class CategoriaDAO extends GenericDAO
     
     public int AutoIncCod()
     {
-        String sql = "SELECT (MAX(cat_cod) + 1) as codigo FROM categoria";
+        String sql = "SELECT (MAX(cat_cod) + 1) as codigo FROM tblcategoria";
         this.prepareStmte(sql);
         ResultSet rs;
         int retorno = 0;

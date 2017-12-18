@@ -29,7 +29,7 @@ public class ProdutoDAO extends GenericDAO {
             
     public boolean inserir(Produto produto)
     {
-        String sql = "INSERT INTO produto(prod_cod, prod_desc, prod_min, tipo_cod, cat_cod) VALUES(?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO tblproduto(prod_cod, prod_desc, prod_min, tipo_cod, cat_cod) VALUES(?, ?, ?, ?, ?)";
         
         try
         {
@@ -51,7 +51,7 @@ public class ProdutoDAO extends GenericDAO {
     
     public boolean excluir(Produto produto)
     {
-       String sql = "DELETE FROM produto WHERE prod_cod = ?";
+       String sql = "DELETE FROM tblproduto WHERE prod_cod = ?";
        
         try
         {
@@ -78,7 +78,7 @@ public class ProdutoDAO extends GenericDAO {
     
      public boolean editar(Produto produto)
     {
-        String sql = "UPDATE produto SET prod_desc = ?, prod_min = ?, tipo_cod = ?, cat_cod = ? WHERE prod_cod = ?";
+        String sql = "UPDATE tblproduto SET prod_desc = ?, prod_min = ?, tipo_cod = ?, cat_cod = ? WHERE prod_cod = ?";
         
         try
         {
@@ -104,9 +104,9 @@ public class ProdutoDAO extends GenericDAO {
         
         ArrayList<Produto> produto = new ArrayList<Produto>();
         
-        String sql = "SELECT * FROM produto p "
-                + "JOIN categoria c ON p.cat_cod = c.cat_cod "
-                + "JOIN tipo t ON p.tipo_cod = t.tipo_cod "
+        String sql = "SELECT * FROM tblproduto p "
+                + "JOIN tblcategoria c ON p.cat_cod = c.cat_cod "
+                + "JOIN tbltipo t ON p.tipo_cod = t.tipo_cod "
                 + "WHERE prod_desc LIKE ?";
         try
         {
@@ -147,9 +147,9 @@ public class ProdutoDAO extends GenericDAO {
     {
         ArrayList<Produto> produto = new ArrayList<Produto>();
         
-        String sql = "SELECT * FROM produto p "
-                + "JOIN categoria c ON p.cat_cod = c.cat_cod "
-                + "JOIN tipo t ON p.tipo_cod = t.tipo_cod "
+        String sql = "SELECT * FROM tblproduto p "
+                + "JOIN tblcategoria c ON p.cat_cod = c.cat_cod "
+                + "JOIN tbltipo t ON p.tipo_cod = t.tipo_cod "
                 + "ORDER BY prod_cod ASC";
         
         try
@@ -189,9 +189,9 @@ public class ProdutoDAO extends GenericDAO {
     {
         ArrayList<Produto> produto = new ArrayList<Produto>();
         
-        String sql = "SELECT * FROM produto p "
-                + "JOIN categoria c ON p.cat_cod = c.cat_cod "
-                + "JOIN tipo t ON p.tipo_cod = t.tipo_cod "
+        String sql = "SELECT * FROM tblproduto p "
+                + "JOIN tblcategoria c ON p.cat_cod = c.cat_cod "
+                + "JOIN tbltipo t ON p.tipo_cod = t.tipo_cod "
                 + "ORDER BY prod_desc ASC";
         
         try
@@ -231,9 +231,9 @@ public class ProdutoDAO extends GenericDAO {
     {
         ArrayList<Produto> produto = new ArrayList<Produto>();
         
-        String sql = "SELECT * FROM produto p "
-                + "JOIN categoria c ON p.cat_cod = c.cat_cod "
-                + "JOIN tipo t ON p.tipo_cod = t.tipo_cod "
+        String sql = "SELECT * FROM tblproduto p "
+                + "JOIN tblcategoria c ON p.cat_cod = c.cat_cod "
+                + "JOIN tbltipo t ON p.tipo_cod = t.tipo_cod "
                 + "ORDER BY t.tipo_desc ASC";
         
         try
@@ -273,9 +273,9 @@ public class ProdutoDAO extends GenericDAO {
     {
         ArrayList<Produto> produto = new ArrayList<Produto>();
         
-        String sql = "SELECT * FROM produto p "
-                + "JOIN categoria c ON p.cat_cod = c.cat_cod "
-                + "JOIN tipo t ON p.tipo_cod = t.tipo_cod "
+        String sql = "SELECT * FROM tblproduto p "
+                + "JOIN tblcategoria c ON p.cat_cod = c.cat_cod "
+                + "JOIN tbltipo t ON p.tipo_cod = t.tipo_cod "
                 + "ORDER BY c.cat_tipo, p.prod_desc ASC";
         
         try
@@ -312,7 +312,7 @@ public class ProdutoDAO extends GenericDAO {
     }
     
     public int AutoIncCod(){
-        String sql = "SELECT (MAX(prod_cod) + 1) as codigo FROM produto";
+        String sql = "SELECT (MAX(prod_cod) + 1) as codigo FROM tblproduto";
         this.prepareStmte(sql);
         ResultSet rs;
         int retorno = 0;

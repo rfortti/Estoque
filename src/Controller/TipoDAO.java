@@ -25,7 +25,7 @@ public class TipoDAO extends GenericDAO
     
     public boolean inserir(Tipo tipo)
     {
-        String sql = "INSERT INTO tipo (tipo_cod, tipo_desc, tipo_sigla) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO tbltipo (tipo_cod, tipo_desc, tipo_sigla) VALUES (?, ?, ?)";
         
         try
         {
@@ -44,7 +44,7 @@ public class TipoDAO extends GenericDAO
     
     public boolean excluir(Tipo tipo)
     {
-        String sql = "DELETE FROM tipo WHERE tipo_cod = ?";
+        String sql = "DELETE FROM tbltipo WHERE tipo_cod = ?";
         
         try
         {
@@ -71,7 +71,7 @@ public class TipoDAO extends GenericDAO
     
      public boolean editar(Tipo tipo)
     {
-        String sql = "UPDATE tipo SET tipo_desc = ?, tipo_sigla = ? WHERE tipo_cod = ?";
+        String sql = "UPDATE tbltipo SET tipo_desc = ?, tipo_sigla = ? WHERE tipo_cod = ?";
         
         try
         {
@@ -94,13 +94,13 @@ public class TipoDAO extends GenericDAO
         String sql = "";
         if(parametro == 1){
             //BUSCA PELO CÓDIGO
-           sql = "SELECT * FROM tipo WHERE tipo_cod LIKE ? ORDER BY tipo_cod ASC";
+           sql = "SELECT * FROM tbltipo WHERE tipo_cod LIKE ? ORDER BY tipo_cod ASC";
         }else if(parametro == 2){
             //BUSCA PELO TIPO
-           sql = "SELECT * FROM tipo WHERE tipo_desc LIKE ? ORDER BY tipo_desc ASC";
+           sql = "SELECT * FROM tbltipo WHERE tipo_desc LIKE ? ORDER BY tipo_desc ASC";
         }else if(parametro == 3){
             //BUSCA PELO TIPO
-           sql = "SELECT * FROM tipo WHERE tipo_sigla LIKE ? ORDER BY tipo_sigla ASC";
+           sql = "SELECT * FROM tbltipo WHERE tipo_sigla LIKE ? ORDER BY tipo_sigla ASC";
         }
                         
         try
@@ -130,7 +130,7 @@ public class TipoDAO extends GenericDAO
         ArrayList<Tipo> tipo = new ArrayList<Tipo>();
         
         int x = 0;
-        String sql = "SELECT * FROM tipo ORDER BY tipo_cod ASC";
+        String sql = "SELECT * FROM tbltipo ORDER BY tipo_cod ASC";
         
         try
         {
@@ -159,7 +159,7 @@ public class TipoDAO extends GenericDAO
         ArrayList<Tipo> tipo = new ArrayList<Tipo>();
         
         int x = 0;
-        String sql = "SELECT * FROM tipo ORDER BY tipo_desc ASC";
+        String sql = "SELECT * FROM tbltipo ORDER BY tipo_desc ASC";
         
         try
         {
@@ -190,10 +190,10 @@ public class TipoDAO extends GenericDAO
         String sql = "";
         if(parametro == 1){
             //ORDENA PELO ID DO TIPO
-           sql = "SELECT * FROM tipo ORDER BY tipo_cod ASC";
+           sql = "SELECT * FROM tbltipo ORDER BY tipo_cod ASC";
         }else if(parametro == 2){
             //ORDENA PELO NOME DO TIPO
-            sql = "SELECT * FROM tipo ORDER BY tipo_desc ASC";
+            sql = "SELECT * FROM tbltipo ORDER BY tipo_desc ASC";
         }
                
         try {
@@ -216,7 +216,7 @@ public class TipoDAO extends GenericDAO
     
     public int AutoIncCod()
     {
-        String sql = "SELECT (MAX(tipo_cod) + 1) as codigo FROM tipo";
+        String sql = "SELECT (MAX(tipo_cod) + 1) as codigo FROM tbltipo";
         this.prepareStmte(sql);
         ResultSet rs;
         int retorno = 0;

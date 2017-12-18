@@ -24,7 +24,7 @@ public class LoginDAO extends GenericDAO
     {
         Login[] log = new Login[200];
         int x = 0;
-        String sql = "SELECT * FROM usuario ORDER BY pes_id ASC ";
+        String sql = "SELECT * FROM tblusuario ORDER BY pes_id ASC ";
         
         try
         {
@@ -51,7 +51,7 @@ public class LoginDAO extends GenericDAO
     {
         boolean autentic = false;
         Login log = new Login();
-        String sql = "SELECT login, senha FROM usuario WHERE login = ? AND senha = ?";
+        String sql = "SELECT login, senha FROM tblusuario WHERE login = ? AND senha = ?";
         
         try
         {

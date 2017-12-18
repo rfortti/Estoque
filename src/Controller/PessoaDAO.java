@@ -25,7 +25,7 @@ public class PessoaDAO extends GenericDAO
     
     public boolean inserir(Pessoa pessoa)
     {
-        String sql = "INSERT INTO pessoa (pes_id, pes_tipo, pes_nome, pes_rg, pes_cpf, "
+        String sql = "INSERT INTO tblpessoa (pes_id, pes_tipo, pes_nome, pes_rg, pes_cpf, "
                 + "pes_endereco, pes_bairro, pes_cidade, pes_fone, pes_email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         try
@@ -52,7 +52,7 @@ public class PessoaDAO extends GenericDAO
     
     public boolean excluir(Pessoa pessoa)
     {
-        String sql = "DELETE FROM pessoa WHERE pes_id = ?";
+        String sql = "DELETE FROM tblpessoa WHERE pes_id = ?";
         
         try
         {
@@ -79,7 +79,7 @@ public class PessoaDAO extends GenericDAO
     
     public boolean editar(Pessoa pessoa)
     {
-        String sql = "UPDATE pessoa SET pes_tipo = ?, pes_nome = ?, pes_rg = ?, pes_cpf = ?, "
+        String sql = "UPDATE tblpessoa SET pes_tipo = ?, pes_nome = ?, pes_rg = ?, pes_cpf = ?, "
                 + "pes_endereco = ?, pes_bairro = ?, pes_cidade = ?, pes_fone = ?, pes_email = ? WHERE pes_id = ?";
         
         try
@@ -112,13 +112,13 @@ public class PessoaDAO extends GenericDAO
         String sql = "";
         if(parametro == 1){
             //BUSCA PELO TIPO "Fornecedor"
-           sql = "SELECT * FROM pessoa WHERE pes_tipo = 'Fornecedor' AND pes_nome LIKE ? ORDER BY pes_nome ASC";
+           sql = "SELECT * FROM tblpessoa WHERE pes_tipo = 'Fornecedor' AND pes_nome LIKE ? ORDER BY pes_nome ASC";
         }else if(parametro == 2){
             //BUSCA PELO TIPO "Funcionário"
-           sql = "SELECT * FROM pessoa WHERE pes_tipo = 'Funcionário' AND pes_nome LIKE ? ORDER BY pes_nome ASC";
+           sql = "SELECT * FROM tblpessoa WHERE pes_tipo = 'Funcionário' AND pes_nome LIKE ? ORDER BY pes_nome ASC";
         }
         
-        //String sql = "SELECT * FROM pessoa WHERE pes_nome LIKE ? AND pes_tipo = 'Fornecedor' ORDER BY pes_nome ASC";
+        //String sql = "SELECT * FROM tblpessoa WHERE pes_nome LIKE ? AND pes_tipo = 'Fornecedor' ORDER BY pes_nome ASC";
         
         try
         {
@@ -154,7 +154,7 @@ public class PessoaDAO extends GenericDAO
      {
         ArrayList<Pessoa> pessoa = new ArrayList<Pessoa>();
         
-        String sql = "SELECT * FROM pessoa ORDER BY pes_id ASC";
+        String sql = "SELECT * FROM tblpessoa ORDER BY pes_id ASC";
         
         try
         {
@@ -190,7 +190,7 @@ public class PessoaDAO extends GenericDAO
      {
         ArrayList<Pessoa> pessoa = new ArrayList<Pessoa>();
         
-        String sql = "SELECT * FROM pessoa ORDER BY pes_nome ASC";
+        String sql = "SELECT * FROM tblpessoa ORDER BY pes_nome ASC";
         
         try
         {
@@ -226,7 +226,7 @@ public class PessoaDAO extends GenericDAO
      {
         ArrayList<Pessoa> funcionario = new ArrayList<Pessoa>();
         
-        String sql = "SELECT * FROM pessoa WHERE pes_tipo = 'Funcionário' ORDER BY pes_nome ASC";
+        String sql = "SELECT * FROM tblpessoa WHERE pes_tipo = 'Funcionário' ORDER BY pes_nome ASC";
         
         try
         {
@@ -262,7 +262,7 @@ public class PessoaDAO extends GenericDAO
      {
         ArrayList<Pessoa> fornecedor = new ArrayList<Pessoa>();
         
-        String sql = "SELECT * FROM pessoa WHERE pes_tipo = 'Fornecedor' ORDER BY pes_nome ASC";
+        String sql = "SELECT * FROM tblpessoa WHERE pes_tipo = 'Fornecedor' ORDER BY pes_nome ASC";
         
         try
         {
@@ -293,7 +293,7 @@ public class PessoaDAO extends GenericDAO
     }
      
      public int AutoIncCod(){
-        String sql = "SELECT (MAX(pes_id) + 1) as codigo FROM pessoa";
+        String sql = "SELECT (MAX(pes_id) + 1) as codigo FROM tblpessoa";
         this.prepareStmte(sql);
         ResultSet rs;
         int retorno = 0;
