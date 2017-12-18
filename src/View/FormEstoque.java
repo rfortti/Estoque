@@ -46,6 +46,7 @@ public class FormEstoque extends javax.swing.JFrame {
 
         txtQtde.setDocument(new AceitaNumeros());
         txtValor.setDocument(new AceitaNumerosPonto());
+        
         txtItem.setText(String.valueOf(tblProdutos.getRowCount() + 1));
 
         this.pedidoDAO = new PedidoDAO();
@@ -401,7 +402,7 @@ public class FormEstoque extends javax.swing.JFrame {
                         .addComponent(cbFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblFornecedor)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -426,7 +427,7 @@ public class FormEstoque extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 402, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(lblTotal)))
@@ -495,7 +496,9 @@ public class FormEstoque extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-
+        btnEntrada.setEnabled(false);
+        btnSaida.setEnabled(false);
+        
         //Pega Data
         Date dataSistema = new Date();
 
@@ -517,6 +520,17 @@ public class FormEstoque extends javax.swing.JFrame {
             }
         }
         cbFuncionario.setSelectedIndex(-1);
+        
+        PessoaDAO fornDAO = new PessoaDAO();
+        ArrayList<Pessoa> forn = new ArrayList<Pessoa>();
+        forn = fornDAO.getFornecedor();
+            
+        for (Pessoa f : forn) {
+            if (f != null) {
+                cbFornecedor.addItem(f.getP_nome());
+            }
+        }
+        cbFornecedor.setSelectedIndex(-1);
 
         ProdutoDAO prodDAO = new ProdutoDAO();
         ArrayList<Produto> prod = new ArrayList<Produto>();
@@ -527,15 +541,13 @@ public class FormEstoque extends javax.swing.JFrame {
                 cbProduto.addItem(p.getDescProduto());
             }
         }
-        
-        somarColunaTotal();
-        
+        cbProduto.setSelectedIndex(-1);
+                
         btnConcluir.setEnabled(true);
         grupoPgto.add(rbEntrada);
         grupoPgto.add(rbSaida);
         //rbEntrada.setSelected(true);// inicia selecionado
-
-        cbProduto.setSelectedIndex(-1);
+        
         lblFornecedor.setVisible(true);
         btnFornecedor.setVisible(true);
         cbFornecedor.setVisible(true);
@@ -544,21 +556,16 @@ public class FormEstoque extends javax.swing.JFrame {
     private void btnEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntradaActionPerformed
         // TODO add your handling code here:
         Date dataSistema = new Date();
-        SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat data = new SimpleDateFormat("yyyy/MM/dd");
         
         try {
             String ped_cod = txtItem.getText();
             String ped_data = data.format(dataSistema);
-            String ped_tipo = "";
-            if (rbEntrada.isSelected())
-            {
-                ped_tipo = "E";   
-            }
-            else if (rbSaida.isSelected())
-            {
-                ped_tipo = "S";
-            }
-            
+            String ped_tipo = ""; 
+                if (rbEntrada.isSelected())
+                {
+                    ped_tipo = "E";
+                }
             String pes_id = cbFuncionario.getSelectedItem().toString();
             String ped_destino = txtDestino.getText();
             String produto = cbProduto.getSelectedItem().toString();
@@ -567,11 +574,9 @@ public class FormEstoque extends javax.swing.JFrame {
 
             double valorItem = 0;
             
-
-            DecimalFormat df = new DecimalFormat("#,###.00");
-            valorItem = Double.parseDouble(qtde) * Double.parseDouble(valor);
-            
-            
+            DecimalFormat df = new DecimalFormat("R$ "+"#,###,##0.00");
+            valorItem = Double.parseDouble(qtde) * Double.parseDouble(valor);         
+                        
             DefaultTableModel tabelaProdutos = (DefaultTableModel) tblProdutos.getModel();
             Object[] obj = new Object[]{
                 ped_cod,
@@ -582,19 +587,17 @@ public class FormEstoque extends javax.swing.JFrame {
                 ped_cod,
                 produto,
                 qtde,
-                //valorItem
+                valorItem,
                 df.format(valorItem)
             };
             
-            somarColunaTotal();
+            
             //df.format(total);
             //txtTPagar.setText(String.valueOf(total));
             tabelaProdutos.addRow(obj);
             //txtItem.setText(String.valueOf(tblProdutos.getRowCount() + 1));
-            cbProduto.setSelectedItem(-1);
-            txtQtde.setText("");
-            txtValor.setText("");
-            txtQtde.requestFocus();
+            somarColunaTotal();
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "É necessário preencher corretamente todos\n os campos do Produto !\nErro: " + e.getMessage());
         }
@@ -660,9 +663,10 @@ public class FormEstoque extends javax.swing.JFrame {
 
     private void rbEntradaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbEntradaMouseClicked
         // TODO add your handling code here:
-        if (rbEntrada.isSelected()) {
-            cbFornecedor.removeAllItems();
-
+        if (rbEntrada.isSelected()) 
+        {   
+            btnEntrada.setEnabled(true);
+            btnSaida.setEnabled(false);       
             btnConcluir.setEnabled(true);
             btnClear.setEnabled(true);
             lblFornecedor.setVisible(true);
@@ -674,19 +678,8 @@ public class FormEstoque extends javax.swing.JFrame {
 
     private void rbSaidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbSaidaMouseClicked
         // TODO add your handling code here:
-        if (rbSaida.isSelected()) {
-
-            PessoaDAO fornDAO = new PessoaDAO();
-            ArrayList<Pessoa> forn = new ArrayList<Pessoa>();
-            forn = fornDAO.getFornecedor();
-
-            for (Pessoa f : forn) {
-                if (f != null) {
-                    cbFornecedor.addItem(f.getP_nome());
-                }
-            }
-            cbFornecedor.setSelectedIndex(-1);
-
+        if (rbSaida.isSelected()) 
+        {            
             btnConcluir.setEnabled(true);
             btnClear.setEnabled(false);
             lblFornecedor.setVisible(true);
@@ -720,7 +713,7 @@ public class FormEstoque extends javax.swing.JFrame {
         // TODO add your handling code here:            
         DefaultTableModel tabelaProdutos = (DefaultTableModel) tblProdutos.getModel();
         Pedido ped = new Pedido();
-        DecimalFormat df = new DecimalFormat("#,###.00");
+        DecimalFormat df = new DecimalFormat("R$ "+"#,###,##0.00");
 
         if (cbFuncionario.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(null, "Selecione um funcionario !", "ATENÇÃO", JOptionPane.INFORMATION_MESSAGE);
@@ -935,8 +928,8 @@ public class FormEstoque extends javax.swing.JFrame {
         double soma = 0;
                 
         for (int i=0; i<tblProdutos.getRowCount(); i++)   
-        {    
-            double valor = Double.parseDouble(String.valueOf(modelo.getValueAt(i,8))); //pega a coluna Valor Total     
+        {     
+            double valor = Double.parseDouble(String.valueOf(modelo.getValueAt(i,8)));//pega a coluna Valor Total     
             soma += valor;    
         }    
         
