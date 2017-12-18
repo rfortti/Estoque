@@ -6,7 +6,7 @@ CREATE DATABASE IF NOT EXISTS estoque;
 USE estoque;
 
 -- Criando a tabela pessoa;
-CREATE TABLE pessoa(
+CREATE TABLE tblpessoa(
 pes_id INT(6) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 pes_tipo VARCHAR(15) NOT NULL,
 pes_nome VARCHAR(50) NOT NULL,
@@ -20,11 +20,12 @@ pes_email VARCHAR(30) NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Inserindo os dados na tabela pessoa;
-INSERT INTO pessoa (pes_id, pes_tipo, pes_nome, pes_rg, pes_cpf, pes_endereco, pes_bairro, pes_cidade, pes_fone, pes_email) VALUES 
-	(1,"Funcionario","ADM","","111.111.111.11","RUA 1","UM","A","(11)1111-1111","");	
+INSERT INTO tblpessoa (pes_id, pes_tipo, pes_nome, pes_rg, pes_cpf, pes_endereco, pes_bairro, pes_cidade, pes_fone, pes_email) VALUES 
+	(1,"Funcionario","ADM","","111.111.111.11","RUA 1","UM","A","(11)1111-1111",""),
+	(2,"Fornecedor","FRN","","222.222.222.22","RUA 2","DOIS","B","(22)2222-2222","");
 
 -- Criando a tabela usuario;
-CREATE TABLE usuario(
+CREATE TABLE tblusuario(
 pes_id INT(6) NOT NULL AUTO_INCREMENT,
 login VARCHAR(50) NOT NULL,
 senha VARCHAR(8) NOT NULL,
@@ -34,31 +35,32 @@ id_nivel INT(2) NOT NULL,
 nivel VARCHAR(15) NOT NULL,
 PRIMARY KEY (pes_id),
 UNIQUE INDEX id_UNIQUE (pes_id ASC),
-CONSTRAINT fk_usuario FOREIGN KEY(pes_id) REFERENCES pessoa(pes_id) ON DELETE NO ACTION ON UPDATE NO ACTION 
+CONSTRAINT fk_usuario FOREIGN KEY(pes_id) REFERENCES tblpessoa(pes_id) ON DELETE NO ACTION ON UPDATE NO ACTION 
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Inserindo os dados na tabela usuario;
-INSERT INTO usuario (pes_id, login, senha, id_tipo, tipo, id_nivel, nivel) VALUES
+INSERT INTO tblusuario (pes_id, login, senha, id_tipo, tipo, id_nivel, nivel) VALUES
 	(1,"ADMIN","admin123",1,"Funcionário",1,"Administrador");
 
 -- Criando View dos usuários;	
 CREATE VIEW View_Usuarios AS
 SELECT u.pes_id, p.pes_nome AS nome, u.tipo, u.nivel, u.login 
-FROM usuario AS u
-INNER JOIN pessoa AS p ON p.pes_id = u.pes_id;	
+FROM tblusuario AS u
+INNER JOIN tblpessoa AS p ON p.pes_id = u.pes_id;	
 	
 -- Criando a tabela pedido;
-CREATE TABLE pedido(
+CREATE TABLE tblpedido(
 ped_cod INT(6) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
 ped_data DATE NOT NULL,
-ped_tipo CHAR NOT NULL, 
+ped_tipo CHAR NOT NULL,
 pes_id INT(6) NOT NULL,
+ped_destino VARCHAR(50) NOT NULL,
 PRIMARY KEY(ped_cod),
-CONSTRAINT fk_pes_id FOREIGN KEY(pes_id) REFERENCES pessoa(pes_id) ON DELETE NO ACTION ON UPDATE NO ACTION	
+CONSTRAINT fk_pes_id FOREIGN KEY(pes_id) REFERENCES tblpessoa(pes_id) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;	
 
 -- Criando a tabela tipo de unidade de medida;
-CREATE TABLE tipo(
+CREATE TABLE tbltipo(
 tipo_cod INT(6) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
 tipo_desc VARCHAR(25) NOT NULL,
 tipo_sigla VARCHAR(3) NOT NULL,
@@ -66,25 +68,26 @@ PRIMARY KEY (tipo_cod)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Inserindo os dados na tabela tipo;
-INSERT INTO tipo (tipo_cod, tipo_desc, tipo_sigla) VALUES 
+INSERT INTO tbltipo (tipo_cod, tipo_desc, tipo_sigla) VALUES 
 	(1,'UNIDADE','UNI'),
 	(2,'PAR','PAR'),
 	(3,'PACOTE','PCT'),
 	(4,'GALÃO','GAL');
 
 -- Criando a tabela categoria;
-CREATE TABLE categoria(
+CREATE TABLE tblcategoria(
 cat_cod INT(6) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
 cat_tipo VARCHAR(25) NOT NULL,
 PRIMARY KEY (cat_cod)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Inserindo os dados na tabela categoria;
-INSERT INTO categoria (cat_cod, cat_tipo) VALUES 
-	(1,'LIMPEZA');
+INSERT INTO tblcategoria (cat_cod, cat_tipo) VALUES 
+	(1,'LIMPEZA'),
+	(2,'ESCRITORIO');
 
 -- Criando a tabela produto;
-CREATE TABLE produto(
+CREATE TABLE tblproduto(
 prod_cod INT(6) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
 prod_desc VARCHAR(50) NOT NULL,
 -- prod_tipo VARCHAR(3) NOT NULL,
@@ -92,12 +95,12 @@ prod_min INT(6) NOT NULL,
 tipo_cod INT(6) UNSIGNED ZEROFILL NOT NULL,
 cat_cod INT(6) UNSIGNED ZEROFILL NOT NULL,
 PRIMARY KEY (prod_cod),
-CONSTRAINT fk_tipo FOREIGN KEY(tipo_cod) REFERENCES tipo(tipo_cod),
-CONSTRAINT fk_categoria FOREIGN KEY(cat_cod) REFERENCES categoria(cat_cod)
+CONSTRAINT fk_tipo FOREIGN KEY(tipo_cod) REFERENCES tbltipo(tipo_cod),
+CONSTRAINT fk_categoria FOREIGN KEY(cat_cod) REFERENCES tblcategoria(cat_cod)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;				
 
 -- Inserindo os dados na tabela produto;
-INSERT INTO produto (prod_cod, prod_desc, tipo_cod, prod_min, cat_cod) VALUES
+INSERT INTO tblproduto (prod_cod, prod_desc, tipo_cod, prod_min, cat_cod) VALUES
 	(1,'AGUA SANITARIA 1L',1,1,1),
 	(2,'ALCOOL 1L',1,1,1),
 	(3,'BALDE PLASTICO 20L',1,1,1),
@@ -131,18 +134,20 @@ INSERT INTO produto (prod_cod, prod_desc, tipo_cod, prod_min, cat_cod) VALUES
 	(31,'VASSOURA DE NYLON PEQUENA',1,1,1);
 
 -- Criando a tabela item;
-CREATE TABLE item(
+CREATE TABLE tblitem(
 item_cod INT(6) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
-item_tipo VARCHAR(3) NOT NULL,
+-- item_tipo VARCHAR(3) NOT NULL,
 item_qtde INT(6) NOT NULL,
 item_valor FLOAT(6) NOT NULL,
 ped_cod INT(6) UNSIGNED ZEROFILL NOT NULL,
 prod_cod INT(6) UNSIGNED ZEROFILL NOT NULL,
 PRIMARY KEY(item_cod),
-CONSTRAINT fk_pedido FOREIGN KEY(ped_cod) REFERENCES pedido(ped_cod) ON DELETE NO ACTION ON UPDATE NO ACTION,	
-CONSTRAINT fk_produto FOREIGN KEY(prod_cod) REFERENCES produto(prod_cod) ON DELETE NO ACTION ON UPDATE NO ACTION
+CONSTRAINT fk_pedido FOREIGN KEY(ped_cod) REFERENCES tblpedido(ped_cod) ON DELETE NO ACTION ON UPDATE NO ACTION,	
+CONSTRAINT fk_produto FOREIGN KEY(prod_cod) REFERENCES tblproduto(prod_cod) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-	
+
+-- #########################################################################################################################################################	
+
 -- Criando a tabela de Pessoas Excluídas;
 -- DROP TABLE IF EXISTS arquivopes;
 CREATE TABLE IF NOT EXISTS arquivopes(
@@ -172,7 +177,7 @@ cat_cod int(6) NOT NULL
 -- TRIGGER(gatilho) Pessoas;
 -- DROP TRIGGER IF EXISTS pes;
 DELIMITER //
-CREATE TRIGGER pes BEFORE DELETE ON pessoa
+CREATE TRIGGER pes BEFORE DELETE ON tblpessoa
 FOR EACH ROW 
 BEGIN
     INSERT INTO arquivopes VALUES (OLD.pes_id, OLD.pes_tipo, OLD.pes_nome, OLD.pes_rg, OLD.pes_cpf, OLD.pes_endereco, OLD.pes_bairro, OLD.pes_cidade, OLD.pes_fone, OLD.pes_email);     	     
@@ -183,7 +188,7 @@ DELIMITER ;
 -- TRIGGER(gatilho) Produtos;
 -- DROP TRIGGER IF EXISTS prod;
 DELIMITER //
-CREATE TRIGGER prod BEFORE DELETE ON produto
+CREATE TRIGGER prod BEFORE DELETE ON tblproduto
 FOR EACH ROW 
 BEGIN
     INSERT INTO arquivoprod VALUES (OLD.prod_cod, OLD.prod_desc, OLD.tipo_cod, OLD.cat_cod);     	     
@@ -194,7 +199,7 @@ DELIMITER ;
 -- TRIGGER(gatilho) Verifica Pessoa antes de Inserir
 -- DROP TRIGGER IF EXISTS incluirPessoa;
 DELIMITER //
-CREATE TRIGGER incluirPessoa BEFORE INSERT ON pessoa
+CREATE TRIGGER incluirPessoa BEFORE INSERT ON tblpessoa
 FOR EACH ROW
 	BEGIN
 		DECLARE estatus BOOLEAN DEFAULT FALSE;
@@ -212,7 +217,7 @@ DELIMITER ;
 -- TRIGGER(gatilho) Verifica Produto antes de Inserir
 -- DROP TRIGGER IF EXISTS incluirProduto;
 DELIMITER //
-CREATE TRIGGER incluirProduto BEFORE INSERT ON produto
+CREATE TRIGGER incluirProduto BEFORE INSERT ON tblproduto
 FOR EACH ROW
 	BEGIN
 		DECLARE estatus BOOLEAN DEFAULT FALSE;
@@ -245,7 +250,7 @@ DECLARE cidadepes varchar(30);
 DECLARE fonepes varchar(15);
 DECLARE emailpes varchar(30);
 DECLARE pes CURSOR FOR SELECT * FROM
-				estoque.pessoa AS lp WHERE pes_nome=cp;
+				estoque.tblpessoa AS lp WHERE pes_nome=cp;
 DECLARE CONTINUE HANDLER FOR NOT FOUND
 		SET fim = TRUE;
 OPEN pes;
@@ -270,7 +275,7 @@ DECLARE codprod int(6);
 DECLARE descprod varchar(50);
 DECLARE tipoprod varchar(25);
 DECLARE prod CURSOR FOR SELECT * FROM
-				estoque.produto AS lpr WHERE prod_desc=cpr;
+				estoque.tblproduto AS lpr WHERE prod_desc=cpr;
 DECLARE CONTINUE HANDLER FOR NOT FOUND
 		SET fim = TRUE;
 OPEN prod;
@@ -310,7 +315,7 @@ read_loop:  LOOP
 				FETCH rpes INTO ridpes, rtipopes, rnomepes, rrgpes, rcpfpes, renderecopes, rbairropes, rcidadepes, rfonepes, remailpes;	   
 				IF fim THEN LEAVE read_loop;   
 				END IF;	   
-				INSERT INTO estoque.pessoa VALUES (ridpes, rtipopes, rnomepes, rrgpes, rcpfpes, renderecopes, rbairropes, rcidadepes, rfonepes, remailpes); 
+				INSERT INTO estoque.tblpessoa VALUES (ridpes, rtipopes, rnomepes, rrgpes, rcpfpes, renderecopes, rbairropes, rcidadepes, rfonepes, remailpes); 
 				DELETE FROM estoque.arquivopes WHERE pes_nome=rp;
 			END LOOP; 
 CLOSE rpes;
@@ -336,7 +341,7 @@ read_loop:  LOOP
 				FETCH rprod INTO rprodcod, rproddesc, rprodtipo;	   
 				IF fim THEN LEAVE read_loop;   
 				END IF;	   
-				INSERT INTO estoque.produto VALUES (rprodcod, rproddesc, rprodtipo); 
+				INSERT INTO estoque.tblproduto VALUES (rprodcod, rproddesc, rprodtipo); 
 				DELETE FROM estoque.arquivoprod WHERE prod_desc=rpr;
 			END LOOP; 
 CLOSE rprod;
