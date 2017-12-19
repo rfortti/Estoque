@@ -15,6 +15,7 @@ public class Pedido
     private int ped_cod;
     private String ped_data;
     private String ped_tipo;
+    //private Pessoa pes_id;
     private int pes_id;
     private String ped_destino;
     

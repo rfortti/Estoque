@@ -556,7 +556,7 @@ public class FormEstoque extends javax.swing.JFrame {
     private void btnEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntradaActionPerformed
         // TODO add your handling code here:
         Date dataSistema = new Date();
-        SimpleDateFormat data = new SimpleDateFormat("yyyy/MM/dd");
+        SimpleDateFormat data = new SimpleDateFormat("yyyy-MM-dd");
         
         try {
             String ped_cod = txtItem.getText();
@@ -723,31 +723,34 @@ public class FormEstoque extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "É necessário adicionar algum produto !", "ATENÇÃO", JOptionPane.INFORMATION_MESSAGE);
         }
 
-        if (rbSaida.isSelected() && cbFornecedor.getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(null, "Selecione um cliente !", "ATENÇÃO", JOptionPane.INFORMATION_MESSAGE);
+        if (cbFornecedor.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(null, "Selecione um fornecedor !", "ATENÇÃO", JOptionPane.INFORMATION_MESSAGE);
         }
 
         if (tabelaProdutos.getRowCount() != 0)// && cbCliente.getSelectedIndex() != -1)
         {
             try 
-            {                
+            {     
                 for (int x = 0; x < tblProdutos.getRowCount(); x++) 
                 {
                     int ped_Cod = Integer.parseInt(tblProdutos.getValueAt(x, 0).toString());
                     ped.setPed_cod(ped_Cod);
                     
                     String ped_Data = lblData.getText();
-                    ped.setPed_data(ConverteData.converteData(ped_Data));
+                    ped.setPed_data(ped_Data);
+                    //ped.setPed_data(ConverteData.converteData(ped_Data));
                     
-                    String ped_Tipo = String.valueOf(tblProdutos.getValueAt(x, 1).toString());
+                    String ped_Tipo = String.valueOf(tblProdutos.getValueAt(x, 2).toString());
                     ped.setPed_tipo(ped_Tipo);
-
-                    int pes_Id = Integer.parseInt(tblProdutos.getValueAt(x, 2).toString());
+                    
+                    int pes_Id = cbFuncionario.getSelectedIndex();  
                     ped.setPes_id(pes_Id);
-                    
-                    String ped_Destino = String.valueOf(tblProdutos.getValueAt(x, 3).toString());
+                    //int pes_Id = Integer.parseInt(tblProdutos.getValueAt(x, 3).toString());
+                    //ped.setPes_id(pes_Id);
+                    txtDestino.setText(String.valueOf(pes_Id));
+                    String ped_Destino = String.valueOf(tblProdutos.getValueAt(x, 4).toString());
                     ped.setPed_destino(ped_Tipo);
-                    
+                    /*
                     int item_Cod = Integer.parseInt(tblProdutos.getValueAt(x, 4).toString());
                     ped.setItem_cod(item_Cod);
                     
@@ -756,37 +759,19 @@ public class FormEstoque extends javax.swing.JFrame {
                     
                     float ped_Valor = Float.parseFloat(tblProdutos.getValueAt(x, 6).toString().replace(".", "").replace(",", "."));
                     ped.setItem_valor(ped_Valor);
-                                                            
+                    
+                    int item_ped_Cod = Integer.parseInt(tblProdutos.getValueAt(x, 7).toString());
+                    ped.setPed_cod(ped_Cod);
+                    
                     int prod_Cod = Integer.valueOf(tblProdutos.getValueAt(x, 8).toString());
                     ped.setProd_cod(prod_Cod);
                    
-                    
-                    String ped_Cliente = "";
-                    /*
-                    if (rbEntrada.isSelected()) {
-                        String ped_Pgto = "à Vista";
-                        ped.setPedPgto(ped_Pgto);
-                    } else if (rbSaida.isSelected()) {
-                        String ped_Pgto = "Fiado";
-                        ped.setPedPgto(ped_Pgto);
-                        ped_Cliente = cbFornecedor.getSelectedItem().toString();
-                        ped.setPedCliente(ped_Cliente);
-                    }
-                    
-                    if (rbEntrada.isSelected()) {
-                        String ped_Situacao = "P A G O";
-                        ped.setPedSituacao(ped_Situacao);
-                    } else if (rbSaida.isSelected()) {
-                        String ped_Situacao = "Em Aberto";
-                        ped.setPedSituacao(ped_Situacao);
-                    }
-                    
-                    String ped_Func = cbFuncionario.getSelectedItem().toString();
-                    ped.getPes_id(ped_Func);
                     */
+                    String ped_Cliente = "";
+                                        
                     if (this.pedidoDAO.inserir(ped) == true) {
                         JOptionPane.showMessageDialog(null, "Pedido do(a) cliente [ " + cbFornecedor.getSelectedItem() + " ] inserido com sucesso ! \n\n"
-                                + "Obrigado e Volte Sempre !!", "ATENÇÃO", JOptionPane.INFORMATION_MESSAGE);
+                                + "-", "ATENÇÃO", JOptionPane.INFORMATION_MESSAGE);
                     } else {
                         JOptionPane.showMessageDialog(null, "Não foi possível salvar este pedido !", "ATENÇÃO", JOptionPane.ERROR_MESSAGE);
                     }
