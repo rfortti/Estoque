@@ -713,6 +713,7 @@ public class FormEstoque extends javax.swing.JFrame {
         // TODO add your handling code here:            
         DefaultTableModel tabelaProdutos = (DefaultTableModel) tblProdutos.getModel();
         Pedido ped = new Pedido();
+
         DecimalFormat df = new DecimalFormat("R$ "+"#,###,##0.00");
 
         if (cbFuncionario.getSelectedIndex() == -1) {
