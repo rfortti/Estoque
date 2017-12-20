@@ -9,6 +9,7 @@ package Controller;
 import Model.Pedido;
 import Model.Pessoa;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -28,8 +29,8 @@ public class PedidoDAO extends GenericDAO
         String sql = "INSERT INTO tblpedido (ped_cod, ped_data, ped_tipo, pes_id, ped_destino)"
                 +" VALUES (?, ?, ?, ?, ?)";
         
-        //String sql2 = "INSERT INTO tblitem (item_cod, item_qtde, item_valor, ped_cod, prod_cod)"
-          //      +" VALUES (?, ?, ?, ?, ?)";
+        String sql2 = "INSERT INTO tblitem (item_cod, item_qtde, item_valor, ped_cod, prod_cod)"
+                +" VALUES (?, ?, ?, ?, ?)";
         
         try
         {
@@ -39,8 +40,8 @@ public class PedidoDAO extends GenericDAO
             this.stmte.setString(3,pedido.getPed_tipo());
             this.stmte.setInt(4,pedido.getPes_id());
             this.stmte.setString(5,pedido.getPed_destino());
-            this.stmte.execute();
-            /*
+            //this.stmte.execute();
+            
             this.prepareStmte(sql2);
             this.stmte.setInt(1,pedido.getItem_cod());
             this.stmte.setInt(2,pedido.getItem_qtde());
@@ -48,7 +49,7 @@ public class PedidoDAO extends GenericDAO
             this.stmte.setInt(4,pedido.getPed_cod());
             this.stmte.setInt(5,pedido.getProd_cod());
             this.stmte.execute();
-            */
+            
             return true;
         }
         catch(SQLException e)

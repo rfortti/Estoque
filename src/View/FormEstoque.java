@@ -61,7 +61,7 @@ public class FormEstoque extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        grupoPgto = new javax.swing.ButtonGroup();
+        grupoEstoque = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         lblFuncionario = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -97,7 +97,7 @@ public class FormEstoque extends javax.swing.JFrame {
         lblTotal = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(".: Controle Caixa :.");
+        setTitle(".: Controle de ESTOQUE :.");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -544,8 +544,8 @@ public class FormEstoque extends javax.swing.JFrame {
         cbProduto.setSelectedIndex(-1);
                 
         btnConcluir.setEnabled(true);
-        grupoPgto.add(rbEntrada);
-        grupoPgto.add(rbSaida);
+        grupoEstoque.add(rbEntrada);
+        grupoEstoque.add(rbSaida);
         //rbEntrada.setSelected(true);// inicia selecionado
         
         lblFornecedor.setVisible(true);
@@ -749,26 +749,25 @@ public class FormEstoque extends javax.swing.JFrame {
                     //ped.setPes_id(pes_Id);
                     txtDestino.setText(String.valueOf(pes_Id));
                     String ped_Destino = String.valueOf(tblProdutos.getValueAt(x, 4).toString());
-                    ped.setPed_destino(ped_Tipo);
-                    /*
-                    int item_Cod = Integer.parseInt(tblProdutos.getValueAt(x, 4).toString());
+                    ped.setPed_destino(ped_Destino);
+                    
+                    int item_Cod = Integer.parseInt(tblProdutos.getValueAt(x, 5).toString());
                     ped.setItem_cod(item_Cod);
                     
-                    int ped_Qtde = Integer.parseInt(tblProdutos.getValueAt(x, 5).toString());
-                    ped.setItem_qtde(ped_Qtde);
+                    //int prod_Cod = Integer.valueOf(tblProdutos.getValueAt(x, 6).toString());
+                    int item_prod_Cod = cbProduto.getSelectedIndex();  
+                    ped.setProd_cod(item_prod_Cod);
                     
-                    float ped_Valor = Float.parseFloat(tblProdutos.getValueAt(x, 6).toString().replace(".", "").replace(",", "."));
-                    ped.setItem_valor(ped_Valor);
+                    int item_Qtde = Integer.parseInt(tblProdutos.getValueAt(x, 7).toString());
+                    ped.setItem_qtde(item_Qtde);
                     
-                    int item_ped_Cod = Integer.parseInt(tblProdutos.getValueAt(x, 7).toString());
-                    ped.setPed_cod(ped_Cod);
+                    float item_Valor = Float.parseFloat(tblProdutos.getValueAt(x, 8).toString().replace(".", "").replace(",", "."));
+                    ped.setItem_valor(item_Valor);
                     
-                    int prod_Cod = Integer.valueOf(tblProdutos.getValueAt(x, 8).toString());
-                    ped.setProd_cod(prod_Cod);
-                   
-                    */
-                    String ped_Cliente = "";
-                                        
+                    int item_ped_Cod = Integer.parseInt(tblProdutos.getValueAt(x, 5).toString());
+                    ped.setPed_cod(item_ped_Cod);
+                                                       
+                                                            
                     if (this.pedidoDAO.inserir(ped) == true) {
                         JOptionPane.showMessageDialog(null, "Pedido do(a) cliente [ " + cbFornecedor.getSelectedItem() + " ] inserido com sucesso ! \n\n"
                                 + "-", "ATENÇÃO", JOptionPane.INFORMATION_MESSAGE);
@@ -855,7 +854,7 @@ public class FormEstoque extends javax.swing.JFrame {
     private javax.swing.JComboBox cbFornecedor;
     private javax.swing.JComboBox cbFuncionario;
     private javax.swing.JComboBox cbProduto;
-    private javax.swing.ButtonGroup grupoPgto;
+    private javax.swing.ButtonGroup grupoEstoque;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;

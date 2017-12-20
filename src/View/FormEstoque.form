@@ -2,12 +2,12 @@
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
-    <Component class="javax.swing.ButtonGroup" name="grupoPgto">
+    <Component class="javax.swing.ButtonGroup" name="grupoEstoque">
     </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
-    <Property name="title" type="java.lang.String" value=".: Controle Caixa :."/>
+    <Property name="title" type="java.lang.String" value=".: Controle de ESTOQUE :."/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
