@@ -775,7 +775,7 @@ public class FormEstoque extends javax.swing.JFrame {
                     ped.setPed_cod(item_ped_Cod);
                     */                                   
                                                             
-                    if (this.pedidoDAO.inserir(ped) == true) {
+                    if (this.pedidoDAO.inserirPedido(ped) == true) {
                         JOptionPane.showMessageDialog(null, "Pedido do(a) cliente [ " + cbFornecedor.getSelectedItem() + " ] inserido com sucesso ! \n\n"
                                 + "-", "ATENÇÃO", JOptionPane.INFORMATION_MESSAGE);
                     } else {
