@@ -98,5 +98,4 @@ public class Pedido
         this.prod_cod = prod_cod;
     }
     
-    
 }

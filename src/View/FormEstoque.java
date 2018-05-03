@@ -11,6 +11,8 @@ import Model.Produto;
 import Controller.PedidoDAO;
 import Controller.PessoaDAO;
 import Controller.ProdutoDAO;
+import Controller.TipoDAO;
+import Model.Tipo;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,7 +22,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 import javax.swing.Timer;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import utilitarios.AceitaNumeros;
 import utilitarios.AceitaNumerosPonto;
@@ -679,7 +683,9 @@ public class FormEstoque extends javax.swing.JFrame {
     private void rbSaidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbSaidaMouseClicked
         // TODO add your handling code here:
         if (rbSaida.isSelected()) 
-        {            
+        {  
+            preencheTabela();
+            
             btnConcluir.setEnabled(true);
             btnClear.setEnabled(false);
             lblFornecedor.setVisible(true);
@@ -751,7 +757,7 @@ public class FormEstoque extends javax.swing.JFrame {
                     txtDestino.setText(String.valueOf(pes_Id));
                     String ped_Destino = String.valueOf(tblProdutos.getValueAt(x, 4).toString());
                     ped.setPed_destino(ped_Destino);
-                    
+                    /*
                     int item_Cod = Integer.parseInt(tblProdutos.getValueAt(x, 5).toString());
                     ped.setItem_cod(item_Cod);
                     
@@ -767,7 +773,7 @@ public class FormEstoque extends javax.swing.JFrame {
                     
                     int item_ped_Cod = Integer.parseInt(tblProdutos.getValueAt(x, 5).toString());
                     ped.setPed_cod(item_ped_Cod);
-                                                       
+                    */                                   
                                                             
                     if (this.pedidoDAO.inserir(ped) == true) {
                         JOptionPane.showMessageDialog(null, "Pedido do(a) cliente [ " + cbFornecedor.getSelectedItem() + " ] inserido com sucesso ! \n\n"
@@ -788,11 +794,17 @@ public class FormEstoque extends javax.swing.JFrame {
 
     private void tblProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProdutosMouseClicked
         // TODO add your handling code here:
+        popularComboFuncionario();
+        //cbTipo.updateUI();
+        
         int linhaselecionada = tblProdutos.getSelectedRow(); //pega a linha selecionada
+        
         txtItem.setText(tblProdutos.getValueAt(linhaselecionada, 0).toString());
         cbProduto.setSelectedItem(tblProdutos.getValueAt(linhaselecionada, 1).toString());
         txtQtde.setText(tblProdutos.getValueAt(linhaselecionada, 2).toString());
         txtValor.setText(tblProdutos.getValueAt(linhaselecionada, 3).toString().replace(".", "").replace(",", "."));
+        txtDestino.setText(tblProdutos.getValueAt(linhaselecionada, 4).toString());
+        cbFuncionario.setSelectedItem(tblProdutos.getValueAt(linhaselecionada, 3));
     }//GEN-LAST:event_tblProdutosMouseClicked
 
     private void btnFuncionarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btnFuncionarioFocusLost
@@ -889,7 +901,22 @@ public class FormEstoque extends javax.swing.JFrame {
             lblHora.setText(String.format("%1$tH:%1$tM:%1$tS", now));
         }
     }
-
+    
+    //metodo para popular combo tipo
+    public void popularComboFuncionario() {
+                
+        PessoaDAO pDAO = new PessoaDAO();
+        ArrayList<Pessoa> listFunc = pDAO.getFuncionario();
+        if (listFunc.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Cadastre pelo menos um funcionário !");
+            this.dispose();
+        } else {
+            for(Pessoa func : listFunc){
+                cbFuncionario.addItem(func);
+            }
+        }
+    }
+    
     public void Limpar() {
         cbFuncionario.setSelectedIndex(-1);
         txtItem.setText("");
@@ -920,5 +947,48 @@ public class FormEstoque extends javax.swing.JFrame {
         
         String novoValor = String.valueOf(df.format(soma));  
         txtTotal.setText(novoValor.replace(".","").replace(".", ","));
+    }
+    
+    private void preencheTabela()
+     {
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+            esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+            centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+            direita.setHorizontalAlignment(SwingConstants.RIGHT);
+            
+        tblProdutos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        tblProdutos.getColumnModel().getColumn(1).setCellRenderer(esquerda);
+        tblProdutos.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+        tblProdutos.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+        tblProdutos.getColumnModel().getColumn(4).setCellRenderer(esquerda);
+         
+        tblProdutos.getColumnModel().getColumn(0).setPreferredWidth(15);    //codigo
+        tblProdutos.getColumnModel().getColumn(1).setPreferredWidth(45);    //data
+        tblProdutos.getColumnModel().getColumn(2).setPreferredWidth(5);     //tipo
+        tblProdutos.getColumnModel().getColumn(3).setPreferredWidth(35);    //funcionario
+        tblProdutos.getColumnModel().getColumn(4).setPreferredWidth(100);   //destino
+         
+        ArrayList<Pedido> pedido = new ArrayList<Pedido>();
+        pedido = this.pedidoDAO.getPedidoByTipo();
+        
+        DefaultTableModel tabela = (DefaultTableModel)tblProdutos.getModel();
+        tabela.setNumRows(0);
+        
+        for (Pedido ped : pedido) 
+        {
+            if (ped != null) 
+            {
+                Object[] obj = new Object[]{
+                    ped.getPed_cod(),
+                    ped.getPed_data(),
+                    ped.getPed_tipo(),
+                    ped.getPes_id(),
+                    ped.getPed_destino()
+                };
+                tabela.addRow(obj);
+            }
+        }        
     }
 }
