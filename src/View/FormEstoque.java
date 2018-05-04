@@ -743,10 +743,9 @@ public class FormEstoque extends javax.swing.JFrame {
                     int ped_Cod = Integer.parseInt(tblProdutos.getValueAt(x, 0).toString());
                     ped.setPed_cod(ped_Cod);
                     
-                    //O problema está aki
-                    String ped_Data = "04/05/2018";//lblData.getText();
-                    //ped.setPed_data(ped_Data);
-                    ped.setPed_data(ConverteData.converteData(ped_Data));
+                    String ped_Data = lblData.getText();
+                    ped.setPed_data(ped_Data);
+                    //ped.setPed_data(ConverteData.converteData(ped_Data));
                     
                     String ped_Tipo = String.valueOf(tblProdutos.getValueAt(x, 2).toString());
                     ped.setPed_tipo(ped_Tipo);
@@ -758,7 +757,7 @@ public class FormEstoque extends javax.swing.JFrame {
                     txtDestino.setText(String.valueOf(pes_Id));
                     String ped_Destino = String.valueOf(tblProdutos.getValueAt(x, 4).toString());
                     ped.setPed_destino(ped_Destino);
-                    
+                    /*
                     int item_Cod = Integer.parseInt(tblProdutos.getValueAt(x, 5).toString());
                     ped.setItem_cod(item_Cod);
                     
@@ -774,13 +773,13 @@ public class FormEstoque extends javax.swing.JFrame {
                     
                     int item_ped_Cod = Integer.parseInt(tblProdutos.getValueAt(x, 5).toString());
                     ped.setPed_cod(item_ped_Cod);
-                                                       
-                                                          
+                    */                                   
+                                                            
                     if (this.pedidoDAO.inserirPedido(ped) == true) {
                         JOptionPane.showMessageDialog(null, "Pedido do(a) cliente [ " + cbFornecedor.getSelectedItem() + " ] inserido com sucesso ! \n\n"
                                 + "-", "ATENÇÃO", JOptionPane.INFORMATION_MESSAGE);
                     } else {
-                        JOptionPane.showMessageDialog(null, "Não foi possível salvar !", "ATENÇÃO", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Não foi possível salvar este pedido !", "ATENÇÃO", JOptionPane.ERROR_MESSAGE);
                     }
                 }
                 Limpar();
@@ -800,13 +799,12 @@ public class FormEstoque extends javax.swing.JFrame {
         
         int linhaselecionada = tblProdutos.getSelectedRow(); //pega a linha selecionada
         
-        cbFuncionario.setSelectedItem(tblProdutos.getValueAt(linhaselecionada, 3));
+        txtItem.setText(tblProdutos.getValueAt(linhaselecionada, 0).toString());
+        cbProduto.setSelectedItem(tblProdutos.getValueAt(linhaselecionada, 1).toString());
+        txtQtde.setText(tblProdutos.getValueAt(linhaselecionada, 2).toString());
+        txtValor.setText(tblProdutos.getValueAt(linhaselecionada, 3).toString().replace(".", "").replace(",", "."));
         txtDestino.setText(tblProdutos.getValueAt(linhaselecionada, 4).toString());
-        txtItem.setText(tblProdutos.getValueAt(linhaselecionada, 5).toString());
-        cbProduto.setSelectedItem(tblProdutos.getValueAt(linhaselecionada, 6).toString());
-        txtQtde.setText(tblProdutos.getValueAt(linhaselecionada, 7).toString());
-        txtValor.setText(tblProdutos.getValueAt(linhaselecionada, 8).toString().replace(".", "").replace(",", "."));
-        
+        cbFuncionario.setSelectedItem(tblProdutos.getValueAt(linhaselecionada, 3));
     }//GEN-LAST:event_tblProdutosMouseClicked
 
     private void btnFuncionarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btnFuncionarioFocusLost
