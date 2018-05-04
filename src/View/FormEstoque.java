@@ -430,11 +430,11 @@ public class FormEstoque extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(lblTotal)))
+                                .addComponent(lblTotal))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtTotal, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -506,7 +506,7 @@ public class FormEstoque extends javax.swing.JFrame {
         //Pega Data
         Date dataSistema = new Date();
 
-        SimpleDateFormat formato = new SimpleDateFormat("EEEE, dd MMMM yyyy");
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");//("EEEE, dd MMMM yyyy");
         //EEEE - mostra o dia da semana por extenso
         lblData.setText(formato.format(dataSistema));
 
@@ -546,7 +546,9 @@ public class FormEstoque extends javax.swing.JFrame {
             }
         }
         cbProduto.setSelectedIndex(-1);
-                
+        
+        //preencheTabela();
+        
         btnConcluir.setEnabled(true);
         grupoEstoque.add(rbEntrada);
         grupoEstoque.add(rbSaida);
@@ -563,6 +565,7 @@ public class FormEstoque extends javax.swing.JFrame {
         SimpleDateFormat data = new SimpleDateFormat("yyyy-MM-dd");
         
         try {
+            txtItem.setText(String.valueOf(pedidoDAO.AutoIncCod()));
             String ped_cod = txtItem.getText();
             String ped_data = data.format(dataSistema);
             String ped_tipo = ""; 
@@ -570,7 +573,8 @@ public class FormEstoque extends javax.swing.JFrame {
                 {
                     ped_tipo = "E";
                 }
-            String pes_id = cbFuncionario.getSelectedItem().toString();
+            //String pes_id = cbFuncionario.getSelectedItem().toString();
+            int pes_id = cbFuncionario.getSelectedIndex();
             String ped_destino = txtDestino.getText();
             String produto = cbProduto.getSelectedItem().toString();
             String qtde = txtQtde.getText();
@@ -599,7 +603,7 @@ public class FormEstoque extends javax.swing.JFrame {
             //df.format(total);
             //txtTPagar.setText(String.valueOf(total));
             tabelaProdutos.addRow(obj);
-            //txtItem.setText(String.valueOf(tblProdutos.getRowCount() + 1));
+            txtItem.setText(String.valueOf(tblProdutos.getRowCount() + 1));
             somarColunaTotal();
             
         } catch (Exception e) {
@@ -799,12 +803,13 @@ public class FormEstoque extends javax.swing.JFrame {
         
         int linhaselecionada = tblProdutos.getSelectedRow(); //pega a linha selecionada
         
-        txtItem.setText(tblProdutos.getValueAt(linhaselecionada, 0).toString());
-        cbProduto.setSelectedItem(tblProdutos.getValueAt(linhaselecionada, 1).toString());
-        txtQtde.setText(tblProdutos.getValueAt(linhaselecionada, 2).toString());
-        txtValor.setText(tblProdutos.getValueAt(linhaselecionada, 3).toString().replace(".", "").replace(",", "."));
-        txtDestino.setText(tblProdutos.getValueAt(linhaselecionada, 4).toString());
         cbFuncionario.setSelectedItem(tblProdutos.getValueAt(linhaselecionada, 3));
+        txtDestino.setText(tblProdutos.getValueAt(linhaselecionada, 4).toString());
+        txtItem.setText(tblProdutos.getValueAt(linhaselecionada, 5).toString());
+        cbProduto.setSelectedItem(tblProdutos.getValueAt(linhaselecionada, 6).toString());
+        txtQtde.setText(tblProdutos.getValueAt(linhaselecionada, 7).toString());
+        txtValor.setText(tblProdutos.getValueAt(linhaselecionada, 8).toString().replace(".", "").replace(",", "."));
+        
     }//GEN-LAST:event_tblProdutosMouseClicked
 
     private void btnFuncionarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btnFuncionarioFocusLost

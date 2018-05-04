@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 /**
  *
@@ -23,6 +25,24 @@ public class PedidoDAO extends GenericDAO
     {
         super(); //chama o contrutor da classe mãe extendida(GenericDAO)
     }
+    
+    public int AutoIncCod(){
+        String sql = "SELECT (MAX(ped_cod) + 1) as codigo FROM tblpedido";
+        this.prepareStmte(sql);
+        ResultSet rs;
+        int retorno = 0;
+        try 
+        {
+            rs = this.stmte.executeQuery(); //sempre usar quando fazer uma consulta(SELECT)
+            rs.first();
+            retorno = rs.getInt("codigo");
+        } catch (SQLException ex) {
+            Logger.getLogger(PedidoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return retorno;
+    }
+    
     
     public boolean inserirPedido(Pedido pedido)
     {
