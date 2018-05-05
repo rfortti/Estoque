@@ -12,6 +12,7 @@ import Controller.PedidoDAO;
 import Controller.PessoaDAO;
 import Controller.ProdutoDAO;
 import Controller.TipoDAO;
+import Model.Categoria;
 import Model.Tipo;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
@@ -565,7 +566,7 @@ public class FormEstoque extends javax.swing.JFrame {
         SimpleDateFormat data = new SimpleDateFormat("yyyy-MM-dd");
         
         try {
-            txtItem.setText(String.valueOf(pedidoDAO.AutoIncCod()+1));
+            txtItem.setText(String.valueOf(pedidoDAO.AutoIncCod()));
             String ped_cod = txtItem.getText();
             String ped_data = data.format(dataSistema);
             String ped_tipo = ""; 
@@ -744,8 +745,8 @@ public class FormEstoque extends javax.swing.JFrame {
                 Pedido ped = new Pedido();
                 for (int x = 0; x < tblProdutos.getRowCount(); x++) 
                 {
-                                                
-                    int ped_Cod = Integer.parseInt(tblProdutos.getValueAt(x, 0).toString());
+                    
+                    int ped_Cod = Integer.parseInt(txtItem.getText());//Integer.parseInt(tblProdutos.getValueAt(x, 0).toString());
                     ped.setPed_cod(ped_Cod);
                     
                     String ped_Data = lblData.getText();
@@ -782,6 +783,7 @@ public class FormEstoque extends javax.swing.JFrame {
                     */                                   
                                                             
                     if (this.pedidoDAO.inserirPedido(ped) == true) {
+                        
                         JOptionPane.showMessageDialog(null, "Estoque do produto \n\n -> " + cbProduto.getSelectedItem() + " \n\n atualizado com sucesso ! \n\n"
                                 + "-", "ATENÇÃO", JOptionPane.INFORMATION_MESSAGE);
                     } else {

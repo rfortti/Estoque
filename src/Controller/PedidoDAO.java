@@ -46,7 +46,7 @@ public class PedidoDAO extends GenericDAO
     
     public boolean inserirPedido(Pedido pedido)
     {
-        String sql = "INSERT INTO tblpedido (ped_cod, ped_data, ped_tipo, pes_id, ped_destino)"
+        String sql = "INSERT INTO tblpedido(ped_cod, ped_data, ped_tipo, pes_id, ped_destino)"
                 +" VALUES (?, ?, ?, ?, ?)";
         
         try
