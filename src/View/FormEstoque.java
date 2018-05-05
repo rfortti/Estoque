@@ -565,7 +565,7 @@ public class FormEstoque extends javax.swing.JFrame {
         SimpleDateFormat data = new SimpleDateFormat("yyyy-MM-dd");
         
         try {
-            txtItem.setText(String.valueOf(pedidoDAO.AutoIncCod()));
+            txtItem.setText(String.valueOf(pedidoDAO.AutoIncCod()+1));
             String ped_cod = txtItem.getText();
             String ped_data = data.format(dataSistema);
             String ped_tipo = ""; 
@@ -722,8 +722,7 @@ public class FormEstoque extends javax.swing.JFrame {
     private void btnConcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConcluirActionPerformed
         // TODO add your handling code here:            
         DefaultTableModel tabelaProdutos = (DefaultTableModel) tblProdutos.getModel();
-        Pedido ped = new Pedido();
-
+        
         DecimalFormat df = new DecimalFormat("R$ "+"#,###,##0.00");
 
         if (cbFuncionario.getSelectedIndex() == -1) {
@@ -741,9 +740,11 @@ public class FormEstoque extends javax.swing.JFrame {
         if (tabelaProdutos.getRowCount() != 0)// && cbCliente.getSelectedIndex() != -1)
         {
             try 
-            {     
+            {    
+                Pedido ped = new Pedido();
                 for (int x = 0; x < tblProdutos.getRowCount(); x++) 
                 {
+                                                
                     int ped_Cod = Integer.parseInt(tblProdutos.getValueAt(x, 0).toString());
                     ped.setPed_cod(ped_Cod);
                     
@@ -754,13 +755,14 @@ public class FormEstoque extends javax.swing.JFrame {
                     String ped_Tipo = String.valueOf(tblProdutos.getValueAt(x, 2).toString());
                     ped.setPed_tipo(ped_Tipo);
                     
-                    int pes_Id = cbFuncionario.getSelectedIndex();  
-                    ped.setPes_id(pes_Id);
-                    //int pes_Id = Integer.parseInt(tblProdutos.getValueAt(x, 3).toString());
+                    //int pes_Id = cbFuncionario.getSelectedIndex();  
                     //ped.setPes_id(pes_Id);
-                    txtDestino.setText(String.valueOf(pes_Id));
+                    int pes_Id = Integer.parseInt(tblProdutos.getValueAt(x, 3).toString());
+                    ped.setPes_id(pes_Id);
+                    //txtDestino.setText(String.valueOf(pes_Id));
                     String ped_Destino = String.valueOf(tblProdutos.getValueAt(x, 4).toString());
                     ped.setPed_destino(ped_Destino);
+                    
                     /*
                     int item_Cod = Integer.parseInt(tblProdutos.getValueAt(x, 5).toString());
                     ped.setItem_cod(item_Cod);
@@ -780,11 +782,12 @@ public class FormEstoque extends javax.swing.JFrame {
                     */                                   
                                                             
                     if (this.pedidoDAO.inserirPedido(ped) == true) {
-                        JOptionPane.showMessageDialog(null, "Pedido do(a) cliente [ " + cbFornecedor.getSelectedItem() + " ] inserido com sucesso ! \n\n"
+                        JOptionPane.showMessageDialog(null, "Estoque do produto \n\n -> " + cbProduto.getSelectedItem() + " \n\n atualizado com sucesso ! \n\n"
                                 + "-", "ATENÇÃO", JOptionPane.INFORMATION_MESSAGE);
                     } else {
                         JOptionPane.showMessageDialog(null, "Não foi possível salvar este pedido !", "ATENÇÃO", JOptionPane.ERROR_MESSAGE);
                     }
+                    
                 }
                 Limpar();
 
