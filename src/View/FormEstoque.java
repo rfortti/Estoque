@@ -753,15 +753,21 @@ public class FormEstoque extends javax.swing.JFrame {
                     ped.setPed_data(ped_Data);
                     //ped.setPed_data(ConverteData.converteData(ped_Data));
                     
-                    String ped_Tipo = String.valueOf(tblProdutos.getValueAt(x, 2).toString());
-                    ped.setPed_tipo(ped_Tipo);
-                    
-                    //int pes_Id = cbFuncionario.getSelectedIndex();  
-                    //ped.setPes_id(pes_Id);
-                    int pes_Id = Integer.parseInt(tblProdutos.getValueAt(x, 3).toString());
+                    if (rbEntrada.isSelected()){
+                        String ped_Tipo = "E";//String.valueOf(tblProdutos.getValueAt(x, 2).toString());
+                        ped.setPed_tipo(ped_Tipo);
+                    }
+                    if (rbSaida.isSelected()){
+                        String ped_Tipo = "S";//String.valueOf(tblProdutos.getValueAt(x, 2).toString());
+                        ped.setPed_tipo(ped_Tipo);
+                    }
+                                        
+                    int pes_Id = cbFuncionario.getSelectedIndex();  
                     ped.setPes_id(pes_Id);
-                    //txtDestino.setText(String.valueOf(pes_Id));
-                    String ped_Destino = String.valueOf(tblProdutos.getValueAt(x, 4).toString());
+                    //int pes_Id = Integer.parseInt(tblProdutos.getValueAt(x, 3).toString());
+                    //ped.setPes_id(pes_Id);
+                    
+                    String ped_Destino = txtDestino.getText();//String.valueOf(tblProdutos.getValueAt(x, 4).toString());
                     ped.setPed_destino(ped_Destino);
                     
                     
