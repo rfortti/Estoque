@@ -520,14 +520,14 @@ public class FormEstoque extends javax.swing.JFrame {
         //Pega Hora
         Timer timer = new Timer(1000, new hora());
         timer.start();
-
-        PessoaDAO pesDAO = new PessoaDAO();
-        ArrayList<Pessoa> pes = new ArrayList<Pessoa>();
-        pes = pesDAO.getFuncionario();
-
-        for (Pessoa p : pes) {
-            if (p != null) {
-                cbFuncionario.addItem(p.getP_nome());
+       
+        PessoaDAO funcDAO = new PessoaDAO();
+        ArrayList<Pessoa> func = new ArrayList<Pessoa>();
+        func = funcDAO.getFuncionario();
+            
+        for (Pessoa fu : func) {
+            if (fu != null) {
+                cbFuncionario.addItem(fu.getP_nome());
             }
         }
         cbFuncionario.setSelectedIndex(-1);
@@ -536,9 +536,9 @@ public class FormEstoque extends javax.swing.JFrame {
         ArrayList<Pessoa> forn = new ArrayList<Pessoa>();
         forn = fornDAO.getFornecedor();
             
-        for (Pessoa f : forn) {
-            if (f != null) {
-                cbFornecedor.addItem(f.getP_nome());
+        for (Pessoa fo : forn) {
+            if (fo != null) {
+                cbFornecedor.addItem(fo.getP_nome());
             }
         }
         cbFornecedor.setSelectedIndex(-1);
@@ -713,9 +713,9 @@ public class FormEstoque extends javax.swing.JFrame {
             ArrayList<Pessoa> forn = new ArrayList<Pessoa>();
             forn = fornDAO.getFornecedor();
 
-        for (Pessoa f : forn) {
-            if (f != null) {
-                cbFornecedor.addItem(f.getP_nome());
+        for (Pessoa fo : forn) {
+            if (fo != null) {
+                cbFornecedor.addItem(fo.getP_nome());
             }
         }
         cbFornecedor.setSelectedIndex(-1);
@@ -776,25 +776,25 @@ public class FormEstoque extends javax.swing.JFrame {
                     String ped_Destino = txtDestino.getText();//String.valueOf(tblProdutos.getValueAt(x, 4).toString());
                     ped.setPed_destino(ped_Destino);
                     
-                    /*
-                    int item_Cod = Integer.parseInt(tblProdutos.getValueAt(x, 5).toString());
-                    ped.setItem_cod(item_Cod);
+                  
+                    //int item_Cod = Integer.parseInt(tblProdutos.getValueAt(x, 5).toString());
+                    //ped.setItem_cod(item_Cod);
                     
                     //int prod_Cod = Integer.valueOf(tblProdutos.getValueAt(x, 6).toString());
-                    int item_prod_Cod = cbProduto.getSelectedIndex();  
-                    ped.setProd_cod(item_prod_Cod);
+                    //int item_prod_Cod = cbProduto.getSelectedIndex();  
+                    //ped.setProd_cod(item_prod_Cod);
                     
-                    int item_Qtde = Integer.parseInt(tblProdutos.getValueAt(x, 7).toString());
+                    int item_Qtde = Integer.parseInt(txtQtde.getText());//Integer.parseInt(tblProdutos.getValueAt(x, 7).toString());
                     ped.setItem_qtde(item_Qtde);
                     
-                    float item_Valor = Float.parseFloat(tblProdutos.getValueAt(x, 8).toString().replace(".", "").replace(",", "."));
+                    float item_Valor = Float.parseFloat(txtValor.getText());//Float.parseFloat(tblProdutos.getValueAt(x, 8).toString().replace(".", "").replace(",", "."));
                     ped.setItem_valor(item_Valor);
                     
-                    int item_ped_Cod = Integer.parseInt(tblProdutos.getValueAt(x, 5).toString());
-                    ped.setPed_cod(item_ped_Cod);
-                    */                                  
+                    //int item_ped_Cod = Integer.parseInt(txtItem.getText());//Integer.parseInt(tblProdutos.getValueAt(x, 5).toString());
+                    //ped.setPed_cod(item_ped_Cod);
+                                                     
                                                             
-                    if (this.pedidoDAO.inserirPedido(ped) == true) {
+                    if (this.pedidoDAO.inserirPedido(ped) == true || this.pedidoDAO.inserirItem(ped) == true) {
                         
                         JOptionPane.showMessageDialog(null, "Estoque do produto \n\n -> " + cbProduto.getSelectedItem() + " \n\n atualizado com sucesso ! \n\n"
                                 + "-", "ATENÇÃO", JOptionPane.INFORMATION_MESSAGE);
@@ -816,7 +816,7 @@ public class FormEstoque extends javax.swing.JFrame {
 
     private void tblProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProdutosMouseClicked
         // TODO add your handling code here:
-        popularComboFuncionario();
+        
         //cbTipo.updateUI();
         
         int linhaselecionada = tblProdutos.getSelectedRow(); //pega a linha selecionada
@@ -834,6 +834,18 @@ public class FormEstoque extends javax.swing.JFrame {
 
     private void btnFuncionarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btnFuncionarioFocusLost
         // TODO add your handling code here:
+        cbFuncionario.removeAllItems();
+
+        PessoaDAO funcDAO = new PessoaDAO();
+            ArrayList<Pessoa> func = new ArrayList<Pessoa>();
+            func = funcDAO.getFuncionario();
+
+        for (Pessoa fu : func) {
+            if (fu != null) {
+                cbFuncionario.addItem(fu.getP_nome());
+            }
+        }
+        cbFuncionario.setSelectedIndex(-1);
     }//GEN-LAST:event_btnFuncionarioFocusLost
 
     private void btnFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFuncionarioActionPerformed
@@ -847,18 +859,7 @@ public class FormEstoque extends javax.swing.JFrame {
 
     private void cbFuncionarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbFuncionarioFocusLost
         // TODO add your handling code here:
-        cbFuncionario.removeAllItems();
-
-        PessoaDAO funcDAO = new PessoaDAO();
-            ArrayList<Pessoa> func = new ArrayList<Pessoa>();
-            func = funcDAO.getFuncionario();
-
-        for (Pessoa f : func) {
-            if (f != null) {
-                cbFuncionario.addItem(f.getP_nome());
-            }
-        }
-        cbFuncionario.setSelectedIndex(-1);
+        
     }//GEN-LAST:event_cbFuncionarioFocusLost
 
     /**
@@ -1027,7 +1028,10 @@ public class FormEstoque extends javax.swing.JFrame {
                     ped.getPed_data(),
                     ped.getPed_tipo(),
                     ped.getPes_id(),
-                    ped.getPed_destino()
+                    ped.getPed_destino(),
+                    ped.getItem_cod(),
+                    ped.getItem_qtde(),
+                    ped.getItem_valor()
                 };
                 tabela.addRow(obj);
             }
