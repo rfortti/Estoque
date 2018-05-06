@@ -566,7 +566,7 @@ public class FormEstoque extends javax.swing.JFrame {
         SimpleDateFormat data = new SimpleDateFormat("yyyy-MM-dd");
         
         try {
-            txtItem.setText(String.valueOf(pedidoDAO.AutoIncCod()));
+            //txtItem.setText(String.valueOf(pedidoDAO.AutoIncCod()));
             String ped_cod = txtItem.getText();
             String ped_data = data.format(dataSistema);
             String ped_tipo = ""; 
@@ -764,7 +764,7 @@ public class FormEstoque extends javax.swing.JFrame {
                     String ped_Destino = String.valueOf(tblProdutos.getValueAt(x, 4).toString());
                     ped.setPed_destino(ped_Destino);
                     
-                    /*
+                    
                     int item_Cod = Integer.parseInt(tblProdutos.getValueAt(x, 5).toString());
                     ped.setItem_cod(item_Cod);
                     
@@ -780,7 +780,7 @@ public class FormEstoque extends javax.swing.JFrame {
                     
                     int item_ped_Cod = Integer.parseInt(tblProdutos.getValueAt(x, 5).toString());
                     ped.setPed_cod(item_ped_Cod);
-                    */                                   
+                                                      
                                                             
                     if (this.pedidoDAO.inserirPedido(ped) == true) {
                         
@@ -792,7 +792,8 @@ public class FormEstoque extends javax.swing.JFrame {
                     
                 }
                 Limpar();
-
+                tabelaProdutos.setNumRows(0);
+                preencheTabela();
             } catch (NumberFormatException | HeadlessException e) {
                 JOptionPane.showMessageDialog(null, "Não foi possível salvar este pedido \n\n Contate o Administrador do Sistema ! !\nErro: " + e.getMessage(), "ATENÇÃO", JOptionPane.ERROR_MESSAGE);
                 System.out.println(e.getMessage());
