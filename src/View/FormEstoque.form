@@ -299,6 +299,9 @@
               <StringArray count="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="cbFuncionarioFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnConcluir">
           <Properties>

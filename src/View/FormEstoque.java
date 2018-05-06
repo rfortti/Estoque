@@ -174,6 +174,12 @@ public class FormEstoque extends javax.swing.JFrame {
             }
         });
 
+        cbFuncionario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cbFuncionarioFocusLost(evt);
+            }
+        });
+
         btnConcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ok.png"))); // NOI18N
         btnConcluir.setText("Concluir");
         btnConcluir.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -566,8 +572,8 @@ public class FormEstoque extends javax.swing.JFrame {
         SimpleDateFormat data = new SimpleDateFormat("yyyy-MM-dd");
         
         try {
-            txtItem.setText(String.valueOf(pedidoDAO.AutoIncCod()));
-            String ped_cod = txtItem.getText();
+            //txtItem.setText(String.valueOf(pedidoDAO.AutoIncCod()));
+            //String ped_cod = txtItem.getText();
             String ped_data = data.format(dataSistema);
             String ped_tipo = ""; 
                 if (rbEntrada.isSelected())
@@ -588,12 +594,12 @@ public class FormEstoque extends javax.swing.JFrame {
                         
             DefaultTableModel tabelaProdutos = (DefaultTableModel) tblProdutos.getModel();
             Object[] obj = new Object[]{
-                ped_cod,
+                //ped_cod,
                 ped_data,
                 ped_tipo,
                 pes_id,
                 ped_destino,
-                ped_cod,
+                //ped_cod,
                 produto,
                 qtde,
                 valorItem,
@@ -743,11 +749,11 @@ public class FormEstoque extends javax.swing.JFrame {
             try 
             {    
                 Pedido ped = new Pedido();
-                for (int x = 0; x < tblProdutos.getRowCount(); x++) 
+                //for (int x = 0; x < tblProdutos.getRowCount(); x++) 
                 {
                     
-                    int ped_Cod = Integer.parseInt(txtItem.getText());//Integer.parseInt(tblProdutos.getValueAt(x, 0).toString());
-                    ped.setPed_cod(ped_Cod);
+                    //int ped_Cod = Integer.parseInt(txtItem.getText());//Integer.parseInt(tblProdutos.getValueAt(x, 0).toString());
+                    //ped.setPed_cod(ped_Cod);
                     
                     String ped_Data = lblData.getText();
                     ped.setPed_data(ped_Data);
@@ -770,7 +776,7 @@ public class FormEstoque extends javax.swing.JFrame {
                     String ped_Destino = txtDestino.getText();//String.valueOf(tblProdutos.getValueAt(x, 4).toString());
                     ped.setPed_destino(ped_Destino);
                     
-                    
+                    /*
                     int item_Cod = Integer.parseInt(tblProdutos.getValueAt(x, 5).toString());
                     ped.setItem_cod(item_Cod);
                     
@@ -786,7 +792,7 @@ public class FormEstoque extends javax.swing.JFrame {
                     
                     int item_ped_Cod = Integer.parseInt(tblProdutos.getValueAt(x, 5).toString());
                     ped.setPed_cod(item_ped_Cod);
-                                                      
+                    */                                  
                                                             
                     if (this.pedidoDAO.inserirPedido(ped) == true) {
                         
@@ -815,9 +821,11 @@ public class FormEstoque extends javax.swing.JFrame {
         
         int linhaselecionada = tblProdutos.getSelectedRow(); //pega a linha selecionada
         
+        txtItem.setText(tblProdutos.getValueAt(linhaselecionada, 0).toString());        
         cbFuncionario.setSelectedItem(tblProdutos.getValueAt(linhaselecionada, 3));
         txtDestino.setText(tblProdutos.getValueAt(linhaselecionada, 4).toString());
-        txtItem.setText(tblProdutos.getValueAt(linhaselecionada, 5).toString());
+        
+        //txtItem.setText(tblProdutos.getValueAt(linhaselecionada, 5).toString());
         cbProduto.setSelectedItem(tblProdutos.getValueAt(linhaselecionada, 6).toString());
         txtQtde.setText(tblProdutos.getValueAt(linhaselecionada, 7).toString());
         txtValor.setText(tblProdutos.getValueAt(linhaselecionada, 8).toString().replace(".", "").replace(",", "."));
@@ -836,6 +844,22 @@ public class FormEstoque extends javax.swing.JFrame {
     private void txtItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtItemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtItemActionPerformed
+
+    private void cbFuncionarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbFuncionarioFocusLost
+        // TODO add your handling code here:
+        cbFuncionario.removeAllItems();
+
+        PessoaDAO funcDAO = new PessoaDAO();
+            ArrayList<Pessoa> func = new ArrayList<Pessoa>();
+            func = funcDAO.getFuncionario();
+
+        for (Pessoa f : func) {
+            if (f != null) {
+                cbFuncionario.addItem(f.getP_nome());
+            }
+        }
+        cbFuncionario.setSelectedIndex(-1);
+    }//GEN-LAST:event_cbFuncionarioFocusLost
 
     /**
      * @param args the command line arguments
