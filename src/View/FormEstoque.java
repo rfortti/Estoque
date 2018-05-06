@@ -548,7 +548,7 @@ public class FormEstoque extends javax.swing.JFrame {
         }
         cbProduto.setSelectedIndex(-1);
         
-        //preencheTabela();
+        preencheTabela();
         
         btnConcluir.setEnabled(true);
         grupoEstoque.add(rbEntrada);
@@ -566,7 +566,7 @@ public class FormEstoque extends javax.swing.JFrame {
         SimpleDateFormat data = new SimpleDateFormat("yyyy-MM-dd");
         
         try {
-            //txtItem.setText(String.valueOf(pedidoDAO.AutoIncCod()));
+            txtItem.setText(String.valueOf(pedidoDAO.AutoIncCod()));
             String ped_cod = txtItem.getText();
             String ped_data = data.format(dataSistema);
             String ped_tipo = ""; 
@@ -934,6 +934,7 @@ public class FormEstoque extends javax.swing.JFrame {
         cbProduto.setSelectedIndex(-1);
         txtQtde.setText("");
         txtValor.setText("");
+        txtDestino.setText("");
 
         cbFornecedor.setSelectedIndex(-1);
         DefaultTableModel tabelaProdutos = (DefaultTableModel) tblProdutos.getModel();
