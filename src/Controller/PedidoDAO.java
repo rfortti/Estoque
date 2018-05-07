@@ -46,17 +46,17 @@ public class PedidoDAO extends GenericDAO
     
     public boolean inserirPedido(Pedido pedido)
     {
-        String sql = "INSERT INTO tblpedido (ped_data, ped_tipo, pes_id, ped_destino)"
-                +" VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO tblpedido (ped_cod, ped_data, ped_tipo, pes_id, ped_destino)"
+                +" VALUES (?, ?, ?, ?, ?)";
         
         try
         {
             this.prepareStmte(sql);
-            //this.stmte.setInt(1,pedido.getPed_cod());
-            this.stmte.setString(1,pedido.getPed_data());
-            this.stmte.setString(2,pedido.getPed_tipo());
-            this.stmte.setInt(3,pedido.getPes_id());
-            this.stmte.setString(4,pedido.getPed_destino());
+            this.stmte.setInt(1,pedido.getPed_cod());
+            this.stmte.setString(2,pedido.getPed_data());
+            this.stmte.setString(3,pedido.getPed_tipo());
+            this.stmte.setInt(4,pedido.getPes_id());
+            this.stmte.setString(5,pedido.getPed_destino());
             this.stmte.execute();
            
             return true;

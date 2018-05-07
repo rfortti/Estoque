@@ -46,14 +46,15 @@ public class FormEstoque extends javax.swing.JFrame {
 
     public FormEstoque() {
         initComponents();
-        txtItem.setVisible(false);
+        
+        txtItem.setVisible(true);
         lblSituacao.setVisible(false);
 
         txtQtde.setDocument(new AceitaNumeros());
         txtValor.setDocument(new AceitaNumerosPonto());
         
-        txtItem.setText(String.valueOf(tblProdutos.getRowCount() + 1));
-
+        //txtItem.setText(String.valueOf(tblProdutos.getRowCount() + 1));
+        
         this.pedidoDAO = new PedidoDAO();
     }
 
@@ -572,8 +573,10 @@ public class FormEstoque extends javax.swing.JFrame {
         SimpleDateFormat data = new SimpleDateFormat("yyyy-MM-dd");
         
         try {
-            //txtItem.setText(String.valueOf(pedidoDAO.AutoIncCod()));
-            //String ped_cod = txtItem.getText();
+            
+            txtItem.setText(String.valueOf(pedidoDAO.AutoIncCod()));
+            String ped_cod = txtItem.getText();
+                       
             String ped_data = data.format(dataSistema);
             String ped_tipo = ""; 
                 if (rbEntrada.isSelected())
@@ -594,12 +597,12 @@ public class FormEstoque extends javax.swing.JFrame {
                         
             DefaultTableModel tabelaProdutos = (DefaultTableModel) tblProdutos.getModel();
             Object[] obj = new Object[]{
-                //ped_cod,
+                ped_cod,
                 ped_data,
                 ped_tipo,
                 pes_id,
                 ped_destino,
-                //ped_cod,
+                ped_cod,
                 produto,
                 qtde,
                 valorItem,
@@ -610,7 +613,7 @@ public class FormEstoque extends javax.swing.JFrame {
             //df.format(total);
             //txtTPagar.setText(String.valueOf(total));
             tabelaProdutos.addRow(obj);
-            txtItem.setText(String.valueOf(tblProdutos.getRowCount() + 1));
+            //txtItem.setText(String.valueOf(tblProdutos.getRowCount() + 1));
             somarColunaTotal();
             
         } catch (Exception e) {
@@ -735,11 +738,11 @@ public class FormEstoque extends javax.swing.JFrame {
         if (cbFuncionario.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(null, "Selecione um funcionario !", "ATENÇÃO", JOptionPane.INFORMATION_MESSAGE);
         }
-
-        if (tabelaProdutos.getRowCount() == 0) {
+        
+        if (cbProduto.getSelectedIndex() == -1){//(tabelaProdutos.getRowCount() == 0) {
             JOptionPane.showMessageDialog(null, "É necessário adicionar algum produto !", "ATENÇÃO", JOptionPane.INFORMATION_MESSAGE);
         }
-
+        
         if (cbFornecedor.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(null, "Selecione um fornecedor !", "ATENÇÃO", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -755,21 +758,27 @@ public class FormEstoque extends javax.swing.JFrame {
                     //int ped_Cod = Integer.parseInt(txtItem.getText());//Integer.parseInt(tblProdutos.getValueAt(x, 0).toString());
                     //ped.setPed_cod(ped_Cod);
                     
+                    //ped.setCodProduto(Integer.parseInt(txtItem.getText()));                    
+                    txtItem.setText(String.valueOf(pedidoDAO.AutoIncCod()));
+                    int ped_Cod = Integer.parseInt(txtItem.getText());
+                    ped.setPed_cod(ped_Cod);
+                    
                     String ped_Data = lblData.getText();
                     ped.setPed_data(ped_Data);
                     //ped.setPed_data(ConverteData.converteData(ped_Data));
-                    
+                    String ped_Tipo = "";
                     if (rbEntrada.isSelected()){
-                        String ped_Tipo = "E";//String.valueOf(tblProdutos.getValueAt(x, 2).toString());
+                        ped_Tipo = "E";//String.valueOf(tblProdutos.getValueAt(x, 2).toString());
                         ped.setPed_tipo(ped_Tipo);
                     }
                     if (rbSaida.isSelected()){
-                        String ped_Tipo = "S";//String.valueOf(tblProdutos.getValueAt(x, 2).toString());
+                        ped_Tipo = "S";//String.valueOf(tblProdutos.getValueAt(x, 2).toString());
                         ped.setPed_tipo(ped_Tipo);
                     }
-                                        
+                    
                     int pes_Id = cbFuncionario.getSelectedIndex();  
                     ped.setPes_id(pes_Id);
+                    txtDestino.setText(String.valueOf(pes_Id));
                     //int pes_Id = Integer.parseInt(tblProdutos.getValueAt(x, 3).toString());
                     //ped.setPes_id(pes_Id);
                     
@@ -783,18 +792,18 @@ public class FormEstoque extends javax.swing.JFrame {
                     //int prod_Cod = Integer.valueOf(tblProdutos.getValueAt(x, 6).toString());
                     //int item_prod_Cod = cbProduto.getSelectedIndex();  
                     //ped.setProd_cod(item_prod_Cod);
-                    
+                    /*
                     int item_Qtde = Integer.parseInt(txtQtde.getText());//Integer.parseInt(tblProdutos.getValueAt(x, 7).toString());
                     ped.setItem_qtde(item_Qtde);
                     
                     float item_Valor = Float.parseFloat(txtValor.getText());//Float.parseFloat(tblProdutos.getValueAt(x, 8).toString().replace(".", "").replace(",", "."));
                     ped.setItem_valor(item_Valor);
-                    
+                    */
                     //int item_ped_Cod = Integer.parseInt(txtItem.getText());//Integer.parseInt(tblProdutos.getValueAt(x, 5).toString());
                     //ped.setPed_cod(item_ped_Cod);
                                                      
                                                             
-                    if (this.pedidoDAO.inserirPedido(ped) == true || this.pedidoDAO.inserirItem(ped) == true) {
+                    if (this.pedidoDAO.inserirPedido(ped) == true){
                         
                         JOptionPane.showMessageDialog(null, "Estoque do produto \n\n -> " + cbProduto.getSelectedItem() + " \n\n atualizado com sucesso ! \n\n"
                                 + "-", "ATENÇÃO", JOptionPane.INFORMATION_MESSAGE);
