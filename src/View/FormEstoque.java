@@ -554,9 +554,16 @@ public class FormEstoque extends javax.swing.JFrame {
             }
         }
         cbProduto.setSelectedIndex(-1);
-        
+                 
         preencheTabela();
         
+        if (tblProdutos.getRowCount() == 0) {
+            txtItem.setText(String.valueOf(pedidoDAO.AutoIncCod()+1));
+        }
+        if (tblProdutos.getRowCount() != 0){
+            txtItem.setText(String.valueOf(pedidoDAO.AutoIncCod()));
+        }  
+               
         btnConcluir.setEnabled(true);
         grupoEstoque.add(rbEntrada);
         grupoEstoque.add(rbSaida);
@@ -747,8 +754,8 @@ public class FormEstoque extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Selecione um fornecedor !", "ATENÇÃO", JOptionPane.INFORMATION_MESSAGE);
         }
 
-        if (tabelaProdutos.getRowCount() != 0)// && cbCliente.getSelectedIndex() != -1)
-        {
+        //if (tabelaProdutos.getRowCount() != 0)// && cbCliente.getSelectedIndex() != -1)
+        //{
             try 
             {    
                 Pedido ped = new Pedido();
@@ -758,15 +765,17 @@ public class FormEstoque extends javax.swing.JFrame {
                     //int ped_Cod = Integer.parseInt(txtItem.getText());//Integer.parseInt(tblProdutos.getValueAt(x, 0).toString());
                     //ped.setPed_cod(ped_Cod);
                     
-                    //ped.setCodProduto(Integer.parseInt(txtItem.getText()));                    
-                    txtItem.setText(String.valueOf(pedidoDAO.AutoIncCod()));
-                    int ped_Cod = Integer.parseInt(txtItem.getText());
-                    ped.setPed_cod(ped_Cod);
+                    //ped.setPed_cod(Integer.parseInt(txtItem.getText()));                    
+                    //txtItem.setText(String.valueOf(pedidoDAO.AutoIncCod()));
+                    //int ped_Cod = Integer.parseInt(txtItem.getText());
+                    //ped.setPed_cod(ped_Cod);
                     
-                    String ped_Data = lblData.getText();
-                    ped.setPed_data(ped_Data);
+                    
+                    ped.setPed_data(lblData.getText());
                     //ped.setPed_data(ConverteData.converteData(ped_Data));
-                    String ped_Tipo = "";
+                    
+                    ped.setPed_tipo("E");
+                    /*
                     if (rbEntrada.isSelected()){
                         ped_Tipo = "E";//String.valueOf(tblProdutos.getValueAt(x, 2).toString());
                         ped.setPed_tipo(ped_Tipo);
@@ -775,15 +784,15 @@ public class FormEstoque extends javax.swing.JFrame {
                         ped_Tipo = "S";//String.valueOf(tblProdutos.getValueAt(x, 2).toString());
                         ped.setPed_tipo(ped_Tipo);
                     }
-                    
-                    int pes_Id = cbFuncionario.getSelectedIndex();  
-                    ped.setPes_id(pes_Id);
-                    txtDestino.setText(String.valueOf(pes_Id));
+                    */
+                     
+                    ped.setPes_id(cbFuncionario.getSelectedIndex());
+                    //txtDestino.setText(String.valueOf(pes_Id));
                     //int pes_Id = Integer.parseInt(tblProdutos.getValueAt(x, 3).toString());
                     //ped.setPes_id(pes_Id);
                     
-                    String ped_Destino = txtDestino.getText();//String.valueOf(tblProdutos.getValueAt(x, 4).toString());
-                    ped.setPed_destino(ped_Destino);
+                    //String.valueOf(tblProdutos.getValueAt(x, 4).toString());
+                    ped.setPed_destino(txtDestino.getText());
                     
                   
                     //int item_Cod = Integer.parseInt(tblProdutos.getValueAt(x, 5).toString());
@@ -804,6 +813,11 @@ public class FormEstoque extends javax.swing.JFrame {
                                                      
                                                             
                     if (this.pedidoDAO.inserirPedido(ped) == true){
+                        //String cod = txtItem.getText();
+                        String data = lblData.getText();
+                        String tipo = "E".toString();
+                        Integer id = cbFuncionario.getSelectedIndex(); 
+                        String destino = txtDestino.getText();
                         
                         JOptionPane.showMessageDialog(null, "Estoque do produto \n\n -> " + cbProduto.getSelectedItem() + " \n\n atualizado com sucesso ! \n\n"
                                 + "-", "ATENÇÃO", JOptionPane.INFORMATION_MESSAGE);
@@ -820,7 +834,7 @@ public class FormEstoque extends javax.swing.JFrame {
                 System.out.println(e.getMessage());
                 Limpar();
             }
-        }
+        //}
     }//GEN-LAST:event_btnConcluirActionPerformed
 
     private void tblProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProdutosMouseClicked
