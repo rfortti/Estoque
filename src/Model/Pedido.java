@@ -10,13 +10,13 @@ package Model;
  *
  * @author Multas
  */
-public class Pedido
+public class Pedido extends Pessoa
 {
     private int ped_cod;
     private String ped_data;
     private String ped_tipo;
-    //private Pessoa pes_id;
-    private int pes_id;
+    private Pessoa pes_id;
+    //private int pes_id;
     private String ped_destino;
     
     private int item_cod;
@@ -50,11 +50,11 @@ public class Pedido
         this.ped_tipo = ped_tipo;
     }
 
-    public int getPes_id() {
+    public Pessoa getPes_id() {
         return pes_id;
     }
 
-    public void setPes_id(int pes_id) {
+    public void setPes_id(Pessoa pes_id) {
         this.pes_id = pes_id;
     }
 

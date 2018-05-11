@@ -786,7 +786,7 @@ public class FormEstoque extends javax.swing.JFrame {
                     }
                     */
                      
-                    ped.setPes_id(cbFuncionario.getSelectedIndex());
+                    ped.setP_id(cbFuncionario.getSelectedIndex());
                     //txtDestino.setText(String.valueOf(pes_Id));
                     //int pes_Id = Integer.parseInt(tblProdutos.getValueAt(x, 3).toString());
                     //ped.setPes_id(pes_Id);

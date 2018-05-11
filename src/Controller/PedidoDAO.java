@@ -55,7 +55,7 @@ public class PedidoDAO extends GenericDAO
             //this.stmte.setInt(1,pedido.getPed_cod());
             this.stmte.setString(1,pedido.getPed_data());
             this.stmte.setString(2,pedido.getPed_tipo());
-            this.stmte.setInt(3,pedido.getPes_id());
+            this.stmte.setInt(3,pedido.getP_id());
             this.stmte.setString(4,pedido.getPed_destino());
             this.stmte.execute();
            
@@ -102,7 +102,7 @@ public class PedidoDAO extends GenericDAO
             this.stmte.setInt(1,pedido.getPed_cod());
             this.stmte.setString(2,pedido.getPed_data());
             this.stmte.setString(3,pedido.getPed_tipo());
-            this.stmte.setInt(4,pedido.getPes_id());
+            this.stmte.setInt(4,pedido.getP_id());
             this.stmte.setString(5,pedido.getPed_destino());
             this.stmte.execute();
             return true;
@@ -131,7 +131,7 @@ public class PedidoDAO extends GenericDAO
                 ped.setPed_cod(rs.getInt("ped_cod"));
                 ped.setPed_data(rs.getString("ped_data"));
                 ped.setPed_tipo(rs.getString("ped_tipo"));
-                ped.setPes_id(rs.getInt("pes_id"));
+                ped.setP_id(rs.getInt("pes_id"));
                 ped.setPed_destino(rs.getString("ped_destino"));
                                 
                 pedido.add(ped);
