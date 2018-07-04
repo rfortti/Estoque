@@ -45,8 +45,8 @@ public class FormProduto extends javax.swing.JFrame {
         this.produtoDAO = new ProdutoDAO();
         
         preencheTabela();
-        popularComboCategoria();
-        popularComboTipo();
+        //popularComboCategoria();
+        //popularComboTipo();
         
         txtCod.setDocument(new AceitaNumerosPonto());
         txtCod.setDocument(new LimitarNumeros(6));
@@ -59,35 +59,38 @@ public class FormProduto extends javax.swing.JFrame {
     }
 
     //metodo para popular combo tipo
-    public void popularComboTipo() {
-                
-        TipoDAO tDAO = new TipoDAO();
-        listTipo = tDAO.getTipos(1);
-        if (listTipo.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Cadastre pelo menos um tipo !");
-            this.dispose();
-        } else {
-            for(Tipo tipo : listTipo){
-                cbTipo.addItem(tipo);
+    public void popularComboTipo() 
+    {            
+        TipoDAO tipoDAO = new TipoDAO();
+        ArrayList<Tipo> tipo = new ArrayList<Tipo>();
+        tipo = tipoDAO.getTiposByDesc();
+        
+        for (Tipo t : tipo) 
+        {
+            if (t != null)
+            {
+                cbTipo.addItem(t.getDescTipo());
             }
         }
+        cbTipo.setSelectedIndex(-1);
     }
     
      //metodo para popular combo categoria
-    public void popularComboCategoria() {
-               
-        CategoriaDAO CatDAO = new CategoriaDAO();
-        listCat = CatDAO.getCategorias(1);
-        if (listCat.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Cadastre pelo menos uma categoria !");
-            this.dispose();
-        } else {
-            for(Categoria cat : listCat){
-                cbCategoria.addItem(cat);
+    public void popularComboCategoria() 
+    {          
+        CategoriaDAO catDAO = new CategoriaDAO();
+        ArrayList<Categoria> cat = new ArrayList<Categoria>();
+        cat = catDAO.getCategoriasByTipo();
+        
+        for (Categoria c : cat) 
+        {
+            if (c != null)
+            {
+                cbCategoria.addItem(c.getTipoCategoria());
             }
         }
+        cbCategoria.setSelectedIndex(-1);
     }
-    
     
     public void preencheTabela2(String desc)
     {
@@ -674,11 +677,14 @@ public class FormProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:        
         opcao = 1;
         ProdutoDAO prodDAO = new ProdutoDAO();
        
-       popularComboTipo(); 
+       cbTipo.removeAllItems();
+       cbCategoria.removeAllItems();
+       popularComboTipo();
+       popularComboCategoria();
        
        lblDescP.setEnabled(false);
        txtPesquisar.setEnabled(false);
@@ -741,8 +747,11 @@ public class FormProduto extends javax.swing.JFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
+          
         Limpar();
-                        
+        cbTipo.setSelectedIndex(-1);
+        cbCategoria.setSelectedIndex(-1);
+        
         btnNovo.setEnabled(true);
         btnAlterar.setEnabled(false);
         btnExcluir.setEnabled(false);
@@ -757,9 +766,10 @@ public class FormProduto extends javax.swing.JFrame {
         
         txtPesquisar.requestFocus();
         
-        cbTipo.removeAllItems();
-        cbCategoria.removeAllItems();
-        this.dispose();
+        //cbTipo.removeAllItems();
+        //cbCategoria.removeAllItems();
+        //cbCategoria.setSelectedItem(null);
+        //this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -785,6 +795,7 @@ public class FormProduto extends javax.swing.JFrame {
        rbCodigo.setSelected(true);// inicia selecionado
        
        txtPesquisar.requestFocus();
+       
        /*
        //Popula Combo Tipo
        cbTipo.removeAllItems();
@@ -794,21 +805,23 @@ public class FormProduto extends javax.swing.JFrame {
        cbTipo.addItem("UNI");
        cbTipo.setSelectedIndex(-1);             
        */
-       
-       cbTipo.removeAllItems();
+    
+       //cbCategoria.removeAllItems();
+       //cbTipo.removeAllItems();
+   
+        //popularComboCategoria();
        popularComboTipo();
+       /*
        cbTipo.updateUI();
-       
-       cbCategoria.removeAllItems();
-       popularComboCategoria();
        cbCategoria.updateUI();
+       */
     }//GEN-LAST:event_formWindowOpened
 
     private void tblProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProdutoMouseClicked
         // TODO add your handling code here:
-        popularComboCategoria();
+            //popularComboCategoria();
         //cbCategoria.updateUI();
-        popularComboTipo();
+            //popularComboTipo();
         //cbTipo.updateUI();
        
         int linhaselecionada = tblProduto.getSelectedRow(); //pega a linha selecionada
