@@ -809,8 +809,9 @@ public class FormProduto extends javax.swing.JFrame {
        //cbCategoria.removeAllItems();
        //cbTipo.removeAllItems();
    
-       //popularComboCategoria();
-       //popularComboTipo();
+       popularComboCategoria();
+       popularComboTipo();
+       
        /*
        cbTipo.updateUI();
        cbCategoria.updateUI();
@@ -819,18 +820,14 @@ public class FormProduto extends javax.swing.JFrame {
 
     private void tblProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProdutoMouseClicked
         // TODO add your handling code here:
-            //popularComboCategoria();
-        //cbCategoria.updateUI();
-            //popularComboTipo();
-        //cbTipo.updateUI();
        
         int linhaselecionada = tblProduto.getSelectedRow(); //pega a linha selecionada
         
         txtCod.setText(tblProduto.getValueAt(linhaselecionada, 0).toString());
         txtDesc.setText(tblProduto.getValueAt(linhaselecionada, 1).toString());
         txtMinimo.setText(tblProduto.getValueAt(linhaselecionada, 2).toString());
-        cbTipo.setSelectedItem(tblProduto.getValueAt(linhaselecionada, 3));
-        cbCategoria.setSelectedItem(tblProduto.getValueAt(linhaselecionada, 4));
+        cbTipo.setSelectedItem(tblProduto.getValueAt(linhaselecionada, 3).toString());
+        cbCategoria.setSelectedItem(tblProduto.getValueAt(linhaselecionada, 4).toString());
         
        btnNovo.setEnabled(false);
        btnAlterar.setEnabled(true);
