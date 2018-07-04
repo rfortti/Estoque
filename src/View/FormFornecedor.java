@@ -344,6 +344,7 @@ public class FormFornecedor extends javax.swing.JFrame {
         );
 
         cbTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Fornecedor", "Funcionário" }));
+        cbTipo.setEnabled(false);
 
         lblNome.setText("* Nome:");
 

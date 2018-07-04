@@ -345,6 +345,7 @@ public class FormFuncionario extends javax.swing.JFrame {
         );
 
         cbTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Fornecedor", "Funcionário" }));
+        cbTipo.setEnabled(false);
 
         lblNome.setText("* Nome:");
 
@@ -1084,7 +1085,7 @@ public class FormFuncionario extends javax.swing.JFrame {
 public void Habilitar()
 {
     txtID.setEnabled(false);
-    cbTipo.setEnabled(true);
+    cbTipo.setEnabled(false);
     txtNome.setEnabled(true);
     txtRG.setEnabled(true);
     txtCPF.setEnabled(true);

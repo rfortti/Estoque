@@ -420,6 +420,7 @@
                 <StringItem index="1" value="Funcion&#xe1;rio"/>
               </StringArray>
             </Property>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblNome">
