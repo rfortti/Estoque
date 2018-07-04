@@ -809,8 +809,8 @@ public class FormProduto extends javax.swing.JFrame {
        //cbCategoria.removeAllItems();
        //cbTipo.removeAllItems();
    
-        //popularComboCategoria();
-       popularComboTipo();
+       //popularComboCategoria();
+       //popularComboTipo();
        /*
        cbTipo.updateUI();
        cbCategoria.updateUI();
@@ -1002,7 +1002,7 @@ public class FormProduto extends javax.swing.JFrame {
         if (btnPesquisar.getText() == "Pesquisar"){
             //Altera o Icone do Botão
             btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Clear.png")));
-            
+            rbDescricao.setSelected(true);
             btnPesquisar.setText("Limpar");
             txtPesquisar.setEnabled(false);
             preencheTabela2(txtPesquisar.getText());

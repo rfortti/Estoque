@@ -602,7 +602,7 @@ public class FormCategoria extends javax.swing.JFrame
         if (btnPesquisar.getText() == "Pesquisar"){
             //Altera o Icone do Botão
             btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Clear.png")));
-            
+            rbTipo.setSelected(true);
             btnPesquisar.setText("Limpar");
             txtPesquisar.setEnabled(false);
             preencheTabela2(txtPesquisar.getText());
