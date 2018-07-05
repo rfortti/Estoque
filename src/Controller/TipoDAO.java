@@ -78,6 +78,7 @@ public class TipoDAO extends GenericDAO
             this.prepareStmte(sql);
             this.stmte.setString(1, tipo.getDescTipo());
             this.stmte.setString(2, tipo.getSiglaTipo());
+            this.stmte.setInt(3,tipo.getCodTipo());
             this.stmte.execute();
             return true;
         }
