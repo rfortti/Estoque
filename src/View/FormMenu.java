@@ -349,6 +349,8 @@ public class FormMenu extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
+        //Desativa o botao de Fechar da JFrame
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         
         //Pega Data
         Date dataSistema = new Date();
