@@ -117,7 +117,7 @@ public class FormProduto extends javax.swing.JFrame {
         tabela2.setNumRows(0);
         ProdutoDAO produto = new ProdutoDAO();
         
-        for (Produto p : produto.getProdutoByDesc(desc)) 
+        for (Produto p : produto.getProdutosByDesc()) 
         {
             if (p != null) 
             {
@@ -614,31 +614,38 @@ public class FormProduto extends javax.swing.JFrame {
             if (opcao == 1)
            {
             Produto prod = new Produto();
-                     
-            prod.setCodProduto(Integer.parseInt(txtCod.getText()));
+            ProdutoDAO prodDAO = new ProdutoDAO(); 
+            int codigo = prodDAO.AutoIncCod();
+            
+            prod.setCodProduto(codigo);
             prod.setDescProduto(txtDesc.getText().toUpperCase());
             prod.setMinProduto(Integer.parseInt(txtMinimo.getText()));
-            Tipo tipoSelecionado = (Tipo) cbTipo.getItemAt(cbTipo.getSelectedIndex());
-            prod.setCod_tipo(tipoSelecionado);
-            //prod.setCod_cat((Categoria)cbCategoria.getSelectedItem());
-            Categoria catSelecionada = (Categoria) cbCategoria.getItemAt(cbCategoria.getSelectedIndex());
-            prod.setCod_cat(catSelecionada);
+            
+            String tipoSelecionado = cbTipo.getSelectedItem().toString();
+            int codtipo = (cbTipo.getSelectedIndex());
+            //Tipo tipoSelecionado = (Tipo)cbTipo.getSelectedItem();
+            //int codtipo = tipoSelecionado.getCodTipo();
+            
+            String catSelecionada = cbCategoria.getSelectedItem().toString();
+            int codcat = (cbCategoria.getSelectedIndex());
+            //Categoria catSelecionada = (Categoria)cbCategoria.getSelectedItem();
+            //int codcat = catSelecionada.getCodCategoria();
             
             if (this.produtoDAO.inserir(prod) == true)
             {   
-                String cod = txtCod.getText();
+                Integer cod = (codigo);
                 String desc = txtDesc.getText();
-                String min = txtMinimo.getText();
-                //String tipo = (String)cbTipo.getSelectedItem();
-                Integer tipo = cbTipo.getSelectedIndex();      
-                Integer cat = cbCategoria.getSelectedIndex();             
-                                                
+                Integer min = Integer.parseInt(txtMinimo.getText());
+                Integer tipo = (codtipo);      
+                Integer cat = (codcat);
+                
                 JOptionPane.showMessageDialog(null, "Produto " + txtDesc.getText() + " adicionado com sucesso!");
             }
             else
             {
                 JOptionPane.showMessageDialog(null, "Erro ao adicionar produto !");
             }
+            JOptionPane.showMessageDialog(null, "CodTipo: "+ codtipo);
            }
             else if (opcao == 2)
            {
@@ -647,9 +654,14 @@ public class FormProduto extends javax.swing.JFrame {
             prod.setCodProduto(Integer.parseInt(txtCod.getText()));
             prod.setDescProduto(txtDesc.getText().toUpperCase());
             prod.setMinProduto(Integer.parseInt(txtMinimo.getText()));
-            prod.setCod_tipo((Tipo)cbTipo.getSelectedItem());
-            prod.setCod_cat((Categoria)cbCategoria.getSelectedItem());
-        
+            //prod.setCod_tipo((Tipo)cbTipo.getSelectedItem());
+            //prod.setCod_cat((Categoria)cbCategoria.getSelectedItem());
+            Tipo tipoSelecionado = (Tipo) cbTipo.getItemAt(cbTipo.getSelectedIndex());
+            prod.setCod_tipo(tipoSelecionado);
+            //prod.setCod_cat((Categoria)cbCategoria.getSelectedItem());
+            Categoria catSelecionada = (Categoria) cbCategoria.getItemAt(cbCategoria.getSelectedIndex());
+            prod.setCod_cat(catSelecionada);
+            
             if (this.produtoDAO.editar(prod) == true)
             {
                 JOptionPane.showMessageDialog(null, "Produto modificado com sucesso!");

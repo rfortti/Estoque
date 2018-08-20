@@ -736,8 +736,19 @@ public class FormEstoque extends javax.swing.JFrame {
         new FormFornecedor().setVisible(true);
     }//GEN-LAST:event_btnFornecedorActionPerformed
 
+    int opcao = 0;
     private void btnConcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConcluirActionPerformed
-        // TODO add your handling code here:            
+        // TODO add your handling code here: 
+        // recuperar os dados para cadastrar
+        
+        String data = lblData.getText();
+        String tipo = "E";
+        Pessoa pesid = (Pessoa) cbFuncionario.getItemAt(cbFuncionario.getSelectedIndex());
+        String destino = txtDestino.getText();
+        
+        int qdade = Integer.parseInt(txtQtde.getText());
+        float valor = Float.parseFloat(txtValor.getText());
+        
         DefaultTableModel tabelaProdutos = (DefaultTableModel) tblProdutos.getModel();
         
         DecimalFormat df = new DecimalFormat("R$ "+"#,###,##0.00");
@@ -754,87 +765,41 @@ public class FormEstoque extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Selecione um fornecedor !", "ATENÇÃO", JOptionPane.INFORMATION_MESSAGE);
         }
 
-        //if (tabelaProdutos.getRowCount() != 0)// && cbCliente.getSelectedIndex() != -1)
-        //{
+        if (txtQtde.getText() == "" || txtValor.getText() == "") 
+        {
+            JOptionPane.showMessageDialog(null, "Existem campos com preenchimento incorreto!!!");            
+        }
+        else
+        {    
             try 
             {    
+                //Cadastrar Pedido
                 Pedido ped = new Pedido();
-                //for (int x = 0; x < tblProdutos.getRowCount(); x++) 
+                PedidoDAO pedDAO = new PedidoDAO();
+                int codPed = pedDAO.AutoIncCod();
+                
+                ped.setPed_cod((codPed));
+                ped.setPed_data(data);
+                ped.setPed_tipo(tipo);
+                ped.setPes_id(pesid);
+                ped.setPed_destino(destino);
+                
+                //if (pedDAO.inserirPedido(ped) == true);
+                for (int i = 0; i < tblProdutos.getRowCount(); i++)
                 {
+                    Produto prod;
+                    ProdutoDAO prodDAO = new ProdutoDAO();
                     
-                    //int ped_Cod = Integer.parseInt(txtItem.getText());//Integer.parseInt(tblProdutos.getValueAt(x, 0).toString());
-                    //ped.setPed_cod(ped_Cod);
-                    
-                    //ped.setPed_cod(Integer.parseInt(txtItem.getText()));                    
-                    //txtItem.setText(String.valueOf(pedidoDAO.AutoIncCod()));
-                    //int ped_Cod = Integer.parseInt(txtItem.getText());
-                    //ped.setPed_cod(ped_Cod);
-                    
-                    
-                    ped.setPed_data(lblData.getText());
-                    //ped.setPed_data(ConverteData.converteData(ped_Data));
-                    
-                    ped.setPed_tipo("E");
-                    /*
-                    if (rbEntrada.isSelected()){
-                        ped_Tipo = "E";//String.valueOf(tblProdutos.getValueAt(x, 2).toString());
-                        ped.setPed_tipo(ped_Tipo);
-                    }
-                    if (rbSaida.isSelected()){
-                        ped_Tipo = "S";//String.valueOf(tblProdutos.getValueAt(x, 2).toString());
-                        ped.setPed_tipo(ped_Tipo);
-                    }
-                    */
-                     
-                    ped.setP_id(cbFuncionario.getSelectedIndex());
-                    //txtDestino.setText(String.valueOf(pes_Id));
-                    //int pes_Id = Integer.parseInt(tblProdutos.getValueAt(x, 3).toString());
-                    //ped.setPes_id(pes_Id);
-                    
-                    //String.valueOf(tblProdutos.getValueAt(x, 4).toString());
-                    ped.setPed_destino(txtDestino.getText());
-                    
-                  
-                    //int item_Cod = Integer.parseInt(tblProdutos.getValueAt(x, 5).toString());
-                    //ped.setItem_cod(item_Cod);
-                    
-                    //int prod_Cod = Integer.valueOf(tblProdutos.getValueAt(x, 6).toString());
-                    //int item_prod_Cod = cbProduto.getSelectedIndex();  
-                    //ped.setProd_cod(item_prod_Cod);
-                    /*
-                    int item_Qtde = Integer.parseInt(txtQtde.getText());//Integer.parseInt(tblProdutos.getValueAt(x, 7).toString());
-                    ped.setItem_qtde(item_Qtde);
-                    
-                    float item_Valor = Float.parseFloat(txtValor.getText());//Float.parseFloat(tblProdutos.getValueAt(x, 8).toString().replace(".", "").replace(",", "."));
-                    ped.setItem_valor(item_Valor);
-                    */
-                    //int item_ped_Cod = Integer.parseInt(txtItem.getText());//Integer.parseInt(tblProdutos.getValueAt(x, 5).toString());
-                    //ped.setPed_cod(item_ped_Cod);
-                                                     
-                                                            
-                    if (this.pedidoDAO.inserirPedido(ped) == true){
-                        //String cod = txtItem.getText();
-                        String data = lblData.getText();
-                        String tipo = "E".toString();
-                        Integer id = cbFuncionario.getSelectedIndex(); 
-                        String destino = txtDestino.getText();
-                        
-                        JOptionPane.showMessageDialog(null, "Estoque do produto \n\n -> " + cbProduto.getSelectedItem() + " \n\n atualizado com sucesso ! \n\n"
-                                + "-", "ATENÇÃO", JOptionPane.INFORMATION_MESSAGE);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Não foi possível salvar este pedido !", "ATENÇÃO", JOptionPane.ERROR_MESSAGE);
-                    }
-                    
+                    prod = prodDAO.getProduto(String.valueOf(tblProdutos.getValueAt(i, 0)));
                 }
-                Limpar();
-                tabelaProdutos.setNumRows(0);
-                preencheTabela();
-            } catch (NumberFormatException | HeadlessException e) {
+            } 
+            catch (NumberFormatException | HeadlessException e) 
+            {
                 JOptionPane.showMessageDialog(null, "Não foi possível salvar este pedido \n\n Contate o Administrador do Sistema ! !\nErro: " + e.getMessage(), "ATENÇÃO", JOptionPane.ERROR_MESSAGE);
                 System.out.println(e.getMessage());
                 Limpar();
-            }
-        //}
+            }   
+        }  
     }//GEN-LAST:event_btnConcluirActionPerformed
 
     private void tblProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProdutosMouseClicked

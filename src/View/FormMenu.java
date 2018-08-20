@@ -333,7 +333,9 @@ public class FormMenu extends javax.swing.JFrame {
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         // TODO add your handling code here:
-        int dialogButton = JOptionPane.showConfirmDialog (null, "Tem certeza que deseja sair do sistema ?","Warning",0);// 0 = botão Sim e Não
+       JOptionPane opPane = new JOptionPane();
+       opPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        int dialogButton = opPane.showConfirmDialog (null, "Tem certeza que deseja sair do sistema ?","Information",0);// 0 = botão Sim e Não
 
        if (dialogButton == JOptionPane.YES_OPTION)
        {

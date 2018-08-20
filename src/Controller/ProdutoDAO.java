@@ -99,10 +99,10 @@ public class ProdutoDAO extends GenericDAO {
         }
     }
     
-    public ArrayList<Produto> getProdutoByDesc(String descproduto)
+    public Produto getProduto(String descproduto)
     {
         
-        ArrayList<Produto> produto = new ArrayList<Produto>();
+        Produto prod = new Produto();
         
         String sql = "SELECT * FROM tblproduto p "
                 + "JOIN tblcategoria c ON p.cat_cod = c.cat_cod "
@@ -113,30 +113,17 @@ public class ProdutoDAO extends GenericDAO {
             this.prepareStmte(sql);
             this.stmte.setString(1,descproduto+'%');
             ResultSet rs = this.stmte.executeQuery(); //sempre usar quando fazer uma consulta(SELECT)
-            //rs.first();
-            while (rs.next())
-            {
-                Produto prod = new Produto();
-                prod.setCodProduto(rs.getInt("prod_cod"));
-                prod.setDescProduto(rs.getString("prod_desc"));                               
-                prod.setMinProduto(rs.getInt("prod_min"));
-                //prod.setCod_tipo(rs.getInt("tipo_cod"));
-                Tipo tipo = new Tipo();
-                tipo.setCodTipo(rs.getInt("tipo_cod"));
-                tipo.setDescTipo(rs.getString("tipo_desc"));
-                tipo.setSiglaTipo(rs.getString("tipo_sigla"));
-                prod.setCod_tipo(tipo);
-                             
-                Categoria cat = new Categoria();
-                cat.setCodCategoria(rs.getInt("cat_cod"));
-                cat.setTipoCategoria(rs.getString("cat_tipo"));
-                prod.setCod_cat(cat);
-                
-                produto.add(prod);
-            }
-            return produto;
+            
+            rs.first();
+            prod.setCodProduto(rs.getInt("cod_produto"));
+
+            stmte.close();
+            this.closeAll();
+            rs.close();
+                  
+            return prod;
         }
-        catch(Exception e)
+        catch(Exception ex)
         {
             return null;
         }
