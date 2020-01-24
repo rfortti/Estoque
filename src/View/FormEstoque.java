@@ -778,11 +778,7 @@ public class FormEstoque extends javax.swing.JFrame {
                 PedidoDAO pedDAO = new PedidoDAO();
                 int codPed = pedDAO.AutoIncCod();
                 
-                ped.setPed_cod((codPed));
-                ped.setPed_data(data);
-                ped.setPed_tipo(tipo);
-                ped.setPes_id(pesid);
-                ped.setPed_destino(destino);
+                
                 
                 //if (pedDAO.inserirPedido(ped) == true);
                 for (int i = 0; i < tblProdutos.getRowCount(); i++)
@@ -790,6 +786,30 @@ public class FormEstoque extends javax.swing.JFrame {
                     Produto prod;
                     ProdutoDAO prodDAO = new ProdutoDAO();
                     
+                    int Ped_cod = Integer.parseInt(tblProdutos.getValueAt(i, 0).toString());  
+                        ped.setPed_cod(Ped_cod);
+                    
+                    String Ped_data = String.valueOf(tblProdutos.getValueAt(i, 1).toString());                   
+                        ped.setPed_data(Ped_data);
+                    
+                    String Ped_tipo = String.valueOf(tblProdutos.getValueAt(i, 2).toString());                   
+                        ped.setPed_tipo(Ped_tipo);
+                        
+                    //int Pes_id = Integer.parseInt(tblProdutos.getValueAt(i, 3).toString());  
+                        //ped.setPes_id(Pes_id);    
+                    
+                    String Ped_destino = String.valueOf(tblProdutos.getValueAt(i, 3).toString());                   
+                        ped.setPed_destino(Ped_destino);
+                    
+                    //float ped_Vtotal = Float.parseFloat(tblProdutos.getValueAt(i, 3).toString().replace(".","").replace(",", "."));  
+                        //ped.setPedVtotal(ped_Vtotal);
+                    /*    
+                    ped.setPed_cod((codPed));
+                    ped.setPed_data(data);
+                    ped.setPed_tipo(tipo);
+                    ped.setPes_id(pesid);
+                    ped.setPed_destino(destino);
+                    */
                     prod = prodDAO.getProduto(String.valueOf(tblProdutos.getValueAt(i, 0)));
                 }
             } 

@@ -52,6 +52,8 @@ public class FormProduto extends javax.swing.JFrame {
         txtCod.setDocument(new LimitarNumeros(6));
         //txtDesc.setDocument(new AceitaStrings());
         //txtDesc.setDocument(new LimitarLetras(50));
+        txtQtde.setDocument(new AceitaNumerosPonto());
+        txtQtde.setDocument(new LimitarNumeros(6));
         txtMinimo.setDocument(new AceitaNumerosPonto());
         txtMinimo.setDocument(new LimitarNumeros(6));
         //txtPesquisar.setDocument(new AceitaStrings());
@@ -105,13 +107,15 @@ public class FormProduto extends javax.swing.JFrame {
         tblProduto.getColumnModel().getColumn(1).setCellRenderer(esquerda);
         tblProduto.getColumnModel().getColumn(2).setCellRenderer(centralizado);
         tblProduto.getColumnModel().getColumn(3).setCellRenderer(centralizado);
-        tblProduto.getColumnModel().getColumn(4).setCellRenderer(esquerda);
+        tblProduto.getColumnModel().getColumn(4).setCellRenderer(centralizado);
+        tblProduto.getColumnModel().getColumn(5).setCellRenderer(esquerda);
          
         tblProduto.getColumnModel().getColumn(0).setPreferredWidth(15);
         tblProduto.getColumnModel().getColumn(1).setPreferredWidth(250);
         tblProduto.getColumnModel().getColumn(2).setPreferredWidth(10);
-        tblProduto.getColumnModel().getColumn(3).setPreferredWidth(15);
-        tblProduto.getColumnModel().getColumn(4).setPreferredWidth(50);
+        tblProduto.getColumnModel().getColumn(3).setPreferredWidth(10);
+        tblProduto.getColumnModel().getColumn(4).setPreferredWidth(15);
+        tblProduto.getColumnModel().getColumn(5).setPreferredWidth(50);
         
         DefaultTableModel tabela2 = (DefaultTableModel)tblProduto.getModel();
         tabela2.setNumRows(0);
@@ -124,6 +128,7 @@ public class FormProduto extends javax.swing.JFrame {
                 tabela2.addRow(new Object[]{
                     p.getCodProduto(),
                     p.getDescProduto(),
+                    p.getQtdeProduto(),
                     p.getMinProduto(),
                     p.getCod_tipo(),
                     p.getCod_cat()
@@ -145,13 +150,15 @@ public class FormProduto extends javax.swing.JFrame {
         tblProduto.getColumnModel().getColumn(1).setCellRenderer(esquerda);
         tblProduto.getColumnModel().getColumn(2).setCellRenderer(centralizado);
         tblProduto.getColumnModel().getColumn(3).setCellRenderer(centralizado);
-        tblProduto.getColumnModel().getColumn(4).setCellRenderer(esquerda);
+        tblProduto.getColumnModel().getColumn(4).setCellRenderer(centralizado);
+        tblProduto.getColumnModel().getColumn(5).setCellRenderer(esquerda);
          
         tblProduto.getColumnModel().getColumn(0).setPreferredWidth(15);
         tblProduto.getColumnModel().getColumn(1).setPreferredWidth(250);
         tblProduto.getColumnModel().getColumn(2).setPreferredWidth(10);
-        tblProduto.getColumnModel().getColumn(3).setPreferredWidth(15);
-        tblProduto.getColumnModel().getColumn(4).setPreferredWidth(50);
+        tblProduto.getColumnModel().getColumn(3).setPreferredWidth(10);
+        tblProduto.getColumnModel().getColumn(4).setPreferredWidth(15);
+        tblProduto.getColumnModel().getColumn(5).setPreferredWidth(50);
          
         ArrayList<Produto> produto = new ArrayList<Produto>();
         produto = this.produtoDAO.getProdutosByCod();
@@ -166,6 +173,7 @@ public class FormProduto extends javax.swing.JFrame {
                 Object[] obj = new Object[]{
                     p.getCodProduto(),
                     p.getDescProduto(),
+                    p.getQtdeProduto(),
                     p.getMinProduto(),
                     p.getCod_tipo(),
                     p.getCod_cat()
@@ -209,6 +217,8 @@ public class FormProduto extends javax.swing.JFrame {
         lblCategoria = new javax.swing.JLabel();
         cbCategoria = new javax.swing.JComboBox();
         btnCategoria = new javax.swing.JButton();
+        lblQtde = new javax.swing.JLabel();
+        txtQtde = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         lblDescP = new javax.swing.JLabel();
         txtPesquisar = new javax.swing.JTextField();
@@ -229,11 +239,11 @@ public class FormProduto extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Descrição", "Est.Minimo", "Tipo", "Categoria"
+                "Código", "Descrição", "Qtde", "Est.Minimo", "Tipo", "Categoria"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -253,6 +263,7 @@ public class FormProduto extends javax.swing.JFrame {
             tblProduto.getColumnModel().getColumn(2).setResizable(false);
             tblProduto.getColumnModel().getColumn(3).setResizable(false);
             tblProduto.getColumnModel().getColumn(4).setResizable(false);
+            tblProduto.getColumnModel().getColumn(5).setResizable(false);
         }
 
         jLayeredPane1.setBackground(new java.awt.Color(255, 255, 255));
@@ -435,6 +446,17 @@ public class FormProduto extends javax.swing.JFrame {
             }
         });
 
+        lblQtde.setText("*Quantidade:");
+
+        txtQtde.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtQtdeFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtQtdeFocusLost(evt);
+            }
+        });
+
         jLayeredPane1.setLayer(lblCod, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(txtCod, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(lblDesc, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -448,6 +470,8 @@ public class FormProduto extends javax.swing.JFrame {
         jLayeredPane1.setLayer(lblCategoria, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(cbCategoria, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(btnCategoria, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(lblQtde, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(txtQtde, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -461,33 +485,39 @@ public class FormProduto extends javax.swing.JFrame {
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
                         .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                                .addContainerGap()
+                                .addGap(12, 12, 12)
+                                .addComponent(lblDesc)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtDesc))
+                            .addGroup(jLayeredPane1Layout.createSequentialGroup()
                                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                                        .addGap(2, 2, 2)
-                                        .addComponent(lblDesc)
+                                        .addGap(37, 37, 37)
+                                        .addComponent(lblTipo)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtDesc))
+                                        .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(lblCategoria)
-                                            .addComponent(lblTipo))
+                                        .addGap(26, 26, 26)
+                                        .addComponent(lblCod)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                                                .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(lblMinimo))
-                                            .addComponent(cbCategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtMinimo, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(btnCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addComponent(txtCod, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                                .addGap(26, 26, 26)
-                                .addComponent(lblCod)
+                                .addGap(4, 4, 4)
+                                .addComponent(lblQtde)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCod, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtQtde, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
+                                .addComponent(lblMinimo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtMinimo, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(lblCategoria)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbCategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(16, Short.MAX_VALUE))
@@ -511,15 +541,19 @@ public class FormProduto extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblTipo)
-                            .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblMinimo)
-                            .addComponent(txtMinimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblCategoria)
-                            .addComponent(cbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCategoria))))
-                .addGap(96, 96, 96))
+                            .addComponent(lblQtde)
+                            .addComponent(txtQtde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblMinimo)
+                            .addComponent(txtMinimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCategoria)
+                    .addComponent(cbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCategoria))
+                .addGap(107, 107, 107))
         );
 
         jPanel3.getAccessibleContext().setAccessibleName("Ordenar por");
@@ -619,25 +653,27 @@ public class FormProduto extends javax.swing.JFrame {
             
             prod.setCodProduto(codigo);
             prod.setDescProduto(txtDesc.getText().toUpperCase());
-            prod.setMinProduto(Integer.parseInt(txtMinimo.getText()));
+            prod.setQtdeProduto(Integer.parseInt(txtQtde.getText()));
+            prod.setMinProduto(Integer.parseInt(txtMinimo.getText()));   
             
-            String tipoSelecionado = cbTipo.getSelectedItem().toString();
-            int codtipo = (cbTipo.getSelectedIndex());
-            //Tipo tipoSelecionado = (Tipo)cbTipo.getSelectedItem();
-            //int codtipo = tipoSelecionado.getCodTipo();
+            //String tipoSelecionado = cbTipo.getSelectedItem().toString();
+            //int codtipo = cbTipo.getSelectedIndex();
+            Tipo tipoSelecionado = (Tipo)cbTipo.getSelectedItem();
+            int codtipo = tipoSelecionado.getCodTipo();
             
-            String catSelecionada = cbCategoria.getSelectedItem().toString();
-            int codcat = (cbCategoria.getSelectedIndex());
-            //Categoria catSelecionada = (Categoria)cbCategoria.getSelectedItem();
-            //int codcat = catSelecionada.getCodCategoria();
+            //String catSelecionada = cbCategoria.getSelectedItem().toString();
+            //int codcat = cbCategoria.getSelectedIndex();
+            Categoria catSelecionada = (Categoria)cbCategoria.getSelectedItem();
+            int codcat = catSelecionada.getCodCategoria();
             
             if (this.produtoDAO.inserir(prod) == true)
             {   
-                Integer cod = (codigo);
+                Integer cod = codigo;
                 String desc = txtDesc.getText();
+                Integer qtde = Integer.parseInt(txtQtde.getText());
                 Integer min = Integer.parseInt(txtMinimo.getText());
-                Integer tipo = (codtipo);      
-                Integer cat = (codcat);
+                Integer tipo = codtipo;   
+                Integer cat = codcat; 
                 
                 JOptionPane.showMessageDialog(null, "Produto " + txtDesc.getText() + " adicionado com sucesso!");
             }
@@ -645,7 +681,7 @@ public class FormProduto extends javax.swing.JFrame {
             {
                 JOptionPane.showMessageDialog(null, "Erro ao adicionar produto !");
             }
-            JOptionPane.showMessageDialog(null, "CodTipo: "+ codtipo);
+            //JOptionPane.showMessageDialog(null, "CodTipo: "+ codtipo);
            }
             else if (opcao == 2)
            {
@@ -653,6 +689,7 @@ public class FormProduto extends javax.swing.JFrame {
             
             prod.setCodProduto(Integer.parseInt(txtCod.getText()));
             prod.setDescProduto(txtDesc.getText().toUpperCase());
+            prod.setQtdeProduto(Integer.parseInt(txtQtde.getText()));
             prod.setMinProduto(Integer.parseInt(txtMinimo.getText()));
             //prod.setCod_tipo((Tipo)cbTipo.getSelectedItem());
             //prod.setCod_cat((Categoria)cbCategoria.getSelectedItem());
@@ -837,9 +874,10 @@ public class FormProduto extends javax.swing.JFrame {
         
         txtCod.setText(tblProduto.getValueAt(linhaselecionada, 0).toString());
         txtDesc.setText(tblProduto.getValueAt(linhaselecionada, 1).toString());
-        txtMinimo.setText(tblProduto.getValueAt(linhaselecionada, 2).toString());
-        cbTipo.setSelectedItem(tblProduto.getValueAt(linhaselecionada, 3).toString());
-        cbCategoria.setSelectedItem(tblProduto.getValueAt(linhaselecionada, 4).toString());
+        txtQtde.setText(tblProduto.getValueAt(linhaselecionada, 2).toString());
+        txtMinimo.setText(tblProduto.getValueAt(linhaselecionada, 3).toString());
+        cbTipo.setSelectedItem(tblProduto.getValueAt(linhaselecionada, 4).toString());
+        cbCategoria.setSelectedItem(tblProduto.getValueAt(linhaselecionada, 5).toString());
         
        btnNovo.setEnabled(false);
        btnAlterar.setEnabled(true);
@@ -891,6 +929,7 @@ public class FormProduto extends javax.swing.JFrame {
                 Object[] obj = new Object[]{
                     p.getCodProduto(),
                     p.getDescProduto(),
+                    p.getQtdeProduto(),
                     p.getMinProduto(),
                     p.getCod_tipo(),                   
                     p.getCod_cat()
@@ -918,6 +957,7 @@ public class FormProduto extends javax.swing.JFrame {
                 Object[] obj = new Object[]{
                     p.getCodProduto(),
                     p.getDescProduto(),
+                    p.getQtdeProduto(),
                     p.getMinProduto(),
                     p.getCod_tipo(),
                     p.getCod_cat()
@@ -963,6 +1003,7 @@ public class FormProduto extends javax.swing.JFrame {
                 Object[] obj = new Object[]{
                     p.getCodProduto(),
                     p.getDescProduto(),
+                    p.getQtdeProduto(),
                     p.getMinProduto(),
                     p.getCod_tipo(),
                     p.getCod_cat()
@@ -990,6 +1031,7 @@ public class FormProduto extends javax.swing.JFrame {
                 Object[] obj = new Object[]{
                     p.getCodProduto(),
                     p.getDescProduto(),
+                    p.getQtdeProduto(),
                     p.getMinProduto(),
                     p.getCod_tipo(),
                     p.getCod_cat()
@@ -1035,6 +1077,14 @@ public class FormProduto extends javax.swing.JFrame {
         // TODO add your handling code here:
         new FormCategoria().setVisible(true);
     }//GEN-LAST:event_btnCategoriaActionPerformed
+
+    private void txtQtdeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtQtdeFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtQtdeFocusGained
+
+    private void txtQtdeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtQtdeFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtQtdeFocusLost
 
     /**
      * @param args the command line arguments
@@ -1092,6 +1142,7 @@ public class FormProduto extends javax.swing.JFrame {
     private javax.swing.JLabel lblDesc;
     private javax.swing.JLabel lblDescP;
     private javax.swing.JLabel lblMinimo;
+    private javax.swing.JLabel lblQtde;
     private javax.swing.JLabel lblTipo;
     private javax.swing.JRadioButton rbCategoria;
     private javax.swing.JRadioButton rbCodigo;
@@ -1102,12 +1153,14 @@ public class FormProduto extends javax.swing.JFrame {
     private javax.swing.JTextField txtDesc;
     private javax.swing.JTextField txtMinimo;
     private javax.swing.JTextField txtPesquisar;
+    private javax.swing.JTextField txtQtde;
     // End of variables declaration//GEN-END:variables
 
 public void Habilitar()
 {               
     txtCod.setEnabled(false);
     txtDesc.setEnabled(true);
+    //txtQtde.setEnabled(true);
     txtMinimo.setEnabled(true);
     cbTipo.setEnabled(true);
     cbCategoria.setEnabled(true);
@@ -1119,6 +1172,7 @@ public void Desabilitar()
 {
     txtCod.setEnabled(false);
     txtDesc.setEnabled(false);
+    //txtQtde.setEnabled(false);
     txtMinimo.setEnabled(false);
     cbTipo.setEnabled(false);
     cbCategoria.setEnabled(false);
@@ -1129,6 +1183,7 @@ public void Limpar()
 {
     txtCod.setText("");
     txtDesc.setText("");
+    //txtQtde.setText("");
     txtMinimo.setText("");
     txtPesquisar.setText("");
 }
